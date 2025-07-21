@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { Button } from '@/components/ui/button';
 import { Download } from 'phosphor-react';
+import { useNavigate } from 'react-router-dom';
 
 const MontHeroSection = () => {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -9,6 +10,7 @@ const MontHeroSection = () => {
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const tl = gsap.timeline({ delay: 1 });
@@ -115,9 +117,7 @@ const MontHeroSection = () => {
               
               <Button 
                 variant="minimal"
-                onClick={() => {
-                  window.location.href = '/life-story';
-                }}
+                onClick={() => navigate('/life-story')}
                 className="group"
               >
                 Life story
