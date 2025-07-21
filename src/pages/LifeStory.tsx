@@ -29,28 +29,40 @@ const LifeStory = () => {
         </div>
       </nav>
 
+      {/* Contact Info Bar */}
+      <section className="pt-20 pb-8 px-6 bg-gradient-to-br from-slate-900 to-slate-800">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 text-sm text-slate-300">
+            <div>sahiranjum2702@gmail.com</div>
+            <div>+91 - 7275405244</div>
+            <div>linkedin.com/in/sahir-anjum/</div>
+            <div>Kanpur, India</div>
+          </div>
+        </div>
+      </section>
+
       {/* Hero Section */}
-      <section className="pt-24 pb-16 px-6">
+      <section className="py-20 px-6 bg-gradient-to-br from-slate-900 to-slate-800">
         <div className="max-w-6xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
-              <p className="text-lg text-muted-foreground mb-2">Hi, I am</p>
-              <h1 className="text-5xl lg:text-6xl font-bold mb-4 text-foreground">
+              <p className="text-4xl text-slate-300 mb-4">Hi, I am</p>
+              <h1 className="text-6xl lg:text-7xl font-bold mb-6 text-white">
                 Sahir Anjum
               </h1>
-              <p className="text-xl text-muted-foreground mb-8">
+              <p className="text-2xl text-slate-400 mb-12">
                 Data Engineer | Software Developer
               </p>
-              <p className="text-muted-foreground leading-relaxed">
-                Passionate about turning complex data into meaningful insights. Based in Pakistan, I have crafted innovative and 
-                transformative experience. A key contributor to the Telecom domain, one architect of the tools and power services.
+              <p className="text-slate-300 leading-relaxed text-lg">
+                Driven by passion. Fueled by curiosity. Known for adaptability and a relentless pursuit of excellence. With 5 years of 
+                hands-on experience, a deep understanding of the Telecom domain, and mastery of the tools that power tomorrow.
               </p>
             </div>
             <div className="lg:text-right">
               <img 
-                src="/lovable-uploads/d5f68784-461d-48b7-aad7-a6ed2e2e7868.png" 
+                src="/lovable-uploads/80a74838-8597-4d1f-9366-aef7a9e4b6e1.png" 
                 alt="Sahir Anjum" 
-                className="w-80 h-auto mx-auto lg:mx-0 rounded-lg"
+                className="w-96 h-auto mx-auto lg:mx-0 rounded-lg"
               />
             </div>
           </div>
