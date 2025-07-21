@@ -12,8 +12,8 @@ const MontExperienceSection = () => {
       period: '2022 — Present',
       company: 'Amdocs',
       role: 'Software Developer',
-      location: 'Reading, UK (Onsite)',
-      description: 'Delivered scalable solutions for Three UK by migrating on-prem data to Snowflake and building end-to-end pipelines using Azure Data Factory, Databricks, and PySpark. Proficient in Tableau dashboard development, automation with Logic Apps, and version control with Azure DevOps.',
+      location: 'Pune, India',
+      description: 'Delivered scalable solutions for Three UK by migrating on-prem data to Snowflake. Building pipelines using Azure Data Factory, Databricks, SQL and version control with Azure DevOps. Proficient in Tableau dashboard development.',
       technologies: ['Azure Data Factory', 'Databricks', 'PySpark', 'Python', 'SQL', 'Tableau']
     },
     {
