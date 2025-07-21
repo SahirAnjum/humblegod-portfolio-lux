@@ -112,6 +112,16 @@ const MontHeroSection = () => {
                 <Download className="w-4 h-4" />
                 Download CV
               </Button>
+              
+              <Button 
+                variant="minimal"
+                onClick={() => {
+                  window.location.href = '/life-story';
+                }}
+                className="group"
+              >
+                Life story
+              </Button>
             </div>
           </div>
         </div>
