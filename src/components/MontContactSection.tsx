@@ -155,7 +155,16 @@ const MontContactSection = () => {
             <p>© 2025 Sahir Anjum. All rights reserved.</p>
             <div className="flex flex-col md:items-end text-center md:text-right">
               <p>Crafted with passion and precision.</p>
-              <p className="text-xs mt-1">Photo credit: Devyansh Barwar (+91 - 9598462380)</p>
+              <p className="text-xs mt-1">
+                Photo credit: <a 
+                  href="https://www.linkedin.com/in/devyansh-barwar-929068233" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="hover:text-foreground transition-colors underline"
+                >
+                  Devyansh Barwar
+                </a>
+              </p>
             </div>
           </div>
         </div>
