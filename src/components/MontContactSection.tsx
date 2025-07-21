@@ -151,9 +151,12 @@ const MontContactSection = () => {
 
         {/* Footer */}
         <div className="border-t border-border mt-16 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center text-small text-muted-foreground">
+          <div className="flex flex-col md:flex-row justify-between items-center text-small text-muted-foreground space-y-2 md:space-y-0">
             <p>© 2025 Sahir Anjum. All rights reserved.</p>
-            <p>Crafted with passion and precision.</p>
+            <div className="flex flex-col md:items-end text-center md:text-right">
+              <p>Crafted with passion and precision.</p>
+              <p className="text-xs mt-1">Photo credit: Devyansh Barwar (+91 - 9598462380)</p>
+            </div>
           </div>
         </div>
       </div>
