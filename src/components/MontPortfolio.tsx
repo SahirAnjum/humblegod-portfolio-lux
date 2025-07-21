@@ -16,11 +16,10 @@ const MontPortfolio = () => {
       onComplete: () => setIsLoaded(true)
     });
 
-    tl.to('.loading-overlay', {
-      opacity: 0,
-      duration: 0.8,
-      ease: "power2.inOut"
-    });
+    // Set initial loaded state to true after delay
+    setTimeout(() => {
+      setIsLoaded(true);
+    }, 3000);
 
     // Smooth scrolling setup
     document.documentElement.style.scrollBehavior = 'smooth';
@@ -33,7 +32,7 @@ const MontPortfolio = () => {
   return (
     <>
       {/* Loading Overlay */}
-      <div className="loading-overlay fixed inset-0 bg-background z-50 flex items-center justify-center">
+      <div className={`loading-overlay fixed inset-0 bg-background z-50 flex items-center justify-center transition-all duration-800 ${isLoaded ? 'pointer-events-none opacity-0' : 'pointer-events-auto opacity-100'}`}>
         <div className="text-center">
           <h1 className="text-2xl font-light tracking-wider">SAHIR ANJUM</h1>
           <div className="w-16 h-px bg-foreground mt-4 mx-auto"></div>
