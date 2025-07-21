@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Download } from 'phosphor-react';
+import { Download } from 'phosphor-react';
 
 const MontHeroSection = () => {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -93,15 +93,6 @@ const MontHeroSection = () => {
             </div>
 
             <div ref={ctaRef} className="flex flex-col sm:flex-row gap-4">
-              <Button 
-                variant="mont"
-                onClick={() => window.open('mailto:sahiranjum2702@gmail.com')}
-                className="group"
-              >
-                Start a conversation
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Button>
-              
               <Button 
                 variant="minimal"
                 onClick={() => window.open('#', '_blank')}
