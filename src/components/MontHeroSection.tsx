@@ -54,10 +54,21 @@ const MontHeroSection = () => {
       id="about"
     >
       <div className="mont-container">
-        <div className="mont-grid grid-cols-1 lg:grid-cols-2 items-center gap-16">
+        <div className="mont-grid grid-cols-1 lg:grid-cols-5 items-center gap-16">
           
-          {/* Content */}
-          <div className="space-y-8">
+          {/* Image - Now on the left and wider */}
+          <div ref={imageRef} className="relative lg:col-span-3 order-2 lg:order-1">
+            <div className="aspect-[16/10] overflow-hidden mont-card">
+              <img 
+                src="/lovable-uploads/08a52170-6760-4225-8f56-230f8e0c8466.png"
+                alt="Sahir Anjum"
+                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+              />
+            </div>
+          </div>
+
+          {/* Content - Now on the right */}
+          <div className="space-y-8 lg:col-span-2 order-1 lg:order-2">
             <div className="space-y-6">
               <p className="text-small text-muted-foreground">
                 DATA ENGINEER & SOFTWARE DEVELOPER
@@ -98,17 +109,6 @@ const MontHeroSection = () => {
                 <Download className="w-4 h-4" />
                 Download CV
               </Button>
-            </div>
-          </div>
-
-          {/* Image */}
-          <div ref={imageRef} className="relative lg:order-2">
-            <div className="aspect-[4/5] overflow-hidden mont-card">
-              <img 
-                src="/lovable-uploads/08a52170-6760-4225-8f56-230f8e0c8466.png"
-                alt="Sahir Anjum"
-                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
-              />
             </div>
           </div>
         </div>
