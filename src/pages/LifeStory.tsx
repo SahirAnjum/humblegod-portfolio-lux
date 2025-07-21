@@ -84,7 +84,7 @@ const LifeStory = () => {
               <div className="flex flex-col items-center space-y-4">
                 <div className="h-20 flex items-center justify-center">
                   <img 
-                    src="/lovable-uploads/a64d21d4-3547-4b04-8ce2-2c9269ae40dd.png" 
+                    src="/lovable-uploads/bd5cc484-3cf6-4180-aab8-a1958f54ea33.png" 
                     alt="Amdocs" 
                     className="h-16 object-contain"
                   />
@@ -95,7 +95,7 @@ const LifeStory = () => {
               <div className="flex flex-col items-center space-y-4">
                 <div className="h-20 flex items-center justify-center">
                   <img 
-                    src="/lovable-uploads/e7dbfff0-56d5-4e91-b132-16c374af25d2.png" 
+                    src="/lovable-uploads/0bee547f-a11f-45d2-aefe-988c328f34f8.png" 
                     alt="Infosys" 
                     className="h-16 object-contain"
                   />
