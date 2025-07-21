@@ -14,7 +14,7 @@ const MontContactSection = () => {
       icon: Envelope,
       label: 'Email',
       value: 'sahiranjum2702@gmail.com',
-      link: 'mailto:sahiranjum2702@gmail.com'
+      link: 'https://mail.google.com/mail/?view=cm&to=sahiranjum2702@gmail.com'
     },
     {
       icon: LinkedinLogo,
@@ -86,7 +86,7 @@ const MontContactSection = () => {
 
             <Button 
               variant="mont"
-              onClick={() => window.open('mailto:sahiranjum2702@gmail.com')}
+              onClick={() => window.open('https://mail.google.com/mail/?view=cm&to=sahiranjum2702@gmail.com', '_blank')}
               className="group"
             >
               Start a conversation
