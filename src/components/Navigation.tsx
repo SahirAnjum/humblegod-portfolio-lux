@@ -54,7 +54,7 @@ const Navigation = () => {
               ))}
               <Button 
                 variant="mont" 
-                onClick={() => window.open('mailto:sahiranjum2702@gmail.com')}
+                onClick={() => window.open('https://mail.google.com/mail/?view=cm&to=sahiranjum2702@gmail.com', '_blank')}
               >
                 Get in touch
               </Button>
@@ -88,7 +88,7 @@ const Navigation = () => {
               <Button 
                 variant="mont" 
                 onClick={() => {
-                  window.open('mailto:sahiranjum2702@gmail.com');
+                  window.open('https://mail.google.com/mail/?view=cm&to=sahiranjum2702@gmail.com', '_blank');
                   setIsOpen(false);
                 }}
                 className="mt-8"
