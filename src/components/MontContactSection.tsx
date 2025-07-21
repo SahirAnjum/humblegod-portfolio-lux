@@ -152,7 +152,7 @@ const MontContactSection = () => {
         {/* Footer */}
         <div className="border-t border-border mt-16 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center text-small text-muted-foreground">
-            <p>© 2024 Sahir Anjum. All rights reserved.</p>
+            <p>© 2025 Sahir Anjum. All rights reserved.</p>
             <p>Crafted with passion and precision.</p>
           </div>
         </div>
