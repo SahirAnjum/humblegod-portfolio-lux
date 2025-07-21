@@ -60,7 +60,7 @@ const MontHeroSection = () => {
           <div ref={imageRef} className="relative lg:col-span-3 order-2 lg:order-1">
             <div className="aspect-[16/10] overflow-hidden mont-card">
               <img 
-                src="/lovable-uploads/08a52170-6760-4225-8f56-230f8e0c8466.png"
+                src="/lovable-uploads/be8475ce-53c5-4dc0-a042-fdff043e0323.png"
                 alt="Sahir Anjum"
                 className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
               />
