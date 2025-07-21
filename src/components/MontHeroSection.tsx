@@ -103,6 +103,7 @@ const MontHeroSection = () => {
                   link.click();
                   document.body.removeChild(link);
                 }}
+                className="group"
               >
                 <Download className="w-4 h-4" />
                 Download CV
