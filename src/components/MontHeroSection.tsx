@@ -100,7 +100,6 @@ const MontHeroSection = () => {
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
-                  console.log('Button clicked!'); // Debug log
                   const link = document.createElement('a');
                   link.href = '/lovable-uploads/Sahir_Anjum%20resume.pdf';
                   link.download = 'Sahir_Anjum_Resume.pdf';
@@ -109,7 +108,6 @@ const MontHeroSection = () => {
                   document.body.removeChild(link);
                 }}
                 className="group"
-                style={{ zIndex: 1000, position: 'relative' }}
               >
                 <Download className="w-4 h-4" />
                 Download CV
