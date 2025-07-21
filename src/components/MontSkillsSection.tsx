@@ -14,7 +14,7 @@ const MontSkillsSection = () => {
     },
     {
       category: 'Programming & Analytics',
-      skills: ['Python', 'PySpark', 'SQL', 'C#', 'Java']
+      skills: ['Python', 'PySpark', 'SQL', 'Java']
     },
     {
       category: 'Visualization & Tools',

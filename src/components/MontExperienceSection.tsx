@@ -22,7 +22,7 @@ const MontExperienceSection = () => {
       role: 'System Engineer',
       location: 'Pune, India',
       description: 'Built robust data workflows for Spark NZ Limited. Specialized in business intelligence and data warehousing using MSBI suite. Earned Global Agile Certification.',
-      technologies: ['MSBI', 'SQL Server', 'SSIS', 'SSRS', 'C#', 'Agile']
+      technologies: ['MSBI', 'SQL Server', 'SSIS', 'SSRS', 'Agile']
     },
     {
       period: '2015 — 2019',
@@ -30,7 +30,7 @@ const MontExperienceSection = () => {
       role: 'Computer Science Student',
       location: 'Kanpur, India',
       description: 'Laid the foundation at Pranveer Singh Institute of Technology under Dr. A.P.J Abdul Kalam Technical University. Developed problem-solving mindset and technical skills.',
-      technologies: ['C++', 'Java', 'Data Structures', 'Algorithms', 'Database Systems']
+      technologies: ['Java', 'Data Structures', 'Algorithms', 'Database Systems']
     }
   ];
 
