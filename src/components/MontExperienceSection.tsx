@@ -20,7 +20,7 @@ const MontExperienceSection = () => {
       period: '2019 — 2022',
       company: 'Infosys',
       role: 'System Engineer',
-      location: 'India',
+      location: 'Pune, India',
       description: 'Built robust data workflows for Spark NZ Limited. Specialized in business intelligence and data warehousing using MSBI suite. Earned Global Agile Certification.',
       technologies: ['MSBI', 'SQL Server', 'SSIS', 'SSRS', 'C#', 'Agile']
     },
