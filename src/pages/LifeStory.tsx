@@ -214,9 +214,14 @@ const LifeStory = () => {
                 </p>
               </div>
             </div>
-            <p className="text-lg text-muted-foreground/80 italic font-light tracking-wide">
+            <p className="text-lg text-muted-foreground/80 italic font-light tracking-wide mb-8">
               The road ahead is vast — and I'm just getting started.
             </p>
+            <div className="border-t border-border/20 pt-8">
+              <p className="text-base text-muted-foreground/70">
+                With heartfelt gratitude to <span className="font-medium text-foreground">Mohd. Sirajuddin</span> and <span className="font-medium text-foreground">Rubana Rehman</span>
+              </p>
+            </div>
           </div>
         </section>
       </div>
