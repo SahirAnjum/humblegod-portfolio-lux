@@ -63,7 +63,7 @@ const LifeStory = () => {
           <div className="space-y-6">
             <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tight leading-none">
               <span className="block">Sahir</span>
-              <span className="block text-primary/90">Anjum</span>
+              <span className="block text-white/90">Anjum</span>
             </h1>
             <div className="w-20 h-1 bg-primary"></div>
             <p className="text-xl md:text-2xl lg:text-3xl text-white/90 font-light max-w-lg leading-relaxed">
