@@ -219,7 +219,7 @@ const LifeStory = () => {
             </p>
             <div className="border-t border-border/20 pt-8">
               <p className="text-base text-muted-foreground/70">
-                With heartfelt gratitude to <span className="font-medium text-foreground">Mohd. Sirajuddin</span> and <span className="font-medium text-foreground">Rubana Rehman</span>
+                With heartfelt gratitude to my parents <span className="font-medium text-foreground">Mohd. Sirajuddin</span> and <span className="font-medium text-foreground">Rubana Rehman</span>
               </p>
             </div>
           </div>
