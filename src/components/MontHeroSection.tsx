@@ -94,7 +94,7 @@ const MontHeroSection = () => {
 
             <div ref={ctaRef} className="flex flex-col sm:flex-row gap-4">
               <Button 
-                variant="minimal"
+                variant="mont"
                 onClick={() => {
                   const link = document.createElement('a');
                   link.href = '/sahir-anjum-resume.pdf';
