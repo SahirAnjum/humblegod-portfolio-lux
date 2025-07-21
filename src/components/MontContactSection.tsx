@@ -96,29 +96,56 @@ const MontContactSection = () => {
 
           {/* Contact Methods */}
           <div className="space-y-6">
-            {contactMethods.map((method, index) => (
-              <a
-                key={index}
-                href={method.link}
-                target={method.link.startsWith('http') ? '_blank' : '_self'}
-                rel={method.link.startsWith('http') ? 'noopener noreferrer' : ''}
-                className="contact-item block mont-card p-6 hover:shadow-soft transition-all duration-300 group"
-              >
-                <div className="flex items-center space-x-4">
-                  <div className="p-3 bg-muted rounded-full group-hover:bg-foreground group-hover:text-background transition-colors duration-300">
-                    <method.icon className="w-5 h-5" />
+            {contactMethods.map((method, index) => {
+              // Make Location non-clickable
+              if (method.label === 'Location') {
+                return (
+                  <div
+                    key={index}
+                    className="contact-item block mont-card p-6 cursor-default"
+                  >
+                    <div className="flex items-center space-x-4">
+                      <div className="p-3 bg-muted rounded-full">
+                        <method.icon className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <p className="text-small text-muted-foreground mb-1">
+                          {method.label}
+                        </p>
+                        <p className="font-medium">
+                          {method.value}
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <p className="text-small text-muted-foreground mb-1">
-                      {method.label}
-                    </p>
-                    <p className="font-medium">
-                      {method.value}
-                    </p>
+                );
+              }
+              
+              // Keep other items clickable
+              return (
+                <a
+                  key={index}
+                  href={method.link}
+                  target={method.link.startsWith('http') ? '_blank' : '_self'}
+                  rel={method.link.startsWith('http') ? 'noopener noreferrer' : ''}
+                  className="contact-item block mont-card p-6 hover:shadow-soft transition-all duration-300 group"
+                >
+                  <div className="flex items-center space-x-4">
+                    <div className="p-3 bg-muted rounded-full group-hover:bg-foreground group-hover:text-background transition-colors duration-300">
+                      <method.icon className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <p className="text-small text-muted-foreground mb-1">
+                        {method.label}
+                      </p>
+                      <p className="font-medium">
+                        {method.value}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              </a>
-            ))}
+                </a>
+              );
+            })}
           </div>
         </div>
 
