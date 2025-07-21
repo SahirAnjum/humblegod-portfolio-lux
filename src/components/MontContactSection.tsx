@@ -157,7 +157,7 @@ const MontContactSection = () => {
               <p>Crafted with passion and precision.</p>
               <p className="text-xs mt-1">
                 Photo credit: <a 
-                  href="https://www.linkedin.com/in/devyansh-barwar-929068233" 
+                  href="https://www.linkedin.com/in/devyansh-barwar-a86b4233b" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="hover:text-foreground transition-colors underline"
