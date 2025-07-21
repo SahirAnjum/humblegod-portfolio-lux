@@ -8,64 +8,70 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Premium Dark Theme with Green Accents */
-    --background: 220 15% 3%;
-    --foreground: 0 0% 95%;
+    /* Ultra-Clean Minimalist Theme */
+    --background: 0 0% 99%;
+    --foreground: 0 0% 8%;
 
-    --card: 220 15% 5%;
-    --card-foreground: 0 0% 95%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 8%;
 
-    --popover: 220 15% 5%;
-    --popover-foreground: 0 0% 95%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 8%;
 
-    --primary: 158 64% 52%;
-    --primary-foreground: 220 15% 3%;
+    --primary: 0 0% 8%;
+    --primary-foreground: 0 0% 99%;
 
-    --secondary: 220 15% 8%;
-    --secondary-foreground: 0 0% 85%;
+    --secondary: 0 0% 95%;
+    --secondary-foreground: 0 0% 8%;
 
-    --muted: 220 15% 8%;
-    --muted-foreground: 0 0% 60%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
 
-    --accent: 158 64% 52%;
-    --accent-foreground: 220 15% 3%;
+    --accent: 0 0% 8%;
+    --accent-foreground: 0 0% 99%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 220 15% 12%;
-    --input: 220 15% 12%;
-    --ring: 158 64% 52%;
+    --border: 0 0% 92%;
+    --input: 0 0% 92%;
+    --ring: 0 0% 8%;
 
-    --radius: 0.75rem;
+    --radius: 0rem;
 
     /* Premium Design Tokens */
-    --primary-glow: 158 100% 80%;
-    --gradient-primary: linear-gradient(135deg, hsl(158 64% 52%), hsl(158 80% 40%));
-    --gradient-hero: linear-gradient(180deg, hsl(220 15% 3% / 0.9), hsl(220 15% 6% / 0.95));
-    --gradient-card: linear-gradient(145deg, hsl(220 15% 5% / 0.8), hsl(220 15% 8% / 0.9));
+    --gradient-subtle: linear-gradient(180deg, hsl(0 0% 99%), hsl(0 0% 97%));
     
-    /* Luxury Shadows & Glows */
-    --shadow-luxury: 0 20px 40px -12px hsl(158 64% 52% / 0.1);
-    --shadow-glow: 0 0 60px hsl(158 64% 52% / 0.3);
-    --shadow-card: 0 8px 32px hsl(220 15% 0% / 0.3);
+    /* Ultra-minimal shadows */
+    --shadow-minimal: 0 1px 3px hsla(0, 0%, 0%, 0.03);
+    --shadow-soft: 0 4px 16px hsla(0, 0%, 0%, 0.04);
+    --shadow-hover: 0 8px 32px hsla(0, 0%, 0%, 0.08);
     
     /* Typography */
     --font-heading: 'Inter', system-ui, sans-serif;
     --font-body: 'Inter', system-ui, sans-serif;
     
-    /* Animations */
-    --transition-smooth: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    /* Spacing system */
+    --space-unit: 1rem;
+    --space-xs: calc(var(--space-unit) * 0.5);
+    --space-sm: calc(var(--space-unit) * 1);
+    --space-md: calc(var(--space-unit) * 2);
+    --space-lg: calc(var(--space-unit) * 4);
+    --space-xl: calc(var(--space-unit) * 8);
     
-    --sidebar-background: 220 15% 5%;
-    --sidebar-foreground: 0 0% 85%;
-    --sidebar-primary: 158 64% 52%;
-    --sidebar-primary-foreground: 220 15% 3%;
-    --sidebar-accent: 220 15% 8%;
-    --sidebar-accent-foreground: 0 0% 85%;
-    --sidebar-border: 220 15% 12%;
-    --sidebar-ring: 158 64% 52%;
+    /* Transitions */
+    --transition-fast: 0.15s ease;
+    --transition-smooth: 0.3s ease;
+    --transition-slow: 0.6s ease;
+    
+    --sidebar-background: 0 0% 99%;
+    --sidebar-foreground: 0 0% 8%;
+    --sidebar-primary: 0 0% 8%;
+    --sidebar-primary-foreground: 0 0% 99%;
+    --sidebar-accent: 0 0% 95%;
+    --sidebar-accent-foreground: 0 0% 8%;
+    --sidebar-border: 0 0% 92%;
+    --sidebar-ring: 0 0% 8%;
   }
 
   .dark {
@@ -123,47 +129,77 @@ All colors MUST be HSL.
 }
 
 @layer components {
-  /* Premium Components */
-  .luxury-card {
-    @apply bg-card/80 backdrop-blur-sm border border-border/50 rounded-xl;
-    background: var(--gradient-card);
-    box-shadow: var(--shadow-card);
+  /* Ultra-minimalist components */
+  .mont-card {
+    @apply bg-card border border-border/60 transition-all duration-300;
+    box-shadow: var(--shadow-minimal);
   }
   
-  .glow-text {
-    @apply text-primary;
-    text-shadow: 0 0 20px hsl(var(--primary-glow) / 0.5);
+  .mont-card:hover {
+    box-shadow: var(--shadow-hover);
   }
   
-  .metallic-text {
-    @apply text-transparent bg-clip-text;
-    background: linear-gradient(135deg, hsl(var(--foreground)), hsl(var(--primary)), hsl(var(--foreground)));
-    -webkit-background-clip: text;
+  .mont-nav {
+    @apply fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/60;
   }
   
-  .hero-gradient {
-    background: var(--gradient-hero);
+  .mont-section {
+    @apply py-24 md:py-32;
   }
   
-  .blur-in {
-    filter: blur(10px);
+  .mont-container {
+    @apply max-w-7xl mx-auto px-6 md:px-8;
+  }
+  
+  .mont-grid {
+    @apply grid gap-8 md:gap-12;
+  }
+  
+  .text-display {
+    @apply text-5xl md:text-7xl lg:text-8xl font-light tracking-tight leading-none;
+  }
+  
+  .text-heading {
+    @apply text-2xl md:text-3xl lg:text-4xl font-light tracking-tight;
+  }
+  
+  .text-body {
+    @apply text-base md:text-lg leading-relaxed text-muted-foreground;
+  }
+  
+  .text-small {
+    @apply text-sm uppercase tracking-widest font-medium;
+  }
+  
+  .fade-in-up {
     opacity: 0;
-    transform: translateY(50px);
+    transform: translateY(40px);
   }
   
-  .glow-orb {
-    @apply absolute rounded-full;
-    background: radial-gradient(circle, hsl(var(--primary-glow) / 0.3), transparent);
-    filter: blur(40px);
+  .mont-button {
+    @apply inline-flex items-center gap-2 px-6 py-3 text-sm font-medium border border-foreground 
+           bg-transparent text-foreground hover:bg-foreground hover:text-background 
+           transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-foreground/20;
+  }
+  
+  .mont-button-minimal {
+    @apply inline-flex items-center gap-2 text-sm font-medium text-foreground 
+           hover:text-muted-foreground transition-colors duration-300 
+           border-b border-transparent hover:border-foreground;
   }
 }
 
 @layer utilities {
-  .transition-smooth {
+  .transition-mont {
     transition: var(--transition-smooth);
   }
   
-  .transition-bounce {
-    transition: var(--transition-bounce);
+  .spacing-section {
+    padding-top: var(--space-xl);
+    padding-bottom: var(--space-xl);
+  }
+  
+  .spacing-element {
+    margin-bottom: var(--space-md);
   }
 }

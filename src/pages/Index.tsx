@@ -1,7 +1,7 @@
-import Portfolio from '../components/Portfolio';
+import MontPortfolio from '../components/MontPortfolio';
 
 const Index = () => {
-  return <Portfolio />;
+  return <MontPortfolio />;
 };
 
 export default Index;

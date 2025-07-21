@@ -1,0 +1,120 @@
+import { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { Button } from '@/components/ui/button';
+import { ArrowRight, Download } from 'phosphor-react';
+
+const MontHeroSection = () => {
+  const heroRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const subtitleRef = useRef<HTMLParagraphElement>(null);
+  const ctaRef = useRef<HTMLDivElement>(null);
+  const imageRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const tl = gsap.timeline({ delay: 1 });
+
+    // Initial states
+    gsap.set([titleRef.current, subtitleRef.current, ctaRef.current, imageRef.current], {
+      opacity: 0,
+      y: 60
+    });
+
+    // Animate elements in sequence
+    tl.to(titleRef.current, {
+      opacity: 1,
+      y: 0,
+      duration: 1.2,
+      ease: "power3.out"
+    })
+    .to(subtitleRef.current, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: "power3.out"
+    }, "-=0.8")
+    .to(ctaRef.current, {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      ease: "power3.out"
+    }, "-=0.6")
+    .to(imageRef.current, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: "power3.out"
+    }, "-=1");
+
+  }, []);
+
+  return (
+    <section 
+      ref={heroRef}
+      className="mont-section pt-32 min-h-screen flex items-center"
+      id="about"
+    >
+      <div className="mont-container">
+        <div className="mont-grid grid-cols-1 lg:grid-cols-2 items-center gap-16">
+          
+          {/* Content */}
+          <div className="space-y-8">
+            <div className="space-y-6">
+              <p className="text-small text-muted-foreground">
+                DATA ENGINEER & SOFTWARE DEVELOPER
+              </p>
+              
+              <h1 
+                ref={titleRef}
+                className="text-display"
+              >
+                Sahir
+                <br />
+                Anjum
+              </h1>
+
+              <p 
+                ref={subtitleRef}
+                className="text-body max-w-lg"
+              >
+                Driven by passion. Fueled by curiosity. Known for adaptability and a relentless pursuit of excellence. 
+                With 5 years of hands-on experience in the Telecom domain.
+              </p>
+            </div>
+
+            <div ref={ctaRef} className="flex flex-col sm:flex-row gap-4">
+              <Button 
+                variant="mont"
+                onClick={() => window.open('mailto:sahiranjum2702@gmail.com')}
+                className="group"
+              >
+                Start a conversation
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Button>
+              
+              <Button 
+                variant="minimal"
+                onClick={() => window.open('#', '_blank')}
+              >
+                <Download className="w-4 h-4" />
+                Download CV
+              </Button>
+            </div>
+          </div>
+
+          {/* Image */}
+          <div ref={imageRef} className="relative lg:order-2">
+            <div className="aspect-[4/5] overflow-hidden mont-card">
+              <img 
+                src="/lovable-uploads/08a52170-6760-4225-8f56-230f8e0c8466.png"
+                alt="Sahir Anjum"
+                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default MontHeroSection;
