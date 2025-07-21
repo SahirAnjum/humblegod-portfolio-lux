@@ -95,7 +95,14 @@ const MontHeroSection = () => {
             <div ref={ctaRef} className="flex flex-col sm:flex-row gap-4">
               <Button 
                 variant="minimal"
-                onClick={() => window.open('#', '_blank')}
+                onClick={() => {
+                  const link = document.createElement('a');
+                  link.href = '/sahir-anjum-resume.pdf';
+                  link.download = 'Sahir_Anjum_Resume.pdf';
+                  document.body.appendChild(link);
+                  link.click();
+                  document.body.removeChild(link);
+                }}
               >
                 <Download className="w-4 h-4" />
                 Download CV
