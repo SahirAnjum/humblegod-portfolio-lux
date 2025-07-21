@@ -97,7 +97,7 @@ const MontHeroSection = () => {
                 variant="mont"
                 onClick={() => {
                   const link = document.createElement('a');
-                  link.href = '/sahir-anjum-resume.pdf';
+                  link.href = '/lovable-uploads/Sahir_Anjum resume.pdf';
                   link.download = 'Sahir_Anjum_Resume.pdf';
                   document.body.appendChild(link);
                   link.click();
