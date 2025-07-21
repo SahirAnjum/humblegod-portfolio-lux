@@ -25,11 +25,21 @@ const LifeStory = () => {
 
       {/* PDF Viewer */}
       <div className="pt-20 h-screen">
-        <iframe
-          src="/lovable-uploads/Desktop - 2.pdf"
-          className="w-full h-full border-none"
-          title="Life Story PDF"
-        />
+        <object
+          data="/lovable-uploads/Desktop - 2.pdf"
+          type="application/pdf"
+          className="w-full h-full"
+        >
+          <div className="flex flex-col items-center justify-center h-full p-8">
+            <p className="text-lg mb-4">Unable to display PDF in browser.</p>
+            <Button 
+              onClick={() => window.open('/lovable-uploads/Desktop - 2.pdf', '_blank')}
+              className="bg-primary text-primary-foreground hover:bg-primary/90"
+            >
+              Open PDF in New Tab
+            </Button>
+          </div>
+        </object>
       </div>
     </div>
   );
