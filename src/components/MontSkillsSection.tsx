@@ -14,11 +14,11 @@ const MontSkillsSection = () => {
     },
     {
       category: 'Programming & Analytics',
-      skills: ['Python', 'PySpark', 'SQL', 'Java']
+      skills: ['Python', 'PySpark', 'SQL']
     },
     {
       category: 'Visualization & Tools',
-      skills: ['Tableau', 'Power BI', 'DBT', 'BMC Helix', 'Unix/Linux']
+      skills: ['Tableau', 'DBT', 'BMC Helix', 'Unix/Linux']
     },
     {
       category: 'Methodologies',
