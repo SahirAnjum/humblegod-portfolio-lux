@@ -23,23 +23,33 @@ const LifeStory = () => {
         </div>
       </nav>
 
-      {/* PDF Viewer */}
-      <div className="pt-20 h-screen">
-        <object
-          data="/lovable-uploads/Desktop - 2.pdf"
-          type="application/pdf"
-          className="w-full h-full"
-        >
-          <div className="flex flex-col items-center justify-center h-full p-8">
-            <p className="text-lg mb-4">Unable to display PDF in browser.</p>
-            <Button 
-              onClick={() => window.open('/lovable-uploads/Desktop - 2.pdf', '_blank')}
-              className="bg-primary text-primary-foreground hover:bg-primary/90"
-            >
-              Open PDF in New Tab
-            </Button>
+      {/* Main Content */}
+      <div className="pt-20 min-h-screen">
+        <div className="max-w-4xl mx-auto px-6 py-12">
+          <h1 className="text-4xl font-bold mb-8">My Life Story</h1>
+          <div className="space-y-8">
+            <section>
+              <h2 className="text-2xl font-semibold mb-4">About Me</h2>
+              <p className="text-muted-foreground leading-relaxed">
+                Content coming soon...
+              </p>
+            </section>
+            
+            <section>
+              <h2 className="text-2xl font-semibold mb-4">My Journey</h2>
+              <p className="text-muted-foreground leading-relaxed">
+                Content coming soon...
+              </p>
+            </section>
+            
+            <section>
+              <h2 className="text-2xl font-semibold mb-4">Experience</h2>
+              <p className="text-muted-foreground leading-relaxed">
+                Content coming soon...
+              </p>
+            </section>
           </div>
-        </object>
+        </div>
       </div>
     </div>
   );
