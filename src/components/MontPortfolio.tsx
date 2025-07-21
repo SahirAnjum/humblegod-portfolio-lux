@@ -10,8 +10,9 @@ const MontPortfolio = () => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    // Page load animation
+    // Page load animation with extended duration
     const tl = gsap.timeline({ 
+      delay: 3, // 3 second delay for preloading
       onComplete: () => setIsLoaded(true)
     });
 
