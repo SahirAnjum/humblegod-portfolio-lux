@@ -49,7 +49,7 @@ const LifeStory = () => {
       {/* Hero Section */}
       <div 
         ref={heroRef}
-        className="relative h-screen flex items-center justify-center overflow-hidden"
+        className="relative h-screen flex items-center overflow-hidden"
         style={{
           backgroundImage: 'url("/lovable-uploads/b4159132-4160-4194-8eb1-3086c146d1e8.png")',
           backgroundSize: 'cover',
@@ -58,7 +58,7 @@ const LifeStory = () => {
         }}
       >
         <div className="absolute inset-0 bg-black/40"></div>
-        <div className="hero-content relative z-10 text-center text-white max-w-4xl px-6">
+        <div className="hero-content relative z-10 text-left text-white max-w-4xl px-6 ml-6 md:ml-12">
           <h1 className="text-5xl md:text-7xl font-bold mb-6">
             Sahir Anjum
           </h1>
