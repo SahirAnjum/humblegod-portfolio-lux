@@ -210,7 +210,7 @@ const LifeStory = () => {
               <div className="w-24 h-1 bg-primary mx-auto mb-12"></div>
               <div className="prose prose-xl max-w-none text-muted-foreground leading-relaxed space-y-6">
                 <p className="text-xl leading-relaxed">
-                  Discipline and drive have always been at the heart of my story. As a state-level swimming champion, I learned early what it takes to stay focused, push boundaries, and rise through perseverance — lessons that seamlessly flowed into my journey through tech. But this is far from the end. With every challenge faced and skill acquired, one truth becomes clear: there's always a better solution waiting to be discovered, a smarter insight hiding in the noise.
+                  Discipline and drive have always been at the heart of my story. As a swimming champion, I learned early what it takes to stay focused, push boundaries, and rise through perseverance — lessons that seamlessly flowed into my journey through tech. But this is far from the end. With every challenge faced and skill acquired, one truth becomes clear: there's always a better solution waiting to be discovered, a smarter insight hiding in the noise.
                 </p>
               </div>
             </div>
