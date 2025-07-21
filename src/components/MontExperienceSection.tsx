@@ -13,7 +13,7 @@ const MontExperienceSection = () => {
       company: 'Amdocs',
       role: 'Software Developer',
       location: 'Reading, UK (Onsite)',
-      description: 'Architected data pipelines using Azure Data Factory and Databricks for Hutchison 3G UK. Developed Tableau dashboards and automated workflows, bridging complex data with business decisions.',
+      description: 'Delivered scalable solutions for Three UK by migrating on-prem data to Snowflake and building end-to-end pipelines using Azure Data Factory, Databricks, and PySpark. Proficient in Tableau dashboard development, automation with Logic Apps, and version control with Azure DevOps.',
       technologies: ['Azure Data Factory', 'Databricks', 'PySpark', 'Python', 'SQL', 'Tableau']
     },
     {
