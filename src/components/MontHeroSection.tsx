@@ -59,7 +59,7 @@ const MontHeroSection = () => {
         <div className="mont-grid grid-cols-1 lg:grid-cols-5 items-center gap-16">
           
           {/* Image - Now on the left and wider */}
-          <div ref={imageRef} className="relative lg:col-span-3 order-2 lg:order-1">
+          <div ref={imageRef} className="relative lg:col-span-3 order-1 lg:order-1">
             <div className="aspect-[16/10] overflow-hidden mont-card">
               <img 
                 src="/lovable-uploads/be8475ce-53c5-4dc0-a042-fdff043e0323.png"
@@ -70,7 +70,7 @@ const MontHeroSection = () => {
           </div>
 
           {/* Content - Now on the right */}
-          <div className="space-y-8 lg:col-span-2 order-1 lg:order-2">
+          <div className="space-y-8 lg:col-span-2 order-2 lg:order-2">
             <div className="space-y-6">
               <p className="text-small text-muted-foreground">
                 DATA ENGINEER & SOFTWARE DEVELOPER
