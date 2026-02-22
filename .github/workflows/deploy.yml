@@ -36,7 +36,7 @@ jobs:
     - name: Build React app (to dist/classic/)
       run: npm run build
       
-    - name: Copy main site (minhpham-landing) to dist root
+    - name: Copy main site (humblegod-landing) to dist root
       run: |
         cp main-site/index.html dist/
         cp main-site/content.js dist/
