@@ -443,6 +443,8 @@
       line-height: 1.15;
       margin-bottom: 150px;
     }
+    .clients .spm-container { margin-bottom: 150px; }
+    .clients .spm-container .clients-intro { margin-bottom: 0; }
     .clients-intro strong { color: var(--accent); }
     .clients-list { position: relative; z-index: 1; }
 
@@ -805,12 +807,14 @@
       .skill-row-honest, .client-honest { white-space: normal; margin-right: 0; text-align: left; }
       .clients { padding: 80px 0 80px; overflow: hidden; }
       .clients-intro { margin-bottom: 48px; }
+      .clients .spm-container { margin-bottom: 48px; }
       .skills-deco, .skills-deco-right { display: none; }
       .testimonials-body { grid-template-columns: 1fr; }
       .testimonials-thumbs {
-        position: relative; top: auto;
+        position: relative !important; top: auto !important;
         flex-direction: row; justify-content: center;
         padding: 24px var(--inset); order: -1;
+        opacity: 1 !important; transform: none !important;
       }
       .thumb-circle { width: 60px; height: 60px; }
       .globe-canvas { display: none; }
