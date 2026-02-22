@@ -62,7 +62,7 @@ const MontHeroSection = () => {
           <div ref={imageRef} className="relative lg:col-span-3 order-1 lg:order-1">
             <div className="aspect-[16/10] overflow-hidden mont-card">
               <img 
-                src="/lovable-uploads/be8475ce-53c5-4dc0-a042-fdff043e0323.png"
+                src={`${import.meta.env.BASE_URL}lovable-uploads/be8475ce-53c5-4dc0-a042-fdff043e0323.png`}
                 alt="Sahir Anjum"
                 className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
               />
@@ -101,7 +101,7 @@ const MontHeroSection = () => {
                   e.preventDefault();
                   e.stopPropagation();
                   const link = document.createElement('a');
-                  link.href = '/lovable-uploads/Sahir_Anjum%20resume.pdf';
+                  link.href = `${import.meta.env.BASE_URL}lovable-uploads/Sahir_Anjum%20resume.pdf`;
                   link.download = 'Sahir_Anjum_Resume.pdf';
                   document.body.appendChild(link);
                   link.click();

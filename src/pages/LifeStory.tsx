@@ -51,7 +51,7 @@ const LifeStory = () => {
         ref={heroRef}
         className="relative h-screen flex items-center overflow-hidden"
         style={{
-          backgroundImage: 'url("/lovable-uploads/b4159132-4160-4194-8eb1-3086c146d1e8.png")',
+          backgroundImage: `url("${import.meta.env.BASE_URL}lovable-uploads/b4159132-4160-4194-8eb1-3086c146d1e8.png")`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat'
@@ -92,7 +92,7 @@ const LifeStory = () => {
               <div className="group flex flex-col items-center space-y-6 p-8 rounded-2xl bg-card/50 backdrop-blur-sm border border-border/40 hover:border-primary/20 transition-all duration-500 hover:shadow-lg hover:shadow-primary/5">
                 <div className="h-24 flex items-center justify-center transform group-hover:scale-105 transition-transform duration-300">
                   <img 
-                    src="/lovable-uploads/bd5cc484-3cf6-4180-aab8-a1958f54ea33.png" 
+                    src={`${import.meta.env.BASE_URL}lovable-uploads/bd5cc484-3cf6-4180-aab8-a1958f54ea33.png`} 
                     alt="Amdocs" 
                     className="h-20 object-contain"
                   />
@@ -103,7 +103,7 @@ const LifeStory = () => {
               <div className="group flex flex-col items-center space-y-6 p-8 rounded-2xl bg-card/50 backdrop-blur-sm border border-border/40 hover:border-primary/20 transition-all duration-500 hover:shadow-lg hover:shadow-primary/5">
                 <div className="h-24 flex items-center justify-center transform group-hover:scale-105 transition-transform duration-300">
                   <img 
-                    src="/lovable-uploads/0bee547f-a11f-45d2-aefe-988c328f34f8.png" 
+                    src={`${import.meta.env.BASE_URL}lovable-uploads/0bee547f-a11f-45d2-aefe-988c328f34f8.png`} 
                     alt="Infosys" 
                     className="h-20 object-contain"
                   />
