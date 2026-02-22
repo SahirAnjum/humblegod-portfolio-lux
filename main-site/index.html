@@ -757,6 +757,15 @@
     .layer--honest .c-label { color: var(--honest-muted); }
     .layer--honest .c-val { color: var(--honest-text); }
 
+    .contact-item-honest {
+      border-top: 1px solid rgba(92,69,60,0.2);
+      padding: 20px var(--inset);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .contact-item-honest:last-child { border-bottom: 1px solid rgba(92,69,60,0.2); }
+    .contact-item-honest .c-label { color: var(--honest-muted); }
+    .contact-item-honest .c-val { color: var(--honest-text); }
+
     .layer--honest .footer { background: var(--honest-bg); border-top-color: rgba(92,69,60,0.2); }
     .layer--honest .footer-left, .layer--honest .footer-right { color: var(--honest-muted); }
 
@@ -821,6 +830,8 @@
       .connect-grid { flex-direction: column; }
       .contact-item .ci-link { flex-wrap: wrap; gap: 4px; padding: 16px var(--inset); }
       .contact-item .c-label { width: 100%; }
+      .contact-item-honest { flex-wrap: wrap; gap: 4px; padding: 16px var(--inset); }
+      .contact-item-honest .c-label { width: 100%; }
       .side-social { left: 12px; bottom: 12px; }
       .nav-top-right { top: 20px; right: 20px; }
       .view-switch { top: 100px; right: 20px; }
