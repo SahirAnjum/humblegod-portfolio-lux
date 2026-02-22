@@ -39,6 +39,7 @@ jobs:
     - name: Copy main site (humblegod-landing) to dist root
       run: |
         cp main-site/index.html dist/
+        cp main-site/404.html dist/
         cp main-site/content.js dist/
         cp -r main-site/assets dist/
         cp -r main-site/fonts dist/

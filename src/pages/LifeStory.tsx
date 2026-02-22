@@ -53,7 +53,7 @@ const LifeStory = () => {
       >
         <img
           src={`${import.meta.env.BASE_URL}lovable-uploads/b4159132-4160-4194-8eb1-3086c146d1e8.png`}
-          alt=""
+          alt="Sahir Anjum - Life Story"
           className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent"></div>
