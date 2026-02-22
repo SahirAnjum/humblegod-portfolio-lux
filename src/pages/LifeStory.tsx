@@ -124,6 +124,21 @@ const LifeStory = () => {
             </div>
             
             <div className="space-y-24">
+              {/* New Chapter Block */}
+              <div className="fade-in group">
+                <div className="relative pl-8 border-l-2 border-primary/20 hover:border-primary/40 transition-colors duration-300">
+                  <div className="absolute -left-2 top-0 w-4 h-4 bg-primary rounded-full group-hover:scale-125 transition-transform duration-300"></div>
+                  <h3 className="text-3xl md:text-4xl font-bold mb-8 leading-tight">
+                    Beginning of a new chapter
+                  </h3>
+                  <div className="prose prose-lg max-w-none text-muted-foreground leading-relaxed space-y-6">
+                    <p className="text-lg leading-relaxed font-medium text-foreground">
+                      Stay tuned for further updates..
+                    </p>
+                  </div>
+                </div>
+              </div>
+
               {/* Amdocs Chapter */}
               <div className="fade-in group">
                 <div className="relative pl-8 border-l-2 border-primary/20 hover:border-primary/40 transition-colors duration-300">
@@ -198,20 +213,6 @@ const LifeStory = () => {
                   </div>
                 </div>
 
-                {/* New Chapter Block */}
-                <div className="group">
-                  <div className="relative pl-8 border-l-2 border-primary/20 hover:border-primary/40 transition-colors duration-300">
-                    <div className="absolute -left-2 top-0 w-4 h-4 bg-primary rounded-full group-hover:scale-125 transition-transform duration-300"></div>
-                    <h3 className="text-3xl md:text-4xl font-bold mb-8 leading-tight">
-                      Beginning of a new chapter
-                    </h3>
-                    <div className="prose prose-lg max-w-none text-muted-foreground leading-relaxed space-y-6">
-                      <p className="text-lg leading-relaxed font-medium text-foreground">
-                        Stay tuned for further updates..
-                      </p>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
