@@ -64,6 +64,8 @@ const MontHeroSection = () => {
               <img 
                 src={`${import.meta.env.BASE_URL}lovable-uploads/be8475ce-53c5-4dc0-a042-fdff043e0323.png`}
                 alt="Sahir Anjum"
+                width="800"
+                height="500"
                 className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
               />
             </div>

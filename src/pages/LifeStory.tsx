@@ -54,6 +54,8 @@ const LifeStory = () => {
         <img
           src={`${import.meta.env.BASE_URL}lovable-uploads/b4159132-4160-4194-8eb1-3086c146d1e8.png`}
           alt="Sahir Anjum - Life Story"
+          width="1920"
+          height="1080"
           className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent"></div>
@@ -93,6 +95,8 @@ const LifeStory = () => {
                   <img 
                     src={`${import.meta.env.BASE_URL}lovable-uploads/bd5cc484-3cf6-4180-aab8-a1958f54ea33.png`} 
                     alt="Amdocs" 
+                    width="200"
+                    height="80"
                     className="h-20 object-contain"
                   />
                 </div>
@@ -104,6 +108,8 @@ const LifeStory = () => {
                   <img 
                     src={`${import.meta.env.BASE_URL}lovable-uploads/0bee547f-a11f-45d2-aefe-988c328f34f8.png`} 
                     alt="Infosys" 
+                    width="200"
+                    height="80"
                     className="h-20 object-contain"
                   />
                 </div>

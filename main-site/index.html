@@ -46,7 +46,23 @@
   }
   </script>
 
+  <meta name="theme-color" content="#0D0D0D" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta name="format-detection" content="telephone=no" />
+
   <link rel="icon" type="image/png" href="assets/robot.png" />
+  <link rel="apple-touch-icon" href="assets/robot.png" />
+
+  <!-- Preload critical assets -->
+  <link rel="preload" href="fonts/avantgarde-book.ttf" as="font" type="font/ttf" crossorigin />
+  <link rel="preload" href="fonts/avantgarde-demi.ttf" as="font" type="font/ttf" crossorigin />
+  <link rel="preload" href="assets/robot.png" as="image" />
+
+  <!-- DNS prefetch for external resources -->
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
+
+  <!-- Content Security Policy -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://images.unsplash.com; connect-src 'self';" />
 
   <!-- Nunito Sans (secondary font, same as original) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -955,9 +971,31 @@
     @media (min-width: 769px) {
       .mobile-honest-btn { display: none !important; }
     }
+
+    @media print {
+      .cursor, .start-screen, .logo-top-left, .nav-top-right,
+      .view-switch, .resume-download, .side-social, .mobile-honest-btn,
+      .layer--honest, .copy-toast, .start-ring, .skills-deco,
+      .skills-deco-right, .hero-bg, .hero-img, .globe-container { display: none !important; }
+      body { background: #fff !important; color: #111 !important; }
+      .layer--front { clip-path: none !important; }
+      .layers-wrapper { position: static !important; }
+      section { break-inside: avoid; }
+      a[href]::after { content: " (" attr(href) ")"; font-size: 0.8em; color: #555; }
+      .footer { border-top: 1px solid #ccc; padding-top: 12px; }
+    }
   </style>
 </head>
 <body>
+
+<noscript>
+  <div style="padding:60px 24px;max-width:600px;margin:0 auto;font-family:system-ui,sans-serif;color:#e8ddd3;text-align:center;">
+    <h1 style="font-size:2rem;margin-bottom:16px;">Sahir Anjum — Data Engineer</h1>
+    <p style="color:#908272;line-height:1.6;">Data Engineer with approx. 7 years of experience in Telecom, specializing in Azure Databricks, PySpark, Python, SQL, and Tableau. Currently at Amdocs.</p>
+    <p style="margin-top:24px;"><a href="mailto:sahiranjum2702@gmail.com" style="color:#eb5939;">sahiranjum2702@gmail.com</a></p>
+    <p style="color:#908272;margin-top:16px;font-size:0.85rem;">Please enable JavaScript for the full experience.</p>
+  </div>
+</noscript>
 
 <!-- CURSOR -->
 <div class="cursor" id="cursor"></div>
@@ -981,34 +1019,35 @@
 <!-- START SCREEN -->
 <div class="start-screen" id="startScreen">
   <div class="start-logo">
-    <img src="assets/robot.png" alt="Robot" />
+    <img src="assets/robot.png" alt="Robot" width="120" height="120" />
     <svg class="start-ring" viewBox="0 0 160 160">
       <circle class="ring-bg" cx="80" cy="80" r="78" />
       <circle class="ring-fg" id="ringFg" cx="80" cy="80" r="78" />
     </svg>
   </div>
-  <button class="start-btn" id="startBtn" style="opacity:0;pointer-events:none">START</button>
+  <button class="start-btn" id="startBtn" aria-label="Start experience" style="opacity:0;pointer-events:none">START</button>
 </div>
 
 <!-- FIXED UI -->
-<a href="/" class="logo-top-left" data-cursor="clickable" onclick="location.reload();return false;">
-  <img src="assets/robot.png" alt="Logo" style="width:100%;height:100%;object-fit:contain;" />
+<a href="/" class="logo-top-left" id="logoLink" data-cursor="clickable" aria-label="Home — refresh page">
+  <img src="assets/robot.png" alt="Sahir Anjum logo" width="40" height="40" style="width:100%;height:100%;object-fit:contain;" />
 </a>
 <nav class="nav-top-right" data-cursor="contract">
   <a href="#about">ABOUT</a>
   <a href="#experience">WORK</a>
   <a href="#connect">CONTACT</a>
 </nav>
-<a href="/classic/" class="view-switch" data-cursor="clickable" onclick="sessionStorage.setItem('classicNav','1')">CLASSIC VIEW &rarr;</a>
+<a href="/classic/" class="view-switch" id="classicLink" data-cursor="clickable">CLASSIC VIEW &rarr;</a>
 <a href="/classic/lovable-uploads/Sahir_Anjum%20resume.pdf" download="Sahir_Anjum_Resume.pdf" class="resume-download" data-cursor="clickable">RESUME &darr;</a>
-<div class="side-social" data-cursor="contract">
-  <a href="mailto:sahiranjum2702@gmail.com" title="Gmail" class="side-social-link"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></a>
-  <a href="https://www.linkedin.com/in/sahir-anjum" target="_blank" title="LinkedIn" class="side-social-link"><svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg></a>
-  <a href="tel:+917275405244" title="Phone" class="side-social-link"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></a>
-  <a href="https://www.instagram.com/_.humblegod._" target="_blank" title="Instagram" class="side-social-link"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor"/></svg></a>
-</div>
+<nav class="side-social" data-cursor="contract" aria-label="Social links">
+  <a href="mailto:sahiranjum2702@gmail.com" title="Gmail" aria-label="Send email" class="side-social-link"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></a>
+  <a href="https://www.linkedin.com/in/sahir-anjum" target="_blank" rel="noopener" title="LinkedIn" aria-label="LinkedIn profile" class="side-social-link"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg></a>
+  <a href="tel:+917275405244" title="Phone" aria-label="Call phone" class="side-social-link"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></a>
+  <a href="https://www.instagram.com/_.humblegod._" target="_blank" rel="noopener" title="Instagram" aria-label="Instagram profile" class="side-social-link"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor"/></svg></a>
+</nav>
 
 <!-- ===================== LAYERS ===================== -->
+<main id="mainContent">
 <div class="layers-wrapper">
 
 <!-- ========== FRONT LAYER ========== -->
@@ -1031,8 +1070,8 @@
   </section>
 
   <section class="skills" id="skills">
-    <img src="assets/images/coffee-cup.png" alt="Coffee cup decoration" class="skills-deco" />
-    <img src="assets/images/headphones.png" alt="Headphones decoration" class="skills-deco-right" />
+    <img src="assets/images/coffee-cup.png" alt="Coffee cup decoration" class="skills-deco" loading="lazy" width="400" height="400" />
+    <img src="assets/images/headphones.png" alt="Headphones decoration" class="skills-deco-right" loading="lazy" width="400" height="400" />
     <div class="section-label anim">WHAT I DO</div>
     <div class="skill-row anim"><div class="skill-row-title spm-masked">3D</div><div class="skill-row-honest"></div></div>
     <div class="skill-row anim anim-d1"><div class="skill-row-title spm-masked">VISUAL</div><div class="skill-row-honest"></div></div>
@@ -1086,10 +1125,10 @@
           <div class="tq-credit"><strong>Linh Le</strong> &mdash; PROJECT MANAGER, INTERACTIVE LABS</div>
         </div>
       </div>
-      <div class="testimonials-thumbs anim">
-        <div class="thumb-circle"><img src="assets/images/tarun.png" alt="Tarun" /></div>
-        <div class="thumb-circle"><img src="assets/images/vivek.png" alt="Vivek" /></div>
-        <div class="thumb-circle"><img src="assets/images/shreya.png" alt="Shreya" /></div>
+      <div class="testimonials-thumbs anim" role="list" aria-label="Testimonial authors">
+        <div class="thumb-circle" role="listitem" aria-label="Tarun Agrawal"><img src="assets/images/tarun.png" alt="Tarun Agrawal" loading="lazy" width="80" height="80" /></div>
+        <div class="thumb-circle" role="listitem" aria-label="Vivek Reddy"><img src="assets/images/vivek.png" alt="Vivek Reddy" loading="lazy" width="80" height="80" /></div>
+        <div class="thumb-circle" role="listitem" aria-label="Shreya Smarth"><img src="assets/images/shreya.png" alt="Shreya Smarth" loading="lazy" width="80" height="80" /></div>
       </div>
     </div>
   </section>
@@ -1195,10 +1234,10 @@
           <div class="tq-credit"><strong>Linh Le</strong> &mdash; PROJECT MANAGER, INTERACTIVE LABS</div>
         </div>
       </div>
-      <div class="testimonials-thumbs anim">
-        <div class="thumb-circle"><img src="assets/images/tarun.png" alt="Tarun" /></div>
-        <div class="thumb-circle"><img src="assets/images/vivek.png" alt="Vivek" /></div>
-        <div class="thumb-circle"><img src="assets/images/shreya.png" alt="Shreya" /></div>
+      <div class="testimonials-thumbs anim" role="list" aria-label="Testimonial authors">
+        <div class="thumb-circle" role="listitem" aria-label="Tarun Agrawal"><img src="assets/images/tarun.png" alt="Tarun Agrawal" loading="lazy" width="80" height="80" /></div>
+        <div class="thumb-circle" role="listitem" aria-label="Vivek Reddy"><img src="assets/images/vivek.png" alt="Vivek Reddy" loading="lazy" width="80" height="80" /></div>
+        <div class="thumb-circle" role="listitem" aria-label="Shreya Smarth"><img src="assets/images/shreya.png" alt="Shreya Smarth" loading="lazy" width="80" height="80" /></div>
       </div>
     </div>
   </section>
@@ -1230,6 +1269,7 @@
 </div><!-- /layer--honest -->
 
 </div><!-- /layers-wrapper -->
+</main><!-- /mainContent -->
 
 <!-- ==================== EXTERNAL SCRIPTS ==================== -->
 <script src="content.js"></script>
@@ -2069,6 +2109,15 @@
       var target = document.querySelector('.layer--front ' + a.getAttribute('href'));
       if (target) lenis.scrollTo(target, { offset: 0, duration: 1.5 });
     });
+  });
+
+  document.getElementById('logoLink').addEventListener('click', function(e) {
+    e.preventDefault();
+    location.reload();
+  });
+
+  document.getElementById('classicLink').addEventListener('click', function() {
+    sessionStorage.setItem('classicNav', '1');
   });
 
 })();

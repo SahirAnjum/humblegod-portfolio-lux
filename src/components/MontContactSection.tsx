@@ -87,10 +87,11 @@ const MontContactSection = () => {
             <Button 
               variant="mont"
               onClick={() => window.open('https://mail.google.com/mail/?view=cm&to=sahiranjum2702@gmail.com', '_blank')}
+              aria-label="Start a conversation (opens email in new tab)"
               className="group"
             >
               Start a conversation
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
             </Button>
           </div>
 
@@ -128,6 +129,7 @@ const MontContactSection = () => {
                   href={method.link}
                   target={method.link.startsWith('http') ? '_blank' : '_self'}
                   rel={method.link.startsWith('http') ? 'noopener noreferrer' : ''}
+                  aria-label={`${method.label}: ${method.value}`}
                   className="contact-item block mont-card p-6 hover:shadow-soft transition-all duration-300 group"
                 >
                   <div className="flex items-center space-x-4">
@@ -160,6 +162,7 @@ const MontContactSection = () => {
                   href="https://www.linkedin.com/in/devyansh-barwar-a86b4233b" 
                   target="_blank" 
                   rel="noopener noreferrer"
+                  aria-label="Devyansh Barwar LinkedIn profile (opens in new tab)"
                   className="hover:text-foreground transition-colors underline"
                 >
                   Devyansh Barwar

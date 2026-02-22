@@ -40,6 +40,8 @@ const Navigation = () => {
               <img
                 src="/assets/robot.png"
                 alt="Home"
+                width="40"
+                height="40"
                 className="w-10 h-10 rounded-full object-cover"
               />
             </a>
@@ -67,8 +69,10 @@ const Navigation = () => {
             <button
               className="md:hidden p-3 min-w-[44px] min-h-[44px] flex items-center justify-center"
               onClick={() => setIsOpen(!isOpen)}
+              aria-label={isOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={isOpen}
             >
-              {isOpen ? <X size={24} /> : <List size={24} />}
+              {isOpen ? <X size={24} aria-hidden="true" /> : <List size={24} aria-hidden="true" />}
             </button>
           </div>
         </div>
