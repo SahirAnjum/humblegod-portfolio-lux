@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { gsap } from 'gsap';
 import { Button } from '@/components/ui/button';
 import { List, X } from 'phosphor-react';
 

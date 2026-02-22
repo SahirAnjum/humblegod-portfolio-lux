@@ -43,22 +43,19 @@ var CONTENT = {
       text: 'Sahir is <strong>seriously</strong> the best and he <strong>never</strong> complains',
       honestText: 'He\'s <strong>terrible</strong>, but it\'s his birthday so I\'d say something <strong>nice</strong>',
       name: "Tarun Agrawal",
-      role: "SOFTWARE DEVELOPMENT LEAD, AMDOCS PUNE",
-      img: "assets/images/michael-glass.jpg"
+      role: "SOFTWARE DEVELOPMENT LEAD, AMDOCS PUNE"
     },
     {
       text: 'Tableau Reports!! Now this looks <strong>amazing</strong>. <strong>Great work!</strong>',
       honestText: 'After <strong>countless</strong> rounds of feedback, you <strong>finally</strong> did it right',
       name: "Vivek Reddy",
-      role: "BUSINESS ANALYST, AMDOCS PUNE",
-      img: "assets/images/peter-smart.jpg"
+      role: "BUSINESS ANALYST, AMDOCS PUNE"
     },
     {
       text: 'He\'s a <strong>beast</strong>. His skills are <strong>insane!</strong>',
       honestText: 'I\'m his <strong>all time constant</strong> ally, he made me <strong>say that</strong>',
       name: "Shreya Smarth",
-      role: "DWH/BI DEVELOPER, AMDOCS PUNE",
-      img: "assets/images/linh-le.jpg"
+      role: "DWH/BI DEVELOPER, AMDOCS PUNE"
     }
   ],
 
