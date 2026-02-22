@@ -33,7 +33,7 @@ jobs:
     - name: Install dependencies
       run: npm ci
       
-    - name: Build React app (to dist/lux/)
+    - name: Build React app (to dist/classic/)
       run: npm run build
       
     - name: Copy main site (minhpham-landing) to dist root
