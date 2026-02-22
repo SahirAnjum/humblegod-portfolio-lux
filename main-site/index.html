@@ -434,7 +434,7 @@
     /* ==============================================================
        CLIENTS
        ============================================================== */
-    .clients { padding: 80px 0 180px; position: relative; overflow: hidden; }
+    .clients { padding: 80px 0 180px; position: relative; }
     .clients .section-label { padding-left: var(--inset); padding-right: var(--inset); }
     .clients-intro {
       padding-left: var(--inset); padding-right: var(--inset);
@@ -803,10 +803,16 @@
       .skill-row, .client-name-row { height: auto; padding-top: 16px; padding-bottom: 16px; }
       .skill-row-title, .client-name { white-space: normal; }
       .skill-row-honest, .client-honest { white-space: normal; margin-right: 0; text-align: left; }
-      .clients { padding: 80px 0 80px; }
+      .clients { padding: 80px 0 80px; overflow: hidden; }
       .clients-intro { margin-bottom: 48px; }
       .skills-deco, .skills-deco-right { display: none; }
-      .testimonials-thumbs { display: none; }
+      .testimonials-body { grid-template-columns: 1fr; }
+      .testimonials-thumbs {
+        position: relative; top: auto;
+        flex-direction: row; justify-content: center;
+        padding: 24px var(--inset); order: -1;
+      }
+      .thumb-circle { width: 60px; height: 60px; }
       .globe-canvas { display: none; }
       .connect-grid { flex-direction: column; }
       .contact-item .ci-link { flex-wrap: wrap; gap: 4px; padding: 16px var(--inset); }
