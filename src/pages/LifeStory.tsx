@@ -96,7 +96,7 @@ const LifeStory = () => {
                     className="h-20 object-contain"
                   />
                 </div>
-                <p className="text-muted-foreground font-medium text-lg">Mar 2022 - Sept 2025</p>
+                <p className="text-muted-foreground font-medium text-lg">Mar 2022 - Present</p>
               </div>
               
               <div className="group flex flex-col items-center space-y-6 p-8 rounded-2xl bg-card/50 backdrop-blur-sm border border-border/40 hover:border-primary/20 transition-all duration-500 hover:shadow-lg hover:shadow-primary/5">
@@ -195,6 +195,21 @@ const LifeStory = () => {
                     <p className="text-lg leading-relaxed font-medium text-foreground">
                       The roots of this journey go back to Pranveer Singh Institute of Technology, under Dr. A.P.J Abdul Kalam Technical University, where I laid the academic foundation for everything that followed — not just learning to code, but to think, solve, and adapt.
                     </p>
+                  </div>
+                </div>
+
+                {/* New Chapter Block */}
+                <div className="group">
+                  <div className="relative pl-8 border-l-2 border-primary/20 hover:border-primary/40 transition-colors duration-300">
+                    <div className="absolute -left-2 top-0 w-4 h-4 bg-primary rounded-full group-hover:scale-125 transition-transform duration-300"></div>
+                    <h3 className="text-3xl md:text-4xl font-bold mb-8 leading-tight">
+                      Beginning of a new chapter
+                    </h3>
+                    <div className="prose prose-lg max-w-none text-muted-foreground leading-relaxed space-y-6">
+                      <p className="text-lg leading-relaxed font-medium text-foreground">
+                        Stay tuned for further updates..
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>

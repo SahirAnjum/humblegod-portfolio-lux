@@ -90,7 +90,7 @@ const MontHeroSection = () => {
                 className="text-body max-w-lg"
               >
                 Driven by passion. Fueled by curiosity. Known for adaptability and a relentless pursuit of excellence. 
-                With 5 years of hands-on experience in the Telecom domain.
+                With Approx. 7 years of hands-on experience in the Telecom domain.
               </p>
             </div>
 
