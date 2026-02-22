@@ -36,10 +36,14 @@ const Navigation = () => {
       <nav className={`mont-nav ${scrolled ? 'backdrop-blur-md' : ''}`}>
         <div className="mont-container">
           <div className="flex items-center justify-between h-16 md:h-20">
-            {/* Logo */}
-            <div className="text-xl font-medium tracking-tight">
-              Sahir Anjum
-            </div>
+            {/* Logo - Robot, click goes to main site */}
+            <a href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+              <img
+                src="/assets/robot.png"
+                alt="Home"
+                className="w-10 h-10 rounded-full object-cover"
+              />
+            </a>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-8">
@@ -58,13 +62,6 @@ const Navigation = () => {
               >
                 Get in touch
               </Button>
-              <button
-                onClick={() => window.location.href = '/'}
-                className="mont-button-minimal text-xs opacity-60 hover:opacity-100 transition-opacity"
-                title="Back to Main Site"
-              >
-                ← Main Site
-              </button>
             </div>
 
             {/* Mobile Menu Button */}
@@ -102,12 +99,6 @@ const Navigation = () => {
               >
                 Get in touch
               </Button>
-              <button
-                onClick={() => window.location.href = '/'}
-                className="block text-sm font-light opacity-60 hover:opacity-100 transition-opacity mt-4"
-              >
-                ← Back to Main Site
-              </button>
             </div>
           </div>
         </div>
