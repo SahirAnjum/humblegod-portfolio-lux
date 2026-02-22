@@ -850,22 +850,28 @@
       body, a, button { cursor: auto; }
       .cursor { display: none; }
 
-      .layer--honest .skill-row { justify-content: center; }
+      .layer--honest .skill-row { position: relative; }
       .layer--honest .skill-row::before { display: none; }
-      .layer--honest .skill-row-title { display: none; }
-      .layer--honest .skill-row-honest {
-        opacity: 1; transform: none; pointer-events: auto;
+      .layer--honest .skill-row-title { visibility: hidden; }
+      .layer--honest .skill-row-desc {
+        position: absolute; inset: 0;
+        display: flex; align-items: center; justify-content: center;
         margin: 0; text-align: center; white-space: normal;
         color: var(--honest-text); font-size: 1rem;
+        font-family: var(--font-body); line-height: 1.5;
+        padding: 8px var(--inset);
       }
 
-      .layer--honest .client-name-row { justify-content: center; }
+      .layer--honest .client-name-row { position: relative; }
       .layer--honest .client-name-row::before { display: none; }
-      .layer--honest .client-name { display: none; }
+      .layer--honest .client-name { visibility: hidden; }
       .layer--honest .client-desc {
-        opacity: 1; transform: none; pointer-events: auto;
+        position: absolute; inset: 0;
+        display: flex; align-items: center; justify-content: center;
         margin: 0; text-align: center; white-space: normal;
         color: var(--honest-text); font-size: 1rem;
+        font-family: var(--font-body); line-height: 1.5;
+        padding: 8px var(--inset);
       }
     }
 
@@ -1805,6 +1811,7 @@
         honestActive = true;
         revealTarget = 100;
         mobileBtn.classList.add('active');
+        syncLayerHeights();
         if (!revealRAF) revealRAF = requestAnimationFrame(animateReveal);
       }
       function stopReveal() {
