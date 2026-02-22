@@ -49,24 +49,23 @@ const LifeStory = () => {
       {/* Hero Section */}
       <div 
         ref={heroRef}
-        className="relative h-screen flex items-center overflow-hidden"
-        style={{
-          backgroundImage: `url("${import.meta.env.BASE_URL}lovable-uploads/b4159132-4160-4194-8eb1-3086c146d1e8.png")`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat'
-        }}
+        className="relative min-h-[60vh] md:h-screen flex items-center overflow-hidden"
       >
+        <img
+          src={`${import.meta.env.BASE_URL}lovable-uploads/b4159132-4160-4194-8eb1-3086c146d1e8.png`}
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover"
+        />
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent"></div>
         <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
-        <div className="hero-content relative z-10 text-left text-white max-w-6xl px-6 ml-6 md:ml-16 lg:ml-24">
+        <div className="hero-content relative z-10 text-left text-white max-w-6xl px-6 pt-20 pb-12 md:py-0 ml-6 md:ml-16 lg:ml-24">
           <div className="space-y-6">
-            <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tight leading-none">
+            <h1 className="text-5xl md:text-8xl lg:text-9xl font-bold tracking-tight leading-none">
               <span className="block">Sahir</span>
               <span className="block text-white/90">Anjum</span>
             </h1>
             <div className="w-20 h-1 bg-primary"></div>
-            <p className="text-xl md:text-2xl lg:text-3xl text-white/90 font-light max-w-lg leading-relaxed">
+            <p className="text-lg md:text-2xl lg:text-3xl text-white/90 font-light max-w-lg leading-relaxed">
               Data Engineer | Software Developer
             </p>
           </div>
