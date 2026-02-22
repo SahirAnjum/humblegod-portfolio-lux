@@ -66,7 +66,7 @@ const Navigation = () => {
 
             {/* Mobile Menu Button */}
             <button
-              className="md:hidden p-2"
+              className="md:hidden p-3 min-w-[44px] min-h-[44px] flex items-center justify-center"
               onClick={() => setIsOpen(!isOpen)}
             >
               {isOpen ? <X size={24} /> : <List size={24} />}
@@ -77,14 +77,14 @@ const Navigation = () => {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="fixed inset-0 z-40 bg-background/95 backdrop-blur-md md:hidden">
-          <div className="mont-container pt-24">
-            <div className="space-y-8">
+        <div className="fixed inset-0 z-40 bg-background/95 backdrop-blur-md md:hidden overflow-y-auto">
+          <div className="mont-container pt-24 pb-8">
+            <div className="space-y-6">
               {menuItems.map((item) => (
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className="block text-2xl font-light"
+                  className="block text-2xl font-light py-2 min-h-[44px]"
                 >
                   {item.label}
                 </button>

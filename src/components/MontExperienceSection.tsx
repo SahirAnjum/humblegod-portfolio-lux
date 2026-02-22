@@ -88,7 +88,7 @@ const MontExperienceSection = () => {
             {experiences.map((exp, index) => (
               <div 
                 key={index}
-                className="experience-item mont-card p-8 hover:shadow-soft transition-all duration-300"
+                className="experience-item mont-card p-5 md:p-8 hover:shadow-soft transition-all duration-300"
               >
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                   

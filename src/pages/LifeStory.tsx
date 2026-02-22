@@ -58,7 +58,7 @@ const LifeStory = () => {
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent"></div>
         <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
-        <div className="hero-content relative z-10 text-left text-white max-w-6xl px-6 pt-20 pb-12 md:py-0 ml-6 md:ml-16 lg:ml-24">
+        <div className="hero-content relative z-10 text-left text-white max-w-6xl px-6 pt-20 pb-12 md:py-0 ml-4 md:ml-16 lg:ml-24">
           <div className="space-y-6">
             <h1 className="text-5xl md:text-8xl lg:text-9xl font-bold tracking-tight leading-none">
               <span className="block">Sahir</span>

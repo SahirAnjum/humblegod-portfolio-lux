@@ -797,12 +797,20 @@
       :root { --inset: 24px; }
       .hero { padding: 0 24px; }
       .about { padding: 80px 24px !important; }
-      .hist-row { grid-template-columns: 80px 1fr; gap: 16px; }
+      .experience { padding: 100px var(--inset) 0; }
+      .history { padding: 80px 0 60px; }
+      .hist-row { grid-template-columns: 60px 1fr; gap: 12px; padding: 24px var(--inset); }
       .skill-row, .client-name-row { height: auto; padding-top: 16px; padding-bottom: 16px; }
+      .skill-row-title, .client-name { white-space: normal; }
+      .skill-row-honest, .client-honest { white-space: normal; margin-right: 0; text-align: left; }
+      .clients { padding: 80px 0 80px; }
+      .clients-intro { margin-bottom: 48px; }
       .skills-deco, .skills-deco-right { display: none; }
       .testimonials-thumbs { display: none; }
       .globe-canvas { display: none; }
       .connect-grid { flex-direction: column; }
+      .contact-item .ci-link { flex-wrap: wrap; gap: 4px; padding: 16px var(--inset); }
+      .contact-item .c-label { width: 100%; }
       .side-social { left: 12px; bottom: 12px; }
       .nav-top-right { top: 20px; right: 20px; }
       .view-switch { top: 100px; right: 20px; }
@@ -811,6 +819,11 @@
       .footer { flex-direction: column; gap: 8px; text-align: center; }
       body, a, button { cursor: auto; }
       .cursor { display: none; }
+    }
+    @media (max-width: 375px) {
+      .start-ring { width: 180px; height: 180px; }
+      .start-logo img { width: 100px; height: 100px; }
+      .tq-text { letter-spacing: 2px; }
     }
     @media (pointer: coarse) {
       body, a, button { cursor: auto; }

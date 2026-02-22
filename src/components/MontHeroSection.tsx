@@ -52,7 +52,7 @@ const MontHeroSection = () => {
   return (
     <section 
       ref={heroRef}
-      className="mont-section pt-32 min-h-screen flex items-center"
+      className="mont-section pt-24 md:pt-32 min-h-screen flex items-center"
       id="about"
     >
       <div className="mont-container">
