@@ -1,0 +1,1854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sahir Anjum — Data Engineer</title>
+  <link rel="icon" type="image/png" href="assets/robot.png" />
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- Nunito Sans (secondary font, same as original) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,300;6..12,400;6..12,600;6..12,700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ==============================================================
+       @FONT-FACE — Self-hosted Avant Garde (same as original)
+       ============================================================== */
+    @font-face {
+      font-family: 'AvantGarde';
+      src: url('fonts/avantgarde-book.ttf') format('truetype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'AvantGarde';
+      src: url('fonts/avantgarde-demi.ttf') format('truetype');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'AvantGarde';
+      src: url('fonts/avantgarde-book-oblique.ttf') format('truetype');
+      font-weight: 400;
+      font-style: italic;
+      font-display: swap;
+    }
+
+    /* ==============================================================
+       RESET & LENIS
+       ============================================================== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html.lenis, html.lenis body { height: auto; }
+    .lenis.lenis-smooth { scroll-behavior: auto !important; }
+    .lenis.lenis-stopped { overflow: hidden; }
+
+    /* ==============================================================
+       CUSTOM PROPERTIES
+       ============================================================== */
+    :root {
+      --bg: #0D0D0D;
+      --text: #B7AB98;
+      --accent: #EB5939;
+      --dim: #2a2622;
+      --border: rgba(184, 172, 153, 0.15);
+      --muted: #666;
+      --honest-bg: #EB5939;
+      --honest-text: #1a1a1a;
+      --honest-dark: #000000;
+      --honest-muted: #333333;
+      --inset: clamp(80px, 16.9vw, 243px);
+      --title-sz: clamp(4.5rem, 8.1vw, 7.3rem);
+      --about-sz: clamp(2.5rem, 5.2vw, 4.8rem);
+      --mid-sz: clamp(1.2rem, 2.3vw, 2.1rem);
+      --label-sz: clamp(0.5rem, 0.81vw, 0.73rem);
+      --hero-name-sz: clamp(0.6rem, 0.93vw, 0.83rem);
+      --font: 'AvantGarde', 'Century Gothic', 'Avant Garde', sans-serif;
+      --font-body: 'Nunito Sans', 'AvantGarde', sans-serif;
+    }
+
+    /* ==============================================================
+       BASE
+       ============================================================== */
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.5;
+      cursor: default;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    a { color: inherit; text-decoration: none; cursor: pointer; }
+    button { cursor: pointer; font-family: var(--font); }
+    ::selection { background: var(--accent); color: #fff; }
+    ::-webkit-scrollbar { width: 0; background: transparent; }
+
+    /* ==============================================================
+       CURSOR
+       ============================================================== */
+    .cursor {
+      position: fixed; z-index: 99999;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      transition: width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
+      will-change: left, top, width, height;
+    }
+    .cursor.contract { width: 6px; height: 6px; }
+    .cursor.clickable { width: 40px; height: 40px; background: rgba(235,89,57,0.3); }
+
+    /* ==============================================================
+       START SCREEN
+       ============================================================== */
+    .start-screen {
+      position: fixed; inset: 0; z-index: 10000;
+      background: var(--bg);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 60px;
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                  visibility 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .start-screen.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+    .start-logo {
+      width: 140px;
+      height: 140px;
+      position: relative;
+    }
+    .start-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .start-ring {
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 240px; height: 240px;
+      transform: translate(-50%, -50%);
+    }
+    .start-ring circle {
+      fill: none; stroke-width: 1;
+      cx: 80; cy: 80; r: 78;
+      transform: rotate(-90deg); transform-origin: center;
+    }
+    .start-ring .ring-bg { stroke: rgba(183,171,152,0.15); }
+    .start-ring .ring-fg {
+      stroke: var(--text);
+      stroke-dasharray: 490.09;
+      stroke-dashoffset: 490.09;
+      stroke-linecap: round;
+      transition: stroke-dashoffset 0.15s linear;
+    }
+    .start-btn {
+      padding: 14px 48px;
+      border: 1px solid var(--text); border-radius: 40px;
+      background: transparent; color: var(--text);
+      font-size: var(--label-sz); font-weight: 700;
+      letter-spacing: 5.833px; text-transform: uppercase;
+      text-indent: 5.833px;
+      transition: background 0.4s, color 0.4s, letter-spacing 0.4s, opacity 0.4s;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .start-btn.visible { opacity: 1; pointer-events: auto; }
+    .start-btn:hover { background: var(--text); color: var(--bg); letter-spacing: 10px; }
+
+    /* ==============================================================
+       LAYERS
+       ============================================================== */
+    .layers-wrapper { position: relative; }
+    .layer { width: 100%; }
+    .layer--front { position: relative; z-index: 1; }
+    .layer--honest {
+      position: absolute; top: 0; left: 0; width: 100%;
+      z-index: 2;
+      clip-path: circle(0px at -100px -100px);
+      pointer-events: none;
+    }
+
+    /* ==============================================================
+       FIXED UI
+       ============================================================== */
+    .logo-top-left {
+      position: fixed; top: 32px; left: 32px; z-index: 200;
+      width: 64px; height: 64px;
+    }
+    .logo-top-left svg { width: 100%; height: 100%; }
+
+    .nav-top-right {
+      position: fixed; top: 40px; right: 40px; z-index: 200;
+      display: flex; flex-direction: column; align-items: flex-end; gap: 6px;
+    }
+    .nav-top-right a {
+      font-family: var(--font-body);
+      font-size: 13.33px; font-weight: 700;
+      letter-spacing: 3px; text-transform: uppercase;
+      color: var(--muted); transition: color 0.3s;
+      position: relative; padding-bottom: 2px;
+    }
+    .nav-top-right a::after {
+      content: ''; position: absolute; bottom: 0; right: 0;
+      width: 0; height: 1px; background: var(--accent); transition: width 0.35s ease;
+    }
+    .nav-top-right a:hover::after, .nav-top-right a.active::after { width: 100%; }
+    .nav-top-right a:hover, .nav-top-right a.active { color: var(--text); }
+
+    .view-switch {
+      position: fixed; top: 130px; right: 40px; z-index: 200;
+      font-family: var(--font-body); font-size: 10px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--muted); transition: color 0.3s, opacity 0.3s;
+      opacity: 0.5; cursor: pointer;
+    }
+    .view-switch:hover { color: var(--accent); opacity: 1; }
+
+    .side-social {
+      position: fixed; left: 32px; bottom: 32px; z-index: 50;
+      display: flex; flex-direction: column; gap: 18px;
+      transition: opacity 0.4s, transform 0.4s;
+    }
+    .side-social.hidden { opacity: 0; pointer-events: none; transform: translateY(10px); }
+    .side-social a {
+      color: var(--text); opacity: 0.5;
+      transition: opacity 0.3s;
+      display: flex; align-items: center; justify-content: center;
+      width: 22px; height: 22px;
+    }
+    .side-social a:hover { opacity: 1; }
+    .side-social a svg { width: 20px; height: 20px; fill: currentColor; }
+
+
+    /* ==============================================================
+       SECTION LABEL
+       ============================================================== */
+    .section-label {
+      font-size: var(--label-sz); letter-spacing: 5.833px;
+      text-transform: uppercase; color: var(--text);
+      font-weight: 700; margin-bottom: 25px;
+    }
+
+    /* ==============================================================
+       HERO
+       ============================================================== */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; position: relative; overflow: hidden;
+      padding: 0 5vw;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 65% 45%, rgba(40,30,25,0.7) 0%, transparent 50%),
+        radial-gradient(ellipse at 30% 60%, rgba(30,25,35,0.5) 0%, transparent 40%),
+        var(--bg);
+      z-index: 0;
+    }
+    .hero-img {
+      position: absolute; inset: 0; z-index: 0;
+      background: url('https://images.unsplash.com/photo-1557682250-33bd709cbe85?w=1920&q=80') center/cover no-repeat;
+      opacity: 0.08;
+      filter: grayscale(100%) contrast(1.2);
+    }
+    .hero-content { position: relative; z-index: 1; }
+    .hero-name {
+      font-size: var(--hero-name-sz); letter-spacing: 6.667px;
+      text-transform: uppercase; color: var(--text);
+      margin-bottom: 25px; font-weight: 700;
+    }
+    .hero-title {
+      font-size: var(--title-sz);
+      font-weight: 700; line-height: 0.84;
+      text-transform: uppercase; letter-spacing: -0.05em;
+      color: var(--text);
+    }
+    .hero-title .accent { color: var(--accent); }
+
+    .line-wrap {
+      display: block; overflow: hidden;
+      padding-bottom: 0.06em;
+    }
+    .line-inner {
+      display: block;
+      transform: translateY(105%);
+      transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform;
+    }
+    .hero-title.revealed .line-inner { transform: translateY(0); }
+    .line-wrap:nth-child(1) .line-inner { transition-delay: 0.05s; }
+    .line-wrap:nth-child(2) .line-inner { transition-delay: 0.12s; }
+    .line-wrap:nth-child(3) .line-inner { transition-delay: 0.19s; }
+    .line-wrap:nth-child(4) .line-inner { transition-delay: 0.26s; }
+    .line-wrap:nth-child(5) .line-inner { transition-delay: 0.33s; }
+
+    /* ==============================================================
+       ABOUT
+       ============================================================== */
+    .about {
+      padding: 160px var(--inset) 60px var(--inset);
+    }
+    .about-text {
+      font-size: clamp(2rem, 4vw, 3.8rem);
+      line-height: 1.15; color: var(--text);
+      font-weight: 700; letter-spacing: -0.04em;
+    }
+    .about-text strong { color: var(--accent); font-weight: 700; }
+
+    /* ==============================================================
+       SKILLS
+       ============================================================== */
+    .skills { padding: 60px 0 0; position: relative; overflow: hidden; }
+    .skills-deco {
+      position: absolute; left: -100px; top: 0; transform: translateY(0);
+      width: clamp(150px, 18vw, 250px);
+      pointer-events: none; z-index: 2;
+      animation: skillsFloat 6s ease-in-out infinite;
+      filter: drop-shadow(0 20px 40px rgba(0,0,0,0.4));
+    }
+    @keyframes skillsFloat {
+      0%, 100% { transform: translateY(0) rotate(-5deg); }
+      50% { transform: translateY(-20px) rotate(0deg); }
+    }
+    .skills-deco-right {
+      position: absolute; right: -100px; bottom: 0; transform: translateY(0);
+      width: clamp(150px, 18vw, 250px);
+      pointer-events: none; z-index: 2;
+      animation: skillsFloatRight 6s ease-in-out infinite;
+      filter: drop-shadow(0 20px 40px rgba(0,0,0,0.4));
+    }
+    @keyframes skillsFloatRight {
+      0%, 100% { transform: translateY(0) rotate(5deg); }
+      50% { transform: translateY(-20px) rotate(0deg); }
+    }
+    .skills .section-label { padding-left: var(--inset); padding-right: var(--inset); }
+
+    .skill-row {
+      border-top: 1px solid var(--border);
+      padding: 4px var(--inset);
+      display: flex; align-items: center;
+      position: relative;
+    }
+    .skill-row::before {
+      content: ''; position: absolute; inset: 0; z-index: 0;
+      background: var(--accent);
+      clip-path: inset(50% 0);
+      transition: clip-path 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+    .skill-row:has(.skill-row-title:hover)::before { clip-path: inset(0); }
+    .skill-row:last-child { border-bottom: 1px solid var(--border); }
+    .skill-row-title {
+      font-size: var(--title-sz);
+      font-weight: 700; text-transform: uppercase;
+      color: var(--text); letter-spacing: -0.05em; line-height: 0.9;
+      transition: color 0.35s ease;
+      white-space: nowrap;
+      position: relative; z-index: 1;
+    }
+    .skill-row:has(.skill-row-title:hover) .skill-row-title { color: var(--bg); }
+    .skill-row-honest {
+      font-family: var(--font-body);
+      font-size: 0.85rem; color: var(--bg);
+      margin-left: auto; margin-right: -5vw; text-align: right; line-height: 1.5;
+      opacity: 0; transform: translateX(10px);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+      white-space: nowrap;
+      position: relative; z-index: 1;
+      pointer-events: none;
+    }
+    .skill-row:has(.skill-row-title:hover) .skill-row-honest { opacity: 1; transform: translateX(0); pointer-events: auto; }
+
+    /* ==============================================================
+       EXPERIENCE (intro)
+       ============================================================== */
+    .experience { padding: 180px var(--inset) 0; position: relative; }
+    .experience .section-label { padding-left: 0; padding-right: 0; }
+    .exp-intro {
+      font-size: clamp(2rem, 4vw, 3.8rem); font-weight: 700;
+      color: var(--text); letter-spacing: -0.04em;
+      line-height: 1.15;
+    }
+    .exp-intro strong { color: var(--accent); }
+
+    /* ==============================================================
+       HISTORY (timeline)
+       ============================================================== */
+    .history { padding: 120px 0 80px; position: relative; }
+    .history .section-label { padding-left: var(--inset); padding-right: var(--inset); }
+
+    .hist-row {
+      display: grid; grid-template-columns: 243px 1fr; gap: 0;
+      padding: 44px var(--inset);
+      border-top: 1px solid var(--border);
+      align-items: baseline; position: relative;
+    }
+    .hist-row:last-child { border-bottom: 1px solid var(--border); }
+    .hist-row::before {
+      content: ''; position: absolute; inset: 0; z-index: 0;
+      background: var(--accent);
+      clip-path: inset(50% 0);
+      transition: clip-path 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+    .hist-row:has(h3:hover, .company:hover)::before { clip-path: inset(0); }
+    .hist-year {
+      font-size: var(--mid-sz); font-weight: 700; color: var(--text);
+      letter-spacing: -1px; transition: color 0.35s ease;
+      position: relative; z-index: 1;
+    }
+    .hist-row:has(h3:hover, .company:hover) .hist-year { color: var(--bg); }
+    .hist-info { position: relative; z-index: 1; }
+    .hist-info h3 {
+      font-size: var(--mid-sz); font-weight: 700; color: var(--text);
+      letter-spacing: -1px; transition: color 0.35s ease;
+      width: fit-content;
+    }
+    .hist-row:has(h3:hover, .company:hover) .hist-info h3 { color: var(--bg); }
+    .hist-info .company {
+      font-family: var(--font-body);
+      font-size: 0.85rem; color: var(--muted); margin-top: 4px;
+      transition: color 0.35s ease;
+      width: fit-content;
+    }
+    .hist-row:has(h3:hover, .company:hover) .hist-info .company { color: rgba(13,13,13,0.5); }
+    .hist-honest { display: none; }
+    .hist-row:has(h3:hover, .company:hover) .hist-front { display: none; }
+    .hist-row:has(h3:hover, .company:hover) .hist-honest { display: block; color: var(--bg); }
+
+    /* ==============================================================
+       CLIENTS
+       ============================================================== */
+    .clients { padding: 80px 0 180px; position: relative; overflow: hidden; }
+    .clients .section-label { padding-left: var(--inset); padding-right: var(--inset); }
+    .clients-intro {
+      padding-left: var(--inset); padding-right: var(--inset);
+      font-size: clamp(2rem, 4vw, 3.8rem); font-weight: 700;
+      color: var(--text); letter-spacing: -0.04em;
+      line-height: 1.15;
+      margin-bottom: 150px;
+    }
+    .clients-intro strong { color: var(--accent); }
+    .clients-list { position: relative; z-index: 1; }
+
+    .client-name-row {
+      border-top: 1px solid var(--border);
+      padding: 4px var(--inset);
+      display: flex; align-items: center;
+      position: relative;
+    }
+    .client-name-row::before {
+      content: ''; position: absolute; inset: 0; z-index: 0;
+      background: var(--accent);
+      clip-path: inset(50% 0);
+      transition: clip-path 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+    .client-name-row:has(.client-name:hover)::before { clip-path: inset(0); }
+    .client-name-row:last-child { border-bottom: 1px solid var(--border); }
+    .client-name {
+      font-size: var(--title-sz);
+      font-weight: 700; text-transform: uppercase;
+      color: var(--text); letter-spacing: -0.05em; line-height: 0.9;
+      transition: color 0.35s ease;
+      white-space: nowrap;
+      position: relative; z-index: 1;
+    }
+    .client-name-row:has(.client-name:hover) .client-name { color: var(--bg); }
+    .client-honest {
+      font-family: var(--font-body);
+      font-size: 0.85rem; color: var(--bg);
+      margin-left: auto; margin-right: -5vw; text-align: right; line-height: 1.5;
+      opacity: 0; transform: translateX(10px);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+      white-space: nowrap;
+      position: relative; z-index: 1;
+      pointer-events: none;
+    }
+    .client-name-row:has(.client-name:hover) .client-honest { opacity: 1; transform: translateX(0); pointer-events: auto; }
+
+    /* Three.js Globe */
+    .globe-canvas {
+      position: absolute; right: -5%; top: 50%; transform: translateY(-50%);
+      width: 55%; max-width: 700px;
+      pointer-events: none; z-index: 0;
+    }
+
+    /* ==============================================================
+       TESTIMONIALS
+       ============================================================== */
+    .testimonials { padding: 134px 0; }
+    .testimonials .section-label { padding-left: var(--inset); padding-right: var(--inset); }
+    .testimonials-body {
+      display: grid; grid-template-columns: 1fr auto;
+      align-items: start;
+    }
+    .testimonials-list { min-width: 0; }
+    .testimonial-item {
+      padding: 32px var(--inset) 32px var(--inset);
+      position: relative;
+      transition: background 0.35s ease;
+    }
+    .testimonial-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: var(--inset);
+      right: var(--inset);
+      height: 1px;
+      background: var(--border);
+    }
+    .testimonial-item:last-child::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: var(--inset);
+      right: var(--inset);
+      height: 1px;
+      background: var(--border);
+    }
+    .testimonial-item:hover { background: rgba(235,89,57,0.04); }
+    .tq-mark { font-size: 2.5rem; color: var(--accent); line-height: 1; margin-bottom: 16px; display: block; }
+    .tq-text {
+      font-size: clamp(1rem, 1.6vw, 1.4rem); line-height: 1.7; color: var(--text);
+      font-weight: 700; margin-bottom: 29px;
+      letter-spacing: 5.833px; text-transform: uppercase;
+    }
+    .tq-text strong { color: #D9D2C7; }
+    .tq-credit {
+      font-size: var(--label-sz); color: var(--muted);
+      letter-spacing: 5.833px; text-transform: uppercase; font-weight: 700;
+    }
+    .tq-credit strong { color: var(--text); font-weight: 700; }
+
+    .testimonials-thumbs {
+      display: flex; flex-direction: column;
+      align-items: center; gap: 24px;
+      padding: 32px var(--inset) 32px 40px;
+      position: sticky;
+      top: 200px;
+      align-self: start;
+    }
+    .thumb-circle {
+      width: 79px; height: 79px; border-radius: 50%;
+      overflow: hidden; flex-shrink: 0;
+      filter: grayscale(100%);
+      transition: filter 0.4s ease;
+    }
+    .thumb-circle:hover { filter: grayscale(0%); }
+    .thumb-circle img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .thumb-circle.tq-active {
+      filter: grayscale(0%);
+      outline: 2px solid var(--accent);
+      outline-offset: 4px;
+    }
+
+    /* ==============================================================
+       MOTTO
+       ============================================================== */
+    .motto {
+      padding: clamp(100px, 11.6vw, 167px) var(--inset);
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .motto-bg {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 60%, rgba(30,25,22,0.5) 0%, var(--bg) 70%);
+      z-index: 0;
+    }
+    .motto-content { position: relative; z-index: 1; }
+    .motto .section-label { text-align: center; }
+    .motto-text {
+      font-size: var(--title-sz);
+      font-weight: 700; text-transform: uppercase;
+      line-height: 0.84; letter-spacing: -0.05em; color: var(--text);
+    }
+    .motto-author { margin-top: 20px; font-size: 0.85rem; color: var(--muted); font-style: italic; }
+
+    /* ==============================================================
+       CONNECT
+       ============================================================== */
+    .connect { padding: 100px 0 120px 0; }
+    .connect .section-label { margin-bottom: 30px; padding-left: var(--inset); padding-right: var(--inset); }
+    .connect-grid { display: flex; flex-direction: column; }
+    .connect-col { display: flex; flex-direction: column; gap: 6px; }
+    .connect-col a {
+      font-size: var(--mid-sz); font-weight: 700; color: var(--text);
+      letter-spacing: -1px;
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 6px 12px; margin-left: -12px;
+      position: relative; overflow: hidden;
+      transition: color 0.35s;
+    }
+    .connect-col a::before {
+      content: ''; position: absolute; inset: 0;
+      background: var(--accent);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: -1; border-radius: 2px;
+    }
+    .connect-col a:hover::before { transform: scaleX(1); }
+    .connect-col a:hover { color: var(--bg); }
+    .connect-honest { display: none; }
+    .connect-col a:hover .connect-front { display: none; }
+    .connect-col a:hover .connect-honest { display: inline; }
+    .contact-item {
+      position: relative; overflow: hidden;
+      border-top: 1px solid var(--border);
+    }
+    .contact-item:last-child { border-bottom: 1px solid var(--border); }
+    .contact-item .ci-link {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px var(--inset);
+      text-decoration: none; color: inherit;
+      position: relative; z-index: 1;
+    }
+    .contact-item::before {
+      content: ''; position: absolute; inset: 0;
+      background: var(--accent);
+      clip-path: inset(50% 0);
+      transition: clip-path 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+      z-index: 0;
+    }
+    .contact-item:hover::before { clip-path: inset(0); }
+    .contact-item .connect-honest { display: none; }
+    .contact-item:hover .connect-front { display: none; }
+    .contact-item:hover .connect-honest { display: block; }
+    .contact-item:hover .c-label { text-transform: none; color: #0D0D0D; font-family: var(--font-body); font-size: 0.85rem; letter-spacing: normal; font-weight: normal; }
+    .contact-item:hover .c-val { color: var(--bg); }
+
+    .c-label {
+      font-size: var(--label-sz); letter-spacing: 4px; text-transform: uppercase;
+      color: var(--muted); font-weight: 700;
+    }
+    .c-val {
+      font-family: var(--font-body);
+      font-size: 0.85rem; color: var(--text); transition: color 0.3s;
+      margin-top: 4px;
+    }
+    .copy-toast {
+      position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%) translateY(20px);
+      background: var(--accent); color: var(--bg);
+      font-family: var(--font-body); font-size: 0.85rem; font-weight: 700;
+      padding: 12px 28px; border-radius: 6px;
+      opacity: 0; pointer-events: none; z-index: 9999;
+      transition: opacity 0.3s, transform 0.3s;
+      letter-spacing: 1px;
+    }
+    .copy-toast.show {
+      opacity: 1; transform: translateX(-50%) translateY(0);
+    }
+
+    /* ==============================================================
+       FOOTER
+       ============================================================== */
+    .footer {
+      padding: 40px var(--inset);
+      border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+      position: relative; overflow: hidden;
+    }
+    .footer::before {
+      content: ''; position: absolute; inset: 0;
+      background: var(--accent);
+      clip-path: inset(50% 0);
+      transition: clip-path 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+      z-index: 0;
+    }
+    .footer:hover::before { clip-path: inset(0); }
+    .footer .connect-honest { display: none; }
+    .footer:hover .connect-front { display: none; }
+    .footer:hover .connect-honest { display: inline; }
+    .footer-left, .footer-right { position: relative; z-index: 1; }
+    .footer:hover .footer-left, .footer:hover .footer-right { color: var(--bg); }
+    .footer-left {
+      font-size: var(--label-sz); letter-spacing: 2px; color: #444;
+      font-weight: 700; text-transform: uppercase; transition: color 0.35s;
+    }
+    .footer-right {
+      font-family: var(--font-body);
+      font-size: 0.75rem; color: #444; transition: color 0.35s;
+    }
+
+    /* ==============================================================
+       HONEST LAYER OVERRIDES
+       ============================================================== */
+    .layer--honest { background: var(--honest-bg); }
+    .layer--honest .hero { background: var(--honest-bg); }
+    .layer--honest .hero-bg { background: var(--honest-bg); }
+    .layer--honest .hero-img { display: none; }
+    .layer--honest .hero-title { color: var(--honest-text); }
+    .layer--honest .hero-title .accent { color: var(--honest-dark); }
+    .layer--honest .hero-name { color: var(--honest-muted); }
+
+    .layer--honest .about { background: var(--honest-bg); }
+    .layer--honest .about-text { color: var(--honest-text); }
+    .layer--honest .about-text strong { color: var(--honest-dark); }
+    .layer--honest .section-label { color: var(--honest-muted); }
+
+    .layer--honest .skills { background: var(--honest-bg); }
+    .layer--honest .skills-deco, .layer--honest .skills-deco-right { display: none; }
+    .layer--honest .skill-row { border-top-color: rgba(92,69,60,0.2); }
+    .layer--honest .skill-row:last-child { border-bottom-color: rgba(92,69,60,0.2); }
+    .layer--honest .skill-row:has(.skill-row-title:hover) { background: rgba(0,0,0,0.08); }
+    .layer--honest .skill-row-title { color: var(--honest-text); }
+    .layer--honest .skill-row:has(.skill-row-title:hover) .skill-row-title { color: var(--honest-dark); }
+
+    .layer--honest .experience { background: var(--honest-bg); }
+    .layer--honest .history { background: var(--honest-bg); }
+    .layer--honest .hist-row { border-top-color: rgba(92,69,60,0.2); }
+    .layer--honest .hist-row:last-child { border-bottom-color: rgba(92,69,60,0.2); }
+    .layer--honest .hist-row:has(h3:hover, .company:hover) { background: rgba(0,0,0,0.08); }
+    .layer--honest .hist-year { color: var(--honest-muted); }
+    .layer--honest .hist-row:has(h3:hover, .company:hover) .hist-year { color: var(--honest-dark); }
+    .layer--honest .hist-info h3 { color: var(--honest-text); }
+    .layer--honest .hist-row:has(h3:hover, .company:hover) .hist-info h3 { color: var(--honest-dark); }
+    .layer--honest .hist-info .company { color: var(--honest-muted); }
+    .layer--honest .exp-intro { color: var(--honest-text); }
+    .layer--honest .exp-intro strong { color: var(--honest-dark); }
+
+    .layer--honest .clients { background: var(--honest-bg); }
+    .layer--honest .clients-intro { color: var(--honest-text); }
+    .layer--honest .clients-intro strong { color: var(--honest-dark); }
+    .layer--honest .globe-canvas { display: none; }
+    .layer--honest .client-name-row { border-top-color: rgba(92,69,60,0.2); }
+    .layer--honest .client-name-row:last-child { border-bottom-color: rgba(92,69,60,0.2); }
+    .layer--honest .client-name-row:has(.client-name:hover) { background: rgba(0,0,0,0.08); }
+    .layer--honest .client-name { color: var(--honest-text); }
+    .layer--honest .client-name-row:has(.client-name:hover) .client-name { color: var(--honest-dark); }
+
+
+    .layer--honest .testimonials { background: var(--honest-bg); }
+    .layer--honest .testimonial-item::before { background: rgba(92,69,60,0.2); }
+    .layer--honest .testimonial-item:last-child::after { background: rgba(92,69,60,0.2); }
+    .layer--honest .testimonial-item:hover { background: rgba(0,0,0,0.05); }
+    .layer--honest .tq-mark { color: var(--honest-dark); }
+    .layer--honest .tq-text { color: var(--honest-text); }
+    .layer--honest .tq-text strong { color: var(--honest-dark); }
+    .layer--honest .tq-credit { color: var(--honest-muted); }
+    .layer--honest .tq-credit strong { color: var(--honest-text); }
+    .layer--honest .thumb-circle.tq-active { outline-color: var(--honest-dark); filter: grayscale(0%); }
+
+    .layer--honest .motto { background: var(--honest-bg); }
+    .layer--honest .motto-bg { background: transparent; }
+    .layer--honest .motto-text { color: var(--honest-text); }
+    .layer--honest .motto-author { color: var(--honest-muted); }
+
+    .layer--honest .connect { background: var(--honest-bg); }
+    .layer--honest .contact-item { border-top-color: rgba(92,69,60,0.2); }
+    .layer--honest .contact-item:last-child { border-bottom-color: rgba(92,69,60,0.2); }
+    .layer--honest .c-label { color: var(--honest-muted); }
+    .layer--honest .c-val { color: var(--honest-text); }
+
+    .layer--honest .footer { background: var(--honest-bg); border-top-color: rgba(92,69,60,0.2); }
+    .layer--honest .footer-left, .layer--honest .footer-right { color: var(--honest-muted); }
+
+    .layer--honest .anim { opacity: 1 !important; }
+
+    /* ==============================================================
+       SCROLL ANIMATIONS
+       ============================================================== */
+    .anim {
+      opacity: 0; transform: translateY(40px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+    .anim.visible { opacity: 1; transform: translateY(0); }
+    .anim-d1 { transition-delay: 0.08s; }
+    .anim-d2 { transition-delay: 0.16s; }
+    .anim-d3 { transition-delay: 0.24s; }
+    .anim-d4 { transition-delay: 0.32s; }
+    .anim-d5 { transition-delay: 0.4s; }
+    .anim-d6 { transition-delay: 0.48s; }
+
+    [data-parallax] { will-change: transform; }
+
+    /* ==============================================================
+       SCROLL PARAGRAPH MASK — per-line left-to-right reveal
+       ============================================================== */
+    .spm-container { position: relative; }
+    .spm-bg-layer { opacity: 0.08 !important; }
+    .spm-fg-layer {
+      position: absolute; top: 0; left: 0; right: 0;
+      pointer-events: none;
+      clip-path: polygon(0 0, 0 0, 0 0, 0 0);
+    }
+
+    /* ==============================================================
+       RESPONSIVE
+       ============================================================== */
+    @media (max-width: 768px) {
+      :root { --inset: 24px; }
+      .hero { padding: 0 24px; }
+      .about { padding: 80px 24px !important; }
+      .hist-row { grid-template-columns: 80px 1fr; gap: 16px; }
+      .skill-row, .client-name-row { height: auto; padding-top: 16px; padding-bottom: 16px; }
+      .skills-deco, .skills-deco-right { display: none; }
+      .testimonials-thumbs { display: none; }
+      .globe-canvas { display: none; }
+      .connect-grid { flex-direction: column; }
+      .side-social { left: 12px; bottom: 12px; }
+      .nav-top-right { top: 20px; right: 20px; }
+      .view-switch { top: 100px; right: 20px; }
+      .logo-top-left { top: 20px; left: 20px; width: 40px; height: 40px; }
+      .footer { flex-direction: column; gap: 8px; text-align: center; }
+      body, a, button { cursor: auto; }
+      .cursor { display: none; }
+    }
+    @media (pointer: coarse) {
+      body, a, button { cursor: auto; }
+      .cursor { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="copy-toast" id="copyToast">Copied to clipboard</div>
+
+<!-- START SCREEN -->
+<div class="start-screen" id="startScreen">
+  <div class="start-logo">
+    <img src="assets/robot.png" alt="Robot" />
+    <svg class="start-ring" viewBox="0 0 160 160">
+      <circle class="ring-bg" cx="80" cy="80" r="78" />
+      <circle class="ring-fg" id="ringFg" cx="80" cy="80" r="78" />
+    </svg>
+  </div>
+  <button class="start-btn" id="startBtn" style="opacity:0;pointer-events:none">START</button>
+</div>
+
+<!-- FIXED UI -->
+<a href="/" class="logo-top-left" data-cursor="clickable" onclick="location.reload();return false;">
+  <img src="assets/robot.png" alt="Logo" style="width:100%;height:100%;object-fit:contain;" />
+</a>
+<nav class="nav-top-right" data-cursor="contract">
+  <a href="#about">ABOUT</a>
+  <a href="#experience">WORK</a>
+  <a href="#connect">CONTACT</a>
+</nav>
+<a href="/lux/" class="view-switch" data-cursor="clickable">LUX VIEW &rarr;</a>
+<div class="side-social" data-cursor="contract">
+  <a href="mailto:sahiranjum2702@gmail.com" title="Gmail" class="side-social-link"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></a>
+  <a href="https://www.linkedin.com/in/sahir-anjum" target="_blank" title="LinkedIn" class="side-social-link"><svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg></a>
+  <a href="tel:+917275405244" title="Phone" class="side-social-link"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></a>
+  <a href="https://www.instagram.com/_.humblegod._" target="_blank" title="Instagram" class="side-social-link"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor"/></svg></a>
+</div>
+
+<!-- ===================== LAYERS ===================== -->
+<div class="layers-wrapper">
+
+<!-- ========== FRONT LAYER ========== -->
+<div class="layer layer--front">
+
+  <section class="hero" id="hero">
+    <div class="hero-bg" data-parallax="-0.15"></div>
+    <div class="hero-img"></div>
+    <div class="hero-content" data-cursor="extend">
+      <div class="hero-name anim">MINH PHAM</div>
+      <h1 class="hero-title" id="heroTitle">
+        <span class="line-wrap"><span class="line-inner">MAKING</span></span>
+        <span class="line-wrap"><span class="line-inner"><span class="accent">GOOD</span></span></span>
+        <span class="line-wrap"><span class="line-inner"><span class="accent">SHIT</span></span></span>
+        <span class="line-wrap"><span class="line-inner">SINCE</span></span>
+        <span class="line-wrap"><span class="line-inner">2009</span></span>
+      </h1>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <div class="section-label anim">ABOUT ME</div>
+    <p class="about-text spm-masked" id="aboutText" data-cursor="extend">I'm a <strong>selectively skilled</strong> product designer with strong focus on producing high quality &amp; impactful digital experience.</p>
+  </section>
+
+  <section class="skills" id="skills">
+    <img src="assets/images/coffee-cup.png" alt="" class="skills-deco" />
+    <img src="assets/images/headphones.png" alt="" class="skills-deco-right" />
+    <div class="section-label anim">WHAT I DO</div>
+    <div class="skill-row anim"><div class="skill-row-title spm-masked">3D</div><div class="skill-row-honest"></div></div>
+    <div class="skill-row anim anim-d1"><div class="skill-row-title spm-masked">VISUAL</div><div class="skill-row-honest"></div></div>
+    <div class="skill-row anim anim-d2"><div class="skill-row-title spm-masked">MOTION</div><div class="skill-row-honest"></div></div>
+    <div class="skill-row anim anim-d3"><div class="skill-row-title spm-masked">PRODUCT</div><div class="skill-row-honest"></div></div>
+    <div class="skill-row anim anim-d4"><div class="skill-row-title spm-masked">TUTORIAL</div><div class="skill-row-honest"></div></div>
+    <div class="skill-row anim anim-d5"><div class="skill-row-title spm-masked">NEXT UP</div><div class="skill-row-honest"></div></div>
+  </section>
+
+  <section class="experience" id="experience">
+    <div class="section-label anim">EXPERIENCE</div>
+    <p class="exp-intro anim anim-d1 spm-masked" data-cursor="extend">Over a decade of experience in interactive design and working with some of the most <strong>talented</strong> people in the business.</p>
+  </section>
+
+  <section class="history" id="history" data-cursor="contract">
+    <div class="section-label anim">HISTORY</div>
+    <div class="hist-row anim"><div class="hist-year">NOW</div><div class="hist-info"><h3 class="hist-front">Design Lead</h3><h3 class="hist-honest">Self-lead Designer</h3><div class="company">Fantasy Interactive</div></div></div>
+    <div class="hist-row anim anim-d1"><div class="hist-year">2016</div><div class="hist-info"><h3 class="hist-front">Senior Product Designer</h3><h3 class="hist-honest">Regular Web Designer</h3><div class="company">Interactive Labs</div></div></div>
+    <div class="hist-row anim anim-d2"><div class="hist-year">2012</div><div class="hist-info"><h3 class="hist-front">Art Director</h3><h3 class="hist-honest">Photoshop Doodler</h3><div class="company">DR Com Group</div></div></div>
+    <div class="hist-row anim anim-d3"><div class="hist-year">2009</div><div class="hist-info"><h3 class="hist-front">Flash Designer</h3><h3 class="hist-honest">Jurassic Designer</h3><div class="company">DR Com Group</div></div></div>
+  </section>
+
+  <section class="clients" id="clients">
+    <div class="section-label anim">CLIENTS</div>
+    <p class="clients-intro anim anim-d1 spm-masked" data-cursor="extend">I worked with some of the most <strong>innovative</strong> industry leaders to help build their top-notch products.</p>
+    <canvas class="globe-canvas" id="globeCanvas"></canvas>
+    <div class="clients-list">
+      <div class="client-name-row anim"><div class="client-name spm-masked">FORD</div><div class="client-honest"></div></div>
+      <div class="client-name-row anim anim-d1"><div class="client-name spm-masked">UFC</div><div class="client-honest"></div></div>
+      <div class="client-name-row anim anim-d2"><div class="client-name spm-masked">LINCOLN</div><div class="client-honest"></div></div>
+    </div>
+  </section>
+
+  <section class="testimonials" id="testimonials">
+    <div class="section-label anim">WHAT THEY SAID</div>
+    <div class="testimonials-body">
+      <div class="testimonials-list">
+        <div class="testimonial-item anim">
+          <span class="tq-mark">&ldquo;</span>
+          <p class="tq-text" data-cursor="extend">Minh is <strong>seriously</strong> the best and he <strong>never</strong> complains</p>
+          <div class="tq-credit"><strong>Michael Glass</strong> &mdash; GROUP DESIGN DIRECTOR, FANTASY INTERACTIVE</div>
+        </div>
+        <div class="testimonial-item anim anim-d1">
+          <span class="tq-mark">&ldquo;</span>
+          <p class="tq-text" data-cursor="extend">This looks <strong>amazing</strong>. <strong>Great work!</strong></p>
+          <div class="tq-credit"><strong>Peter Smart</strong> &mdash; HEAD OF PRODUCT, FANTASY INTERACTIVE</div>
+        </div>
+        <div class="testimonial-item anim anim-d2">
+          <span class="tq-mark">&ldquo;</span>
+          <p class="tq-text" data-cursor="extend">He's a <strong>beast</strong>. His skills are <strong>insane!</strong></p>
+          <div class="tq-credit"><strong>Linh Le</strong> &mdash; PROJECT MANAGER, INTERACTIVE LABS</div>
+        </div>
+      </div>
+      <div class="testimonials-thumbs anim">
+        <div class="thumb-circle"><img src="assets/images/tarun.png" alt="Tarun" /></div>
+        <div class="thumb-circle"><img src="assets/images/vivek.png" alt="Vivek" /></div>
+        <div class="thumb-circle"><img src="assets/images/shreya.png" alt="Shreya" /></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="motto" id="motto">
+    <div class="motto-bg" data-parallax="-0.1"></div>
+    <div class="motto-content" data-cursor="extend">
+      <div class="section-label anim">MY MOTTO</div>
+      <div class="motto-text anim anim-d1">GOOD DESIGN<br/>IS HONEST</div>
+      <div class="motto-author anim anim-d2">Dieter Rams</div>
+    </div>
+  </section>
+
+  <section class="connect" id="connect">
+    <div class="section-label anim">CONNECT</div>
+    <div class="connect-grid anim anim-d1">
+      <div class="contact-item"></div>
+      <div class="contact-item"></div>
+      <div class="contact-item"></div>
+      <div class="contact-item"></div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-left"><span class="connect-front">&copy; 2024 MINH PHAM</span><span class="connect-honest">&copy; 2024 MINH PHAM</span></div>
+    <div class="footer-right"><span class="connect-front">Designed with passion</span><span class="connect-honest">Designed with passion</span></div>
+  </footer>
+
+</div><!-- /layer--front -->
+
+<!-- ========== HONEST LAYER ========== -->
+<div class="layer layer--honest" id="honestLayer">
+
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content" data-cursor="extend">
+      <div class="hero-name anim">MINH PHAM</div>
+      <h1 class="hero-title" id="honestHeroTitle">
+        <span class="line-wrap"><span class="line-inner">HIDING</span></span>
+        <span class="line-wrap"><span class="line-inner"><span class="accent">BAD</span></span></span>
+        <span class="line-wrap"><span class="line-inner"><span class="accent">SHIT</span></span></span>
+        <span class="line-wrap"><span class="line-inner">SINCE</span></span>
+        <span class="line-wrap"><span class="line-inner">2009</span></span>
+      </h1>
+    </div>
+  </section>
+
+  <section class="about">
+    <div class="section-label anim">ABOUT ME</div>
+    <p class="about-text" data-cursor="extend">A <strong>visual designer</strong> &mdash; with skills that haven't been replaced by A.I (yet) &mdash; making good shit only if the paycheck is equally good.</p>
+  </section>
+
+  <section class="skills">
+    <div class="section-label anim">WHAT I DO</div>
+    <div class="skill-row anim"><div class="skill-row-title">3D</div><div class="skill-row-desc">I can produce anything that my 16" laptop can render</div></div>
+    <div class="skill-row anim anim-d1"><div class="skill-row-title">VISUAL</div><div class="skill-row-desc">I search the internet for references and combine them</div></div>
+    <div class="skill-row anim anim-d2"><div class="skill-row-title">MOTION</div><div class="skill-row-desc">Fancy motion that makes design more interesting than it is</div></div>
+    <div class="skill-row anim anim-d3"><div class="skill-row-title">PRODUCT</div><div class="skill-row-desc">Test and re-iterate until it works (hopefully)</div></div>
+    <div class="skill-row anim anim-d4"><div class="skill-row-title">TUTORIAL</div><div class="skill-row-desc">Thought I'd make millions from Youtube but I didn't</div></div>
+    <div class="skill-row anim anim-d5"><div class="skill-row-title">NEXT UP</div><div class="skill-row-desc"></div></div>
+  </section>
+
+  <section class="experience">
+    <div class="section-label anim">EXPERIENCE</div>
+    <p class="exp-intro anim anim-d1" data-cursor="extend">Only seven years of actively producing cool shit. Other years were me messing around and navigating through my career.</p>
+  </section>
+
+  <section class="history" data-cursor="contract">
+    <div class="section-label anim">HISTORY</div>
+    <div class="hist-row anim"><div class="hist-year">NOW</div><div class="hist-info"><h3>Self-lead Designer</h3><div class="company">Fantasy Interactive</div></div></div>
+    <div class="hist-row anim anim-d1"><div class="hist-year">2016</div><div class="hist-info"><h3>Regular Web Designer</h3><div class="company">Interactive Labs</div></div></div>
+    <div class="hist-row anim anim-d2"><div class="hist-year">2012</div><div class="hist-info"><h3>Photoshop Doodler</h3><div class="company">DR Com Group</div></div></div>
+    <div class="hist-row anim anim-d3"><div class="hist-year">2009</div><div class="hist-info"><h3>Jurassic Designer</h3><div class="company">DR Com Group</div></div></div>
+  </section>
+
+  <section class="clients">
+    <div class="section-label anim">CLIENTS</div>
+    <p class="clients-intro anim anim-d1" data-cursor="extend">I was only a small part of a large team. They probably have no idea I exist.</p>
+    <div class="clients-list">
+      <div class="client-name-row anim"><div class="client-name">FORD</div><div class="client-desc">Without no driving experience</div></div>
+      <div class="client-name-row anim anim-d1"><div class="client-name">UFC</div><div class="client-desc">Despite not being a sports fan</div></div>
+      <div class="client-name-row anim anim-d2"><div class="client-name">LINCOLN</div><div class="client-desc">Never seen it in real life</div></div>
+    </div>
+  </section>
+
+  <section class="testimonials">
+    <div class="section-label anim">WHAT THEY SAID</div>
+    <div class="testimonials-body">
+      <div class="testimonials-list">
+        <div class="testimonial-item anim">
+          <span class="tq-mark">&ldquo;</span>
+          <p class="tq-text" data-cursor="extend">He's <strong>terrible</strong>, but it's his birthday so I'd say something <strong>nice</strong></p>
+          <div class="tq-credit"><strong>Michael Glass</strong> &mdash; GROUP DESIGN DIRECTOR, FANTASY INTERACTIVE</div>
+        </div>
+        <div class="testimonial-item anim anim-d1">
+          <span class="tq-mark">&ldquo;</span>
+          <p class="tq-text" data-cursor="extend">After <strong>countless</strong> rounds of feedback, you <strong>finally</strong> did it right</p>
+          <div class="tq-credit"><strong>Peter Smart</strong> &mdash; HEAD OF PRODUCT, FANTASY INTERACTIVE</div>
+        </div>
+        <div class="testimonial-item anim anim-d2">
+          <span class="tq-mark">&ldquo;</span>
+          <p class="tq-text" data-cursor="extend">I'm his <strong>wife</strong>, he made me <strong>say that</strong></p>
+          <div class="tq-credit"><strong>Linh Le</strong> &mdash; PROJECT MANAGER, INTERACTIVE LABS</div>
+        </div>
+      </div>
+      <div class="testimonials-thumbs anim">
+        <div class="thumb-circle"><img src="assets/images/tarun.png" alt="Tarun" /></div>
+        <div class="thumb-circle"><img src="assets/images/vivek.png" alt="Vivek" /></div>
+        <div class="thumb-circle"><img src="assets/images/shreya.png" alt="Shreya" /></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="motto">
+    <div class="motto-bg"></div>
+    <div class="motto-content" data-cursor="extend">
+      <div class="section-label anim">MY MOTTO</div>
+      <div class="motto-text anim anim-d1">NOT ALL<br/>HONEST DESIGN<br/>IS GOOD</div>
+      <div class="motto-author anim anim-d2">Minh Pham</div>
+    </div>
+  </section>
+
+  <section class="connect">
+    <div class="section-label anim">CONNECT</div>
+    <div class="connect-grid anim anim-d1">
+      <div class="contact-item-honest"></div>
+      <div class="contact-item-honest"></div>
+      <div class="contact-item-honest"></div>
+      <div class="contact-item-honest"></div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-left">&copy; 2024 MINH PHAM</div>
+    <div class="footer-right">Built with questionable decisions</div>
+  </footer>
+
+</div><!-- /layer--honest -->
+
+</div><!-- /layers-wrapper -->
+
+<!-- ==================== EXTERNAL SCRIPTS ==================== -->
+<script src="content.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.137.0/build/three.min.js"></script>
+
+<!-- ==================== APPLICATION SCRIPT ==================== -->
+<script>
+(function() {
+  'use strict';
+
+  /* ============================================================
+     0. POPULATE CONTENT FROM content.js
+     ============================================================ */
+  (function populateContent() {
+    var C = window.CONTENT;
+    if (!C) return;
+
+    var frontLayer = document.querySelector('.layer--front');
+    var honestLayer = document.querySelector('.layer--honest');
+
+    // Hero
+    frontLayer.querySelectorAll('.hero-name').forEach(function(el) { el.textContent = C.heroName; });
+    honestLayer.querySelectorAll('.hero-name').forEach(function(el) { el.textContent = C.heroName; });
+
+    function buildHeroLines(container, lines, accentLines) {
+      var title = container.querySelector('.hero-title');
+      if (!title) return;
+      var id = title.id;
+      title.innerHTML = '';
+      lines.forEach(function(line, i) {
+        var wrap = document.createElement('span');
+        wrap.className = 'line-wrap';
+        var inner = document.createElement('span');
+        inner.className = 'line-inner';
+        if (accentLines.indexOf(i) >= 0) {
+          var accent = document.createElement('span');
+          accent.className = 'accent';
+          accent.textContent = line;
+          inner.appendChild(accent);
+        } else {
+          inner.textContent = line;
+        }
+        wrap.appendChild(inner);
+        title.appendChild(wrap);
+      });
+      if (id) title.id = id;
+    }
+    buildHeroLines(frontLayer, C.heroLines, C.heroAccentLines);
+    buildHeroLines(honestLayer, C.honestHeroLines, C.honestHeroAccentLines);
+
+    // About
+    frontLayer.querySelector('.about-text').innerHTML = C.about;
+    frontLayer.querySelector('.about-text').classList.add('spm-masked');
+    honestLayer.querySelector('.about-text').innerHTML = C.honestAbout;
+
+    // Skills
+    var frontSkillTitles = frontLayer.querySelectorAll('.skill-row-title');
+    var frontSkillHonest = frontLayer.querySelectorAll('.skill-row-honest');
+    var honestSkillTitles = honestLayer.querySelectorAll('.skill-row-title');
+    var honestSkillDescs = honestLayer.querySelectorAll('.skill-row-desc');
+    C.skills.forEach(function(s, i) {
+      if (frontSkillTitles[i]) frontSkillTitles[i].textContent = s.title;
+      if (frontSkillHonest[i]) frontSkillHonest[i].textContent = s.honestDesc;
+      if (honestSkillTitles[i]) honestSkillTitles[i].textContent = s.title;
+      if (honestSkillDescs[i]) honestSkillDescs[i].textContent = s.honestDesc;
+    });
+
+    // Experience intro
+    frontLayer.querySelector('.exp-intro').innerHTML = C.expIntro;
+    honestLayer.querySelector('.exp-intro').innerHTML = C.honestExpIntro;
+
+    // History
+    var frontHistRows = frontLayer.querySelectorAll('.hist-row');
+    var honestHistRows = honestLayer.querySelectorAll('.hist-row');
+    C.history.forEach(function(h, i) {
+      if (frontHistRows[i]) {
+        frontHistRows[i].querySelector('.hist-year').textContent = h.year;
+        frontHistRows[i].querySelector('.hist-front').textContent = h.title;
+        frontHistRows[i].querySelector('.hist-honest').textContent = h.honestTitle;
+        frontHistRows[i].querySelector('.company').textContent = h.company;
+      }
+      if (honestHistRows[i]) {
+        honestHistRows[i].querySelector('.hist-year').textContent = h.year;
+        honestHistRows[i].querySelector('h3').textContent = h.honestTitle;
+        honestHistRows[i].querySelector('.company').textContent = h.company;
+      }
+    });
+
+    // Clients intro
+    frontLayer.querySelector('.clients-intro').innerHTML = C.clientsIntro;
+    frontLayer.querySelector('.clients-intro').classList.add('spm-masked');
+    honestLayer.querySelector('.clients-intro').innerHTML = C.honestClientsIntro;
+
+    // Client names
+    var frontClientRows = frontLayer.querySelectorAll('.client-name-row');
+    var honestClientRows = honestLayer.querySelectorAll('.client-name-row');
+    C.clients.forEach(function(c, i) {
+      if (frontClientRows[i]) {
+        frontClientRows[i].querySelector('.client-name').textContent = c.name;
+        var ch = frontClientRows[i].querySelector('.client-honest');
+        if (ch) ch.textContent = c.honestDesc;
+      }
+      if (honestClientRows[i]) {
+        honestClientRows[i].querySelector('.client-name').textContent = c.name;
+        var hd = honestClientRows[i].querySelector('.client-desc');
+        if (hd) hd.textContent = c.honestDesc;
+      }
+    });
+
+    // Testimonials
+    var frontTItems = frontLayer.querySelectorAll('.testimonial-item');
+    var honestTItems = honestLayer.querySelectorAll('.testimonial-item');
+    C.testimonials.forEach(function(t, i) {
+      if (frontTItems[i]) {
+        frontTItems[i].querySelector('.tq-text').innerHTML = t.text;
+        frontTItems[i].querySelector('.tq-credit').innerHTML = '<strong>' + t.name + '</strong> &mdash; ' + t.role;
+      }
+      if (honestTItems[i]) {
+        honestTItems[i].querySelector('.tq-text').innerHTML = t.honestText;
+        honestTItems[i].querySelector('.tq-credit').innerHTML = '<strong>' + t.name + '</strong> &mdash; ' + t.role;
+      }
+    });
+
+    // Motto
+    frontLayer.querySelector('.motto-text').innerHTML = C.motto;
+    frontLayer.querySelector('.motto-author').textContent = C.mottoAuthor;
+    honestLayer.querySelector('.motto-text').innerHTML = C.honestMotto;
+    honestLayer.querySelector('.motto-author').textContent = C.honestMottoAuthor;
+
+    // Connect
+    var frontContactItems = frontLayer.querySelectorAll('.contact-item');
+    var honestContactItems = honestLayer.querySelectorAll('.contact-item-honest');
+    C.connectItems.forEach(function(item, i) {
+      if (frontContactItems[i]) {
+        frontContactItems[i].setAttribute('data-cursor', 'clickable');
+        frontContactItems[i].setAttribute('data-copy', item.value);
+        frontContactItems[i].style.cursor = 'none';
+        frontContactItems[i].innerHTML =
+          '<div class="ci-link">' +
+            '<div class="c-label connect-front">' + item.label + '</div>' +
+            '<div class="c-label connect-honest">' + item.honestLabel + '</div>' +
+            '<div class="c-val connect-front">' + item.value + '</div>' +
+            '<div class="c-val connect-honest">' + item.honestValue + '</div>' +
+          '</div>';
+        (function(el) {
+          el.addEventListener('click', function() {
+            var copyText = el.getAttribute('data-copy');
+            navigator.clipboard.writeText(copyText).then(function() {
+              var toast = document.getElementById('copyToast');
+              toast.textContent = copyText + ' — copied!';
+              toast.classList.add('show');
+              clearTimeout(toast._timer);
+              toast._timer = setTimeout(function() { toast.classList.remove('show'); }, 2000);
+            });
+          });
+        })(frontContactItems[i]);
+      }
+      if (honestContactItems[i]) {
+        honestContactItems[i].innerHTML =
+          '<div class="c-label">' + item.honestLabel + '</div>' +
+          '<div class="c-val">' + item.honestValue + '</div>';
+      }
+    });
+
+    // Footer
+    var fLeft = frontLayer.querySelector('.footer-left');
+    if (fLeft) {
+      var flFront = fLeft.querySelector('.connect-front');
+      var flHonest = fLeft.querySelector('.connect-honest');
+      if (flFront) flFront.innerHTML = C.footerLeft;
+      if (flHonest) flHonest.innerHTML = C.footerLeft;
+    }
+    var fRight = frontLayer.querySelector('.footer-right');
+    if (fRight) {
+      var frFront = fRight.querySelector('.connect-front');
+      var frHonest = fRight.querySelector('.connect-honest');
+      if (frFront) frFront.textContent = C.footerRight;
+      if (frHonest) frHonest.textContent = C.honestFooterRight;
+    }
+    honestLayer.querySelector('.footer-left').innerHTML = C.footerLeft;
+    honestLayer.querySelector('.footer-right').textContent = C.honestFooterRight;
+  })();
+
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  window.scrollTo(0, 0);
+
+  /* ============================================================
+     1. LENIS — Smooth Scroll
+     ============================================================ */
+  var lenis = new Lenis({
+    duration: 1.2,
+    easing: function(t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
+    smoothWheel: true,
+    wheelMultiplier: 1,
+    touchMultiplier: 2
+  });
+  lenis.stop();
+
+  function raf(time) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+  }
+  requestAnimationFrame(raf);
+
+  /* ============================================================
+     2. START SCREEN
+     ============================================================ */
+  var startScreen = document.getElementById('startScreen');
+  var startBtn = document.getElementById('startBtn');
+  var ringFg = document.getElementById('ringFg');
+  var CIRCUMFERENCE = 2 * Math.PI * 78;
+  var pct = 0;
+
+  var loadInterval = setInterval(function() {
+    pct += Math.random() * 18 + 4;
+    if (pct >= 100) {
+      pct = 100;
+      clearInterval(loadInterval);
+      var ring = document.querySelector('.start-ring');
+      if (ring) ring.style.transition = 'opacity 0.4s ease';
+      if (ring) ring.style.opacity = '0';
+      startBtn.style.opacity = '';
+      startBtn.style.pointerEvents = '';
+      startBtn.classList.add('visible');
+    }
+    ringFg.style.strokeDashoffset = CIRCUMFERENCE * (1 - pct / 100);
+  }, 120);
+
+  startBtn.addEventListener('click', function() {
+    clearInterval(loadInterval);
+    startScreen.classList.add('hidden');
+    lenis.start();
+    setTimeout(triggerHeroReveal, 300);
+    setTimeout(function() { syncLayerHeights(); updateScrollMasks(); }, 350);
+  });
+
+  /* ============================================================
+     3. HERO — Line-by-Line Reveal
+     ============================================================ */
+  var heroTitle = document.getElementById('heroTitle');
+
+  var honestHeroTitle = document.getElementById('honestHeroTitle');
+
+  function triggerHeroReveal() {
+    if (heroTitle) heroTitle.classList.add('revealed');
+    if (honestHeroTitle) honestHeroTitle.classList.add('revealed');
+    var heroName = document.querySelector('.layer--front .hero-name');
+    if (heroName) heroName.classList.add('visible');
+  }
+
+  /* ============================================================
+     4. SCROLL PARAGRAPH MASK — per-line left-to-right reveal
+     ============================================================ */
+  var spmItems = [];
+
+  function spmMeasureLines(el) {
+    var originalHTML = el.innerHTML;
+    var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+    var textNodes = [];
+    while (walker.nextNode()) textNodes.push(walker.currentNode);
+
+    var tempSpans = [];
+    textNodes.forEach(function(node) {
+      var text = node.textContent;
+      if (!text.trim()) return;
+      var parts = text.split(/(\S+)/);
+      var frag = document.createDocumentFragment();
+      parts.forEach(function(part) {
+        if (!part) return;
+        if (/^\s+$/.test(part)) {
+          frag.appendChild(document.createTextNode(part));
+        } else {
+          var span = document.createElement('span');
+          span.textContent = part;
+          span.style.display = 'inline';
+          frag.appendChild(span);
+          tempSpans.push(span);
+        }
+      });
+      node.parentNode.replaceChild(frag, node);
+    });
+
+    var elRect = el.getBoundingClientRect();
+    var lines = [];
+    var currentTop = -999;
+
+    tempSpans.forEach(function(span) {
+      var r = span.getBoundingClientRect();
+      var top = Math.round(r.top - elRect.top);
+      var bottom = Math.round(r.bottom - elRect.top);
+      if (Math.abs(top - currentTop) > 5) {
+        lines.push({ top: top, bottom: bottom, revealPx: 0 });
+        currentTop = top;
+      } else if (lines.length > 0) {
+        lines[lines.length - 1].bottom = Math.max(lines[lines.length - 1].bottom, bottom);
+      }
+    });
+
+    el.innerHTML = originalHTML;
+    return lines;
+  }
+
+  function spmBuildPolygon(lineData) {
+    if (!lineData.length) return 'polygon(0 0, 0 0, 0 0, 0 0)';
+    var points = [];
+    lineData.forEach(function(line) {
+      var w = Math.max(0, line.revealPx);
+      points.push('0px ' + line.top + 'px');
+      points.push(w + 'px ' + line.top + 'px');
+      points.push(w + 'px ' + line.bottom + 'px');
+      points.push('0px ' + line.bottom + 'px');
+    });
+    return 'polygon(' + points.join(', ') + ')';
+  }
+
+  function initScrollMasks() {
+    document.querySelectorAll('.layer--front .spm-masked').forEach(function(el) {
+      var lineData = spmMeasureLines(el);
+      var elWidth = el.getBoundingClientRect().width + 20;
+
+      var fgEl = el.cloneNode(true);
+      fgEl.removeAttribute('id');
+      fgEl.classList.remove('spm-masked');
+      fgEl.classList.add('spm-fg-layer');
+
+      var container = document.createElement('div');
+      container.className = 'spm-container';
+
+      ['anim', 'anim-d1', 'anim-d2', 'anim-d3', 'anim-d4', 'anim-d5'].forEach(function(cls) {
+        if (el.classList.contains(cls)) {
+          container.classList.add(cls);
+          el.classList.remove(cls);
+        }
+      });
+      if (el.hasAttribute('data-cursor')) {
+        container.setAttribute('data-cursor', el.getAttribute('data-cursor'));
+      }
+
+      el.parentNode.insertBefore(container, el);
+      container.appendChild(el);
+      container.appendChild(fgEl);
+
+      el.classList.add('spm-bg-layer');
+
+      spmItems.push({
+        container: container,
+        fgEl: fgEl,
+        lineData: lineData,
+        elWidth: elWidth
+      });
+    });
+  }
+
+  initScrollMasks();
+
+  /* ============================================================
+     4b. SYNC LAYER HEIGHTS — keep front & honest aligned
+     ============================================================ */
+  function syncElementPair(sel) {
+    var frontEl = document.querySelector('.layer--front ' + sel);
+    var honestEl = document.querySelector('.layer--honest ' + sel);
+    if (!frontEl || !honestEl) return;
+    var frontWrap = frontEl.closest('.spm-container') || frontEl;
+    frontWrap.style.minHeight = '';
+    honestEl.style.minHeight = '';
+    var fH = frontWrap.offsetHeight;
+    var hH = honestEl.offsetHeight;
+    if (fH !== hH) {
+      var maxH = Math.max(fH, hH);
+      frontWrap.style.minHeight = maxH + 'px';
+      honestEl.style.minHeight = maxH + 'px';
+    }
+  }
+
+  function syncLayerHeights() {
+    syncElementPair('.about-text');
+    syncElementPair('.exp-intro');
+    syncElementPair('.clients-intro');
+
+    var frontChildren = document.querySelector('.layer--front').children;
+    var honestChildren = document.querySelector('.layer--honest').children;
+    var count = Math.min(frontChildren.length, honestChildren.length);
+
+    for (var i = 0; i < count; i++) {
+      frontChildren[i].style.minHeight = '';
+      honestChildren[i].style.minHeight = '';
+    }
+
+    for (var i = 0; i < count; i++) {
+      var fH = frontChildren[i].offsetHeight;
+      var hH = honestChildren[i].offsetHeight;
+      if (fH !== hH) {
+        var maxH = Math.max(fH, hH);
+        frontChildren[i].style.minHeight = maxH + 'px';
+        honestChildren[i].style.minHeight = maxH + 'px';
+      }
+    }
+  }
+  syncLayerHeights();
+
+  window.addEventListener('resize', function() { syncLayerHeights(); });
+
+  /* ============================================================
+     5a. HIDE SOCIAL ICONS AT FOOTER
+     ============================================================ */
+  var sideSocial = document.querySelector('.side-social');
+  var frontFooter = document.querySelector('.layer--front .footer');
+  if (sideSocial && frontFooter) {
+    var footerObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          sideSocial.classList.add('hidden');
+        } else {
+          sideSocial.classList.remove('hidden');
+        }
+      });
+    }, { threshold: 0 });
+    footerObs.observe(frontFooter);
+  }
+
+
+  /* ============================================================
+     5. SCROLL REVEAL
+     ============================================================ */
+  var frontAnims = Array.from(document.querySelectorAll('.layer--front .anim'));
+  var honestAnims = Array.from(document.querySelectorAll('.layer--honest .anim'));
+
+  var revealObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        var idx = frontAnims.indexOf(entry.target);
+        if (idx >= 0 && idx < honestAnims.length) {
+          honestAnims[idx].classList.add('visible');
+        }
+      }
+    });
+  }, { threshold: 0.06, rootMargin: '0px 0px -60px 0px' });
+
+  frontAnims.forEach(function(el) {
+    revealObserver.observe(el);
+  });
+
+  /* ============================================================
+     6. PARALLAX
+     ============================================================ */
+  var parallaxEls = document.querySelectorAll('.layer--front [data-parallax]');
+
+  lenis.on('scroll', function() {
+    parallaxEls.forEach(function(el) {
+      var speed = parseFloat(el.dataset.parallax) || 0;
+      var rect = el.getBoundingClientRect();
+      var center = rect.top + rect.height / 2;
+      var offset = (center - window.innerHeight / 2) * speed;
+      el.style.transform = 'translateY(' + offset + 'px)';
+    });
+  });
+
+  /* ============================================================
+     6b. SCROLL PARAGRAPH MASK — update per-line reveal
+     ============================================================ */
+  function updateScrollMasks() {
+    var viewH = window.innerHeight;
+
+    spmItems.forEach(function(item) {
+      if (!item.lineData.length) return;
+
+      var rect = item.container.getBoundingClientRect();
+
+      var triggerStart = viewH * 0.95;
+      var triggerEnd = viewH * 0.15;
+      var progress = (triggerStart - rect.top) / (triggerStart - triggerEnd);
+      progress = Math.max(0, Math.min(1, progress));
+
+      var n = item.lineData.length;
+      var delay = 1 / (n + 3);
+      var dur = delay * 2.5;
+
+      item.lineData.forEach(function(line, i) {
+        var lineStart = i * delay;
+        var lineP = (progress - lineStart) / dur;
+        lineP = Math.max(0, Math.min(1, lineP));
+        line.revealPx = lineP * item.elWidth;
+      });
+
+      var allRevealed = item.lineData.every(function(line) { return line.revealPx >= item.elWidth - 20; });
+      item.fgEl.style.clipPath = allRevealed ? 'none' : spmBuildPolygon(item.lineData);
+    });
+  }
+
+  lenis.on('scroll', updateScrollMasks);
+
+  /* ============================================================
+     7. CURSOR + CLIP-PATH REVEAL
+     ============================================================ */
+  var cursor = document.getElementById('cursor');
+  var honestLayer = document.getElementById('honestLayer');
+
+  var mouseX = -300, mouseY = -300;
+  var curX = -300, curY = -300;
+  var currentRadius = 0, targetRadius = 0;
+  var RADIUS_EXTENDED = 200;
+  var LERP_POS = 0.18;
+  var LERP_RADIUS = 0.12;
+
+  if (window.matchMedia('(pointer: fine)').matches) {
+
+    document.addEventListener('mousemove', function(e) {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+
+      var el = document.elementFromPoint(mouseX, mouseY);
+      if (!el) { targetRadius = 0; cursor.classList.remove('contract'); return; }
+
+      var contractEl = el.closest('[data-cursor="contract"]');
+      var clickableEl = el.closest('[data-cursor="clickable"]');
+      var defaultEl = el.closest('[data-cursor="default"]');
+      var extendEl = el.closest('[data-cursor="extend"]');
+
+      if (clickableEl) {
+        targetRadius = 0;
+        cursor.classList.remove('contract');
+        cursor.classList.add('clickable');
+      } else if (contractEl) {
+        targetRadius = 0;
+        cursor.classList.add('contract');
+        cursor.classList.remove('clickable');
+      } else if (defaultEl) {
+        targetRadius = 0;
+        cursor.classList.remove('contract');
+        cursor.classList.remove('clickable');
+      } else if (extendEl) {
+        targetRadius = RADIUS_EXTENDED;
+        cursor.classList.remove('contract');
+        cursor.classList.remove('clickable');
+      } else {
+        targetRadius = 0;
+        cursor.classList.remove('contract');
+        cursor.classList.remove('clickable');
+      }
+    });
+
+    function animateCursor() {
+      curX += (mouseX - curX) * LERP_POS;
+      curY += (mouseY - curY) * LERP_POS;
+      currentRadius += (targetRadius - currentRadius) * LERP_RADIUS;
+
+      cursor.style.left = curX + 'px';
+      cursor.style.top = curY + 'px';
+
+      var scrollY = lenis.scroll || window.scrollY || 0;
+      var pageX = curX;
+      var pageY = curY + scrollY;
+
+      if (currentRadius < 1) {
+        honestLayer.style.clipPath = 'circle(0px at -300px -300px)';
+      } else {
+        honestLayer.style.clipPath = 'circle(' + currentRadius + 'px at ' + pageX + 'px ' + pageY + 'px)';
+      }
+
+      requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+
+    document.addEventListener('mouseleave', function() {
+      targetRadius = 0;
+      cursor.style.opacity = '0';
+    });
+    document.addEventListener('mouseenter', function() {
+      cursor.style.opacity = '1';
+    });
+
+  } else {
+    cursor.style.display = 'none';
+  }
+
+  /* ============================================================
+     8. THREE.JS — 3D Globe
+     ============================================================ */
+  var globeCanvas = document.getElementById('globeCanvas');
+
+  if (globeCanvas && typeof THREE !== 'undefined') {
+    var clientsSection = globeCanvas.parentElement;
+
+    function initGlobe() {
+      var globeW = globeCanvas.offsetWidth || 600;
+
+      globeCanvas.width = globeW;
+      globeCanvas.height = globeW;
+      globeCanvas.style.aspectRatio = '1';
+      globeCanvas.style.height = 'auto';
+
+      var scene = new THREE.Scene();
+      var camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
+      camera.position.z = 4.5;
+
+      var renderer = new THREE.WebGLRenderer({
+        canvas: globeCanvas,
+        alpha: true,
+        antialias: true
+      });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setSize(globeW, globeW);
+      renderer.setClearColor(0x000000, 0);
+
+      var wireGeo = new THREE.IcosahedronGeometry(1.6, 4);
+      var wireMat = new THREE.MeshBasicMaterial({
+        color: 0x444444,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.06
+      });
+      var wireSphere = new THREE.Mesh(wireGeo, wireMat);
+      scene.add(wireSphere);
+
+      var dotCount = 400;
+      var dotPositions = new Float32Array(dotCount * 3);
+      var dotColors = new Float32Array(dotCount * 3);
+      var dotSizes = new Float32Array(dotCount);
+      var glowPhase = new Float32Array(dotCount);
+      var glowSpeed = new Float32Array(dotCount);
+      var baseR = 0.4, baseG = 0.4, baseB = 0.4;
+      var glowR = 0.92, glowG = 0.35, glowB = 0.22;
+      for (var i = 0; i < dotCount; i++) {
+        var phi = Math.random() * Math.PI * 2;
+        var theta = Math.acos(2 * Math.random() - 1);
+        var r = 1.6;
+        dotPositions[i * 3] = r * Math.sin(theta) * Math.cos(phi);
+        dotPositions[i * 3 + 1] = r * Math.sin(theta) * Math.sin(phi);
+        dotPositions[i * 3 + 2] = r * Math.cos(theta);
+        dotColors[i * 3] = baseR;
+        dotColors[i * 3 + 1] = baseG;
+        dotColors[i * 3 + 2] = baseB;
+        dotSizes[i] = 2.0;
+        glowPhase[i] = Math.random() * Math.PI * 2;
+        glowSpeed[i] = 0.3 + Math.random() * 0.7;
+      }
+      var dotGeo = new THREE.BufferGeometry();
+      dotGeo.setAttribute('position', new THREE.BufferAttribute(dotPositions, 3));
+      dotGeo.setAttribute('color', new THREE.BufferAttribute(dotColors, 3));
+      dotGeo.setAttribute('size', new THREE.BufferAttribute(dotSizes, 1));
+      var dotMat = new THREE.PointsMaterial({
+        size: 0.03,
+        transparent: true,
+        opacity: 0.7,
+        vertexColors: true,
+        sizeAttenuation: true
+      });
+      var dots = new THREE.Points(dotGeo, dotMat);
+      scene.add(dots);
+
+      var ringGeo = new THREE.TorusGeometry(1.7, 0.005, 16, 100);
+      var ringMat = new THREE.MeshBasicMaterial({
+        color: 0x444444,
+        transparent: true,
+        opacity: 0.15
+      });
+      var ring = new THREE.Mesh(ringGeo, ringMat);
+      ring.rotation.x = Math.PI * 0.4;
+      ring.rotation.z = Math.PI * 0.1;
+      scene.add(ring);
+
+      var globeVisible = false;
+      var globeObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) { globeVisible = entry.isIntersecting; });
+      }, { threshold: 0 });
+      globeObserver.observe(clientsSection);
+
+      var glowTime = 0;
+      function animateGlobe() {
+        if (globeVisible) {
+          glowTime += 0.016;
+          wireSphere.rotation.y += 0.0015;
+          wireSphere.rotation.x += 0.0004;
+          dots.rotation.y += 0.0015;
+          dots.rotation.x += 0.0004;
+          ring.rotation.z += 0.0008;
+          var colors = dotGeo.attributes.color.array;
+          for (var i = 0; i < dotCount; i++) {
+            var glow = Math.max(0, Math.sin(glowTime * glowSpeed[i] + glowPhase[i]));
+            glow = glow * glow * glow;
+            colors[i * 3] = baseR + (glowR - baseR) * glow;
+            colors[i * 3 + 1] = baseG + (glowG - baseG) * glow;
+            colors[i * 3 + 2] = baseB + (glowB - baseB) * glow;
+          }
+          dotGeo.attributes.color.needsUpdate = true;
+          renderer.render(scene, camera);
+        }
+        requestAnimationFrame(animateGlobe);
+      }
+      animateGlobe();
+
+      window.addEventListener('resize', function() {
+        var w = globeCanvas.offsetWidth;
+        if (w > 0) {
+          globeCanvas.width = w;
+          globeCanvas.height = w;
+          renderer.setSize(w, w);
+        }
+      });
+    }
+
+    setTimeout(initGlobe, 200);
+  }
+
+  /* ============================================================
+     9. NAV ACTIVE STATE
+     ============================================================ */
+  var sections = document.querySelectorAll('.layer--front section[id]');
+  var navLinks = document.querySelectorAll('.nav-top-right a');
+
+  lenis.on('scroll', function() {
+    var scrollTop = lenis.scroll || window.scrollY;
+    var current = '';
+    sections.forEach(function(sec) {
+      if (scrollTop >= sec.offsetTop - 250) current = sec.id;
+    });
+    navLinks.forEach(function(a) {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+  });
+
+  /* ============================================================
+     10. TESTIMONIAL ACTIVE TRACKING
+     ============================================================ */
+  var frontTestimonials = Array.from(document.querySelectorAll('.layer--front .testimonial-item'));
+  var frontThumbs = Array.from(document.querySelectorAll('.layer--front .thumb-circle'));
+  var honestTestimonials = Array.from(document.querySelectorAll('.layer--honest .testimonial-item'));
+  var honestThumbs = Array.from(document.querySelectorAll('.layer--honest .thumb-circle'));
+  var testimonialsSection = document.getElementById('testimonials');
+
+  function updateActiveTestimonial() {
+    if (!testimonialsSection) return;
+    var sectionRect = testimonialsSection.getBoundingClientRect();
+    var viewH = window.innerHeight;
+
+    if (sectionRect.bottom < 100 || sectionRect.top > viewH - 100) {
+      frontTestimonials.forEach(function(item) { item.classList.remove('tq-active'); });
+      frontThumbs.forEach(function(thumb) { thumb.classList.remove('tq-active'); });
+      honestTestimonials.forEach(function(item) { item.classList.remove('tq-active'); });
+      honestThumbs.forEach(function(thumb) { thumb.classList.remove('tq-active'); });
+      return;
+    }
+
+    var viewCenter = viewH / 2;
+    var closestIdx = 0;
+    var closestDist = Infinity;
+
+    frontTestimonials.forEach(function(item, i) {
+      var rect = item.getBoundingClientRect();
+      var itemCenter = rect.top + rect.height / 2;
+      var dist = Math.abs(itemCenter - viewCenter);
+      if (dist < closestDist) {
+        closestDist = dist;
+        closestIdx = i;
+      }
+    });
+
+    frontTestimonials.forEach(function(item, i) { item.classList.toggle('tq-active', i === closestIdx); });
+    frontThumbs.forEach(function(thumb, i) { thumb.classList.toggle('tq-active', i === closestIdx); });
+    honestTestimonials.forEach(function(item, i) { item.classList.toggle('tq-active', i === closestIdx); });
+    honestThumbs.forEach(function(thumb, i) { thumb.classList.toggle('tq-active', i === closestIdx); });
+  }
+
+  lenis.on('scroll', updateActiveTestimonial);
+
+  /* ============================================================
+     11. SMOOTH SCROLL LINKS
+     ============================================================ */
+  document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+    a.addEventListener('click', function(e) {
+      e.preventDefault();
+      var target = document.querySelector('.layer--front ' + a.getAttribute('href'));
+      if (target) lenis.scrollTo(target, { offset: 0, duration: 1.5 });
+    });
+  });
+
+})();
+</script>
+
+</body>
+</html>
