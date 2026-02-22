@@ -9,7 +9,15 @@ const MontExperienceSection = () => {
 
   const experiences = [
     {
-      period: '2022 — Present',
+      period: '2025 — Present',
+      company: 'Amdocs',
+      role: 'Software Development Specialist',
+      location: 'Pune, India',
+      description: 'Embarking on a journey to deliver data solutions for Singtel.',
+      technologies: ['Databricks', 'PySpark', 'Python', 'SQL']
+    },
+    {
+      period: '2022 — 2025',
       company: 'Amdocs',
       role: 'Software Developer',
       location: 'Pune, India',
