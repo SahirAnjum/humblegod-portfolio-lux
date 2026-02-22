@@ -43,11 +43,12 @@ jobs:
         cp -r main-site/assets dist/
         cp -r main-site/fonts dist/
       
-    - name: Copy CNAME, sitemap, and robots.txt to dist root
+    - name: Copy CNAME, sitemap, robots.txt, and BingSiteAuth to dist root
       run: |
         cp CNAME dist/
         cp public/sitemap.xml dist/
         cp public/robots.txt dist/
+        cp public/BingSiteAuth.xml dist/
       
     - name: Setup Pages
       uses: actions/configure-pages@v4
