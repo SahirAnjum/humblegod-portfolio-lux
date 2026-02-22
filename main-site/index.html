@@ -839,6 +839,48 @@
       body, a, button { cursor: auto; }
       .cursor { display: none; }
     }
+
+    /* ==============================================================
+       MOBILE HONEST-REVEAL BUTTON
+       ============================================================== */
+    .mobile-honest-btn {
+      display: none;
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10000;
+      width: 72px; height: 72px;
+      border: none;
+      background: transparent;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+      opacity: 0;
+      transition: opacity 0.5s;
+    }
+    .mobile-honest-btn.visible { opacity: 1; }
+    .mobile-honest-btn .ring-svg {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      animation: spin-ring 12s linear infinite;
+    }
+    @keyframes spin-ring { to { transform: rotate(360deg); } }
+    .mobile-honest-btn .touch-icon {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 22px; height: 22px;
+      fill: var(--muted);
+      transition: fill 0.3s;
+    }
+    .mobile-honest-btn.active .touch-icon { fill: var(--accent); }
+    @media (pointer: coarse) {
+      .mobile-honest-btn { display: block; }
+    }
+    @media (min-width: 769px) {
+      .mobile-honest-btn { display: none !important; }
+    }
   </style>
 </head>
 <body>
@@ -846,6 +888,21 @@
 <!-- CURSOR -->
 <div class="cursor" id="cursor"></div>
 <div class="copy-toast" id="copyToast">Copied to clipboard</div>
+
+<!-- MOBILE HONEST BUTTON -->
+<button class="mobile-honest-btn" id="mobileHonestBtn" aria-label="Hold to reveal honest version">
+  <svg class="ring-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <path id="ringPath" d="M 50,50 m -38,0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0" fill="none"/>
+    </defs>
+    <text font-size="8.5" font-family="'Space Grotesk', sans-serif" fill="#908272" letter-spacing="4" text-transform="uppercase">
+      <textPath href="#ringPath" startOffset="0%">HOLD FOR TRUTH &#x2022; HOLD FOR TRUTH &#x2022;</textPath>
+    </text>
+  </svg>
+  <svg class="touch-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M9 11.24V7.5a2.5 2.5 0 0 1 5 0v3.74c1.21-.81 2-2.18 2-3.74a4.5 4.5 0 0 0-9 0c0 1.56.79 2.93 2 3.74zm9.84 4.63l-4.54-2.26c-.17-.07-.35-.11-.54-.11H13v-6a.5.5 0 0 0-1 0v6h-.76c-.19 0-.37.04-.54.11l-4.54 2.26c-.17.08-.29.24-.29.42 0 .31.31.52.59.42l3.66-1.39a.5.5 0 0 1 .38 0c.12.05.19.15.22.27l.67 4.17c.04.26.27.44.53.44.28 0 .51-.2.53-.48l.48-4.32c.02-.15.1-.28.22-.36a.5.5 0 0 1 .42-.05l3.66 1.39c.28.1.59-.11.59-.42 0-.18-.12-.34-.29-.42z"/>
+  </svg>
+</button>
 
 <!-- START SCREEN -->
 <div class="start-screen" id="startScreen">
@@ -1338,6 +1395,8 @@
     lenis.start();
     setTimeout(triggerHeroReveal, 300);
     setTimeout(function() { syncLayerHeights(); updateScrollMasks(); }, 350);
+    var mhBtn = document.getElementById('mobileHonestBtn');
+    if (mhBtn) setTimeout(function() { mhBtn.classList.add('visible'); }, 600);
   });
 
   /* ============================================================
@@ -1678,6 +1737,66 @@
 
   } else {
     cursor.style.display = 'none';
+
+    /* Mobile: hold button to reveal honest layer */
+    var mobileBtn = document.getElementById('mobileHonestBtn');
+    if (mobileBtn) {
+      var honestActive = false;
+      var revealProgress = 0;
+      var revealTarget = 0;
+      var revealRAF = null;
+
+      function animateReveal() {
+        revealProgress += (revealTarget - revealProgress) * 0.12;
+        if (Math.abs(revealProgress - revealTarget) < 0.5) revealProgress = revealTarget;
+
+        if (revealProgress < 1) {
+          honestLayer.style.clipPath = 'circle(0px at -300px -300px)';
+          honestLayer.style.pointerEvents = 'none';
+        } else {
+          var viewW = window.innerWidth;
+          var viewH = window.innerHeight;
+          var diagonal = Math.sqrt(viewW * viewW + viewH * viewH);
+          var r = (revealProgress / 100) * diagonal;
+          var scrollY = lenis.scroll || window.scrollY || 0;
+          var cx = viewW / 2;
+          var cy = viewH - 64 + scrollY;
+          honestLayer.style.clipPath = 'circle(' + r + 'px at ' + cx + 'px ' + cy + 'px)';
+          honestLayer.style.pointerEvents = revealProgress > 90 ? 'auto' : 'none';
+        }
+
+        if (revealProgress !== revealTarget) {
+          revealRAF = requestAnimationFrame(animateReveal);
+        } else {
+          revealRAF = null;
+        }
+      }
+
+      function startReveal() {
+        honestActive = true;
+        revealTarget = 100;
+        mobileBtn.classList.add('active');
+        if (!revealRAF) revealRAF = requestAnimationFrame(animateReveal);
+      }
+      function stopReveal() {
+        honestActive = false;
+        revealTarget = 0;
+        mobileBtn.classList.remove('active');
+        if (!revealRAF) revealRAF = requestAnimationFrame(animateReveal);
+      }
+
+      mobileBtn.addEventListener('touchstart', function(e) {
+        e.preventDefault();
+        startReveal();
+      }, { passive: false });
+      mobileBtn.addEventListener('touchend', function(e) {
+        e.preventDefault();
+        stopReveal();
+      }, { passive: false });
+      mobileBtn.addEventListener('touchcancel', function() { stopReveal(); });
+      mobileBtn.addEventListener('mousedown', function(e) { e.preventDefault(); startReveal(); });
+      document.addEventListener('mouseup', function() { if (honestActive) stopReveal(); });
+    }
   }
 
   /* ============================================================
