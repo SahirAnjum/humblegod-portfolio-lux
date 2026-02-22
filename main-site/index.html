@@ -838,6 +838,24 @@
     @media (pointer: coarse) {
       body, a, button { cursor: auto; }
       .cursor { display: none; }
+
+      .layer--honest .skill-row { justify-content: center; }
+      .layer--honest .skill-row::before { display: none; }
+      .layer--honest .skill-row-title { display: none; }
+      .layer--honest .skill-row-honest {
+        opacity: 1; transform: none; pointer-events: auto;
+        margin: 0; text-align: center; white-space: normal;
+        color: var(--honest-text); font-size: 1rem;
+      }
+
+      .layer--honest .client-name-row { justify-content: center; }
+      .layer--honest .client-name-row::before { display: none; }
+      .layer--honest .client-name { display: none; }
+      .layer--honest .client-desc {
+        opacity: 1; transform: none; pointer-events: auto;
+        margin: 0; text-align: center; white-space: normal;
+        color: var(--honest-text); font-size: 1rem;
+      }
     }
 
     /* ==============================================================
