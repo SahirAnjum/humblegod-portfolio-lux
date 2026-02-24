@@ -433,28 +433,14 @@
     /* ==============================================================
        EXPERIENCE (intro)
        ============================================================== */
-    .experience { padding: 180px var(--inset) 0; position: relative; overflow: hidden; }
-    .experience .section-label { padding-left: 0; padding-right: 0; position: relative; z-index: 2; }
+    .experience { padding: 180px var(--inset) 0; position: relative; }
+    .experience .section-label { padding-left: 0; padding-right: 0; }
     .exp-intro {
       font-size: clamp(2rem, 4vw, 3.8rem); font-weight: 700;
       color: var(--text); letter-spacing: -0.04em;
       line-height: 1.15;
-      position: relative; z-index: 2;
     }
     .exp-intro strong { color: var(--accent); }
-    .exp-portrait-wrap {
-      position: absolute;
-      top: 0; right: 0; bottom: 0;
-      width: 60%;
-      pointer-events: none;
-      overflow: hidden;
-    }
-    .exp-portrait {
-      width: 100%; height: 120%;
-      object-fit: cover;
-      object-position: center 15%;
-      pointer-events: none;
-    }
 
     /* ==============================================================
        HISTORY (timeline)
@@ -878,8 +864,6 @@
       .hero { padding: 0 24px; }
       .about { padding: 80px 24px !important; }
       .experience { padding: 100px var(--inset) 0; }
-      .exp-portrait-wrap { width: 75%; }
-      .exp-portrait { opacity: 0.5; object-position: center 10%; }
       .history { padding: 80px 0 60px; }
       .hist-row { grid-template-columns: 60px 1fr; gap: 12px; padding: 24px var(--inset); }
       .skill-row, .client-name-row { height: auto; padding-top: 16px; padding-bottom: 16px; }
@@ -992,8 +976,7 @@
       .cursor, .start-screen, .logo-top-left, .nav-top-right,
       .view-switch, .resume-download, .side-social, .mobile-honest-btn,
       .layer--honest, .copy-toast, .start-ring, .skills-deco,
-      .skills-deco-right, .hero-bg, .hero-img, .globe-container,
-      .exp-portrait-wrap { display: none !important; }
+      .skills-deco-right, .hero-bg, .hero-img, .globe-container { display: none !important; }
       body { background: #fff !important; color: #111 !important; }
       .layer--front { clip-path: none !important; }
       .layers-wrapper { position: static !important; }
@@ -1099,9 +1082,6 @@
   </section>
 
   <section class="experience" id="experience">
-    <div class="exp-portrait-wrap" data-parallax="-0.15">
-      <img src="assets/images/sahir-portrait.png" alt="Sahir Anjum portrait" class="exp-portrait" loading="lazy" width="1400" height="900" />
-    </div>
     <div class="section-label anim">EXPERIENCE</div>
     <p class="exp-intro anim anim-d1 spm-masked" data-cursor="extend">Over a decade of experience in interactive design and working with some of the most <strong>talented</strong> people in the business.</p>
   </section>
@@ -1212,9 +1192,6 @@
   </section>
 
   <section class="experience">
-    <div class="exp-portrait-wrap" data-parallax="-0.15">
-      <img src="assets/images/sahir-portrait.png" alt="Sahir Anjum portrait" class="exp-portrait" loading="lazy" width="1400" height="900" />
-    </div>
     <div class="section-label anim">EXPERIENCE</div>
     <p class="exp-intro anim anim-d1" data-cursor="extend">Only seven years of actively producing cool shit. Other years were me messing around and navigating through my career.</p>
   </section>
