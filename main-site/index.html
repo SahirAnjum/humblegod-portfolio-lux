@@ -442,18 +442,21 @@
       position: relative; z-index: 2;
     }
     .exp-intro strong { color: var(--accent); }
-    .exp-portrait {
+    .exp-portrait-wrap {
       position: absolute;
-      right: 0; bottom: 0;
-      width: 55%; max-width: 700px;
-      height: 100%;
-      object-fit: cover;
-      object-position: top center;
-      filter: grayscale(100%);
-      opacity: 0.45;
+      inset: 0;
       pointer-events: none;
-      mask-image: linear-gradient(to right, transparent 0%, black 30%);
-      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 30%);
+      overflow: hidden;
+    }
+    .exp-portrait {
+      width: 100%; height: 120%;
+      object-fit: cover;
+      object-position: center 20%;
+      filter: grayscale(100%);
+      opacity: 0.4;
+      pointer-events: none;
+      mask-image: linear-gradient(to right, transparent 0%, black 25%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 25%);
     }
 
     /* ==============================================================
@@ -878,7 +881,7 @@
       .hero { padding: 0 24px; }
       .about { padding: 80px 24px !important; }
       .experience { padding: 100px var(--inset) 0; }
-      .exp-portrait { width: 70%; opacity: 0.3; }
+      .exp-portrait { opacity: 0.3; object-position: center 10%; }
       .history { padding: 80px 0 60px; }
       .hist-row { grid-template-columns: 60px 1fr; gap: 12px; padding: 24px var(--inset); }
       .skill-row, .client-name-row { height: auto; padding-top: 16px; padding-bottom: 16px; }
@@ -1098,7 +1101,9 @@
   </section>
 
   <section class="experience" id="experience">
-    <img src="assets/images/sahir-portrait.png" alt="Sahir Anjum portrait" class="exp-portrait anim" loading="lazy" width="700" height="900" />
+    <div class="exp-portrait-wrap" data-parallax="-0.15">
+      <img src="assets/images/sahir-portrait.png" alt="Sahir Anjum portrait" class="exp-portrait" loading="lazy" width="1400" height="900" />
+    </div>
     <div class="section-label anim">EXPERIENCE</div>
     <p class="exp-intro anim anim-d1 spm-masked" data-cursor="extend">Over a decade of experience in interactive design and working with some of the most <strong>talented</strong> people in the business.</p>
   </section>
@@ -1209,7 +1214,9 @@
   </section>
 
   <section class="experience">
-    <img src="assets/images/sahir-portrait.png" alt="Sahir Anjum portrait" class="exp-portrait anim" loading="lazy" width="700" height="900" />
+    <div class="exp-portrait-wrap" data-parallax="-0.15">
+      <img src="assets/images/sahir-portrait.png" alt="Sahir Anjum portrait" class="exp-portrait" loading="lazy" width="1400" height="900" />
+    </div>
     <div class="section-label anim">EXPERIENCE</div>
     <p class="exp-intro anim anim-d1" data-cursor="extend">Only seven years of actively producing cool shit. Other years were me messing around and navigating through my career.</p>
   </section>
