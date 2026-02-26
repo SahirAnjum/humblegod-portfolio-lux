@@ -68,7 +68,7 @@ var CONTENT = {
     { label: "Gmail",     value: "sahiranjum2702@gmail.com", honestLabel: "sahiranjum2702@gmail.com", honestValue: "100% chance I read it",          href: "mailto:sahiranjum2702@gmail.com" },
     { label: "LinkedIn",  value: "www.linkedin.com/in/sahir-anjum",honestLabel: "www.linkedin.com/in/sahir-anjum",              honestValue: "Serious me", href: "https://www.linkedin.com/in/sahiranjum" },
     { label: "Phone",     value: "+91 727 540 5244",         honestLabel: "+91 727 540 5244",         honestValue: "Try and find out for yourself",   href: "tel:+917275405244" },
-    { label: "Instagram", value: "@_.humblegod._",              honestLabel: "@_.humblegod._",              honestValue: "Just a guy with normal life.",                     href: "https://www.instagram.com/_.humblegod._" }
+    { label: "Instagram", value: "@_.humblegod._",              honestLabel: "@_.humblegod._",              honestValue: "Just a guy with a normal life",                     href: "https://www.instagram.com/_.humblegod._" }
   ],
 
   footerLeft: "&copy; 2024 SAHIR ANJUM",

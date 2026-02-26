@@ -267,12 +267,14 @@
 
     .resume-download {
       position: fixed; top: 155px; right: 40px; z-index: 200;
-      font-family: var(--font-body); font-size: 10px; font-weight: 700;
+      font-family: var(--font-body); font-size: 11px; font-weight: 700;
       letter-spacing: 2px; text-transform: uppercase;
-      color: var(--muted); transition: color 0.3s, opacity 0.3s;
-      opacity: 0.5; cursor: pointer;
+      color: var(--text); transition: color 0.3s, opacity 0.3s, border-color 0.3s;
+      opacity: 0.65; cursor: pointer;
+      border: 1px solid rgba(232,221,211,0.2);
+      padding: 4px 8px;
     }
-    .resume-download:hover { color: var(--accent); opacity: 1; }
+    .resume-download:hover { color: var(--accent); opacity: 1; border-color: var(--accent); }
 
     .side-social {
       position: fixed; left: 32px; bottom: 32px; z-index: 50;
@@ -890,7 +892,7 @@
       .side-social { left: 12px; bottom: 12px; }
       .nav-top-right { top: 20px; right: 20px; }
       .view-switch { top: 100px; right: 20px; }
-      .resume-download { top: 125px; right: 20px; }
+      .resume-download { top: 120px; right: 20px; font-size: 9px; padding: 5px 10px; }
       .logo-top-left { top: 20px; left: 20px; width: 40px; height: 40px; }
       .footer { flex-direction: column; gap: 8px; text-align: center; padding-bottom: 120px; }
       body, a, button { cursor: auto; }
