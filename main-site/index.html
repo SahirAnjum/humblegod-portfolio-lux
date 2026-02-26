@@ -1900,6 +1900,9 @@
         e.preventDefault();
         startReveal();
       }, { passive: false });
+      mobileBtn.addEventListener('touchmove', function(e) {
+        e.preventDefault();
+      }, { passive: false });
       mobileBtn.addEventListener('touchend', function(e) {
         e.preventDefault();
         stopReveal();
