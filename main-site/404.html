@@ -3,8 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>404 — Sahir Anjum</title>
+  <title>Sahir Anjum</title>
   <link rel="icon" type="image/png" href="/assets/robot.png" />
+  <script>
+    // SPA redirect for React routes under /classic/
+    var path = window.location.pathname;
+    if (path.startsWith('/classic')) {
+      var url = window.location.origin + '/classic/' + '?redirect=' + encodeURIComponent(path);
+      window.location.replace(url);
+    }
+  </script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
