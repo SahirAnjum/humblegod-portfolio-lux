@@ -44,6 +44,11 @@ jobs:
         cp -r main-site/assets dist/
         cp -r main-site/fonts dist/
       
+    - name: Create SPA fallback for React sub-routes
+      run: |
+        mkdir -p dist/classic/life-story
+        cp dist/classic/index.html dist/classic/life-story/index.html
+
     - name: Copy CNAME, sitemap, robots.txt, and BingSiteAuth to dist root
       run: |
         cp CNAME dist/
