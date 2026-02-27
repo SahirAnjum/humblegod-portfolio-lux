@@ -918,6 +918,15 @@
       body, a, button { cursor: auto; }
       .cursor { display: none; }
 
+      .footer:hover::before { clip-path: inset(50% 0); }
+      .footer:hover .connect-front { display: inline; }
+      .footer:hover .connect-honest { display: none; }
+      .footer:hover .footer-left,
+      .footer:hover .footer-right,
+      .footer:hover .footer-credit { color: #444; }
+
+      .contact-item:hover::before { clip-path: inset(50% 0); }
+
       .layer--honest .skill-row { position: relative; }
       .layer--honest .skill-row::before { display: none; }
       .layer--honest .skill-row-title { visibility: hidden; }
