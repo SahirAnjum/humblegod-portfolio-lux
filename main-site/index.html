@@ -742,6 +742,17 @@
       font-family: var(--font-body);
       font-size: 0.75rem; color: #444; transition: color 0.35s;
     }
+    .footer-credit {
+      position: relative; z-index: 1;
+      font-family: var(--font-body);
+      font-size: 0.65rem; color: #444; transition: color 0.35s;
+    }
+    .footer-credit a {
+      color: inherit; text-decoration: underline;
+      transition: color 0.35s;
+    }
+    .footer-credit a:hover { color: var(--text); }
+    .footer:hover .footer-credit { color: var(--bg); }
 
     /* ==============================================================
        HONEST LAYER OVERRIDES
@@ -823,7 +834,7 @@
     .contact-item-honest .c-val { color: var(--honest-text); }
 
     .layer--honest .footer { background: var(--honest-bg); border-top-color: rgba(92,69,60,0.2); }
-    .layer--honest .footer-left, .layer--honest .footer-right { color: var(--honest-muted); }
+    .layer--honest .footer-left, .layer--honest .footer-right, .layer--honest .footer-credit { color: var(--honest-muted); }
 
     .layer--honest .anim { opacity: 1 !important; }
 
@@ -1157,6 +1168,7 @@
   <footer class="footer">
     <div class="footer-left"><span class="connect-front">&copy; 2024 SAHIR ANJUM</span><span class="connect-honest">&copy; 2024 SAHIR ANJUM</span></div>
     <div class="footer-right"><span class="connect-front">Designed with passion</span><span class="connect-honest">Designed with passion</span></div>
+    <div class="footer-credit">Photo credit: <a href="https://www.linkedin.com/in/devyansh-barwar-a86b4233b" target="_blank" rel="noopener" aria-label="Devyansh Barwar LinkedIn profile">Devyansh Barwar</a></div>
   </footer>
 
 </div><!-- /layer--front -->
@@ -1266,6 +1278,7 @@
   <footer class="footer">
     <div class="footer-left">&copy; 2024 SAHIR ANJUM</div>
     <div class="footer-right">Built with questionable decisions</div>
+    <div class="footer-credit">Photo credit: <a href="https://www.linkedin.com/in/devyansh-barwar-a86b4233b" target="_blank" rel="noopener" aria-label="Devyansh Barwar LinkedIn profile">Devyansh Barwar</a></div>
   </footer>
 
 </div><!-- /layer--honest -->
