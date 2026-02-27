@@ -1649,10 +1649,34 @@
     }
   }
 
+  function syncMatchedItems(frontParentSel, honestParentSel, childSel) {
+    var fp = document.querySelector('.layer--front ' + frontParentSel);
+    var hp = document.querySelector('.layer--honest ' + (honestParentSel || frontParentSel));
+    if (!fp || !hp) return;
+    var fItems = fp.querySelectorAll(':scope > ' + childSel);
+    var hItems = hp.querySelectorAll(':scope > ' + childSel);
+    var len = Math.min(fItems.length, hItems.length);
+    for (var i = 0; i < len; i++) {
+      fItems[i].style.minHeight = '';
+      hItems[i].style.minHeight = '';
+    }
+    for (var i = 0; i < len; i++) {
+      var fH = fItems[i].offsetHeight;
+      var hH = hItems[i].offsetHeight;
+      if (fH !== hH) {
+        var maxH = Math.max(fH, hH);
+        fItems[i].style.minHeight = maxH + 'px';
+        hItems[i].style.minHeight = maxH + 'px';
+      }
+    }
+  }
+
   function syncLayerHeights() {
     syncElementPair('.about-text');
     syncElementPair('.exp-intro');
     syncElementPair('.clients-intro');
+
+    syncMatchedItems('.testimonials-list', '.testimonials-list', '.testimonial-item');
 
     var frontChildren = document.querySelector('.layer--front').children;
     var honestChildren = document.querySelector('.layer--honest').children;
