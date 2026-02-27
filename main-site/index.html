@@ -1021,7 +1021,7 @@
 <!-- START SCREEN -->
 <div class="start-screen" id="startScreen">
   <div class="start-logo">
-    <img src="assets/robot.png" alt="Robot" width="120" height="120" />
+    <img src="assets/robot.png" alt="Robot" width="120" height="120" onerror="this.onerror=null;this.src='assets/images/sahir-fallback.png';this.style.objectFit='cover';this.style.borderRadius='50%';" />
     <svg class="start-ring" viewBox="0 0 160 160">
       <circle class="ring-bg" cx="80" cy="80" r="78" />
       <circle class="ring-fg" id="ringFg" cx="80" cy="80" r="78" />
@@ -1032,7 +1032,7 @@
 
 <!-- FIXED UI -->
 <a href="/" class="logo-top-left" id="logoLink" data-cursor="clickable" aria-label="Home — refresh page">
-  <img src="assets/robot.png" alt="Sahir Anjum logo" width="40" height="40" style="width:100%;height:100%;object-fit:contain;" />
+  <img src="assets/robot.png" alt="Sahir Anjum logo" width="40" height="40" style="width:100%;height:100%;object-fit:contain;" onerror="this.onerror=null;this.src='assets/images/sahir-fallback.png';this.style.objectFit='cover';this.style.borderRadius='50%';" />
 </a>
 <nav class="nav-top-right" data-cursor="contract">
   <a href="#about">ABOUT</a>
@@ -2124,6 +2124,15 @@
   document.getElementById('classicLink').addEventListener('click', function() {
     sessionStorage.setItem('classicNav', '1');
   });
+
+  var faviconImg = new Image();
+  faviconImg.onerror = function () {
+    var icon = document.querySelector('link[rel="icon"]');
+    if (icon) icon.href = 'assets/images/sahir-fallback.png';
+    var apple = document.querySelector('link[rel="apple-touch-icon"]');
+    if (apple) apple.href = 'assets/images/sahir-fallback.png';
+  };
+  faviconImg.src = 'assets/robot.png';
 
 })();
 </script>

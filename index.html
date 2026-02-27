@@ -49,6 +49,16 @@
 
     <link rel="icon" href="/assets/robot.png" type="image/png">
     <link rel="apple-touch-icon" href="/assets/robot.png">
+    <script>
+      var _fi = new Image();
+      _fi.onerror = function () {
+        var i = document.querySelector('link[rel="icon"]');
+        if (i) i.href = '/assets/images/sahir-fallback.png';
+        var a = document.querySelector('link[rel="apple-touch-icon"]');
+        if (a) a.href = '/assets/images/sahir-fallback.png';
+      };
+      _fi.src = '/assets/robot.png';
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
