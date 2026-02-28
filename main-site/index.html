@@ -1440,6 +1440,7 @@
       if (frontContactItems[i]) {
         frontContactItems[i].setAttribute('data-cursor', 'clickable');
         frontContactItems[i].setAttribute('data-copy', item.value);
+        frontContactItems[i].setAttribute('data-href', item.href || '');
         frontContactItems[i].style.cursor = 'none';
         frontContactItems[i].innerHTML =
           '<div class="ci-link">' +
@@ -1451,6 +1452,7 @@
         (function(el) {
           el.addEventListener('click', function() {
             var copyText = el.getAttribute('data-copy');
+            var link = el.getAttribute('data-href');
             navigator.clipboard.writeText(copyText).then(function() {
               var toast = document.getElementById('copyToast');
               toast.textContent = copyText + ' — copied!';
@@ -1458,6 +1460,9 @@
               clearTimeout(toast._timer);
               toast._timer = setTimeout(function() { toast.classList.remove('show'); }, 2000);
             });
+            if (link) {
+              setTimeout(function() { window.open(link, '_blank', 'noopener'); }, 300);
+            }
           });
         })(frontContactItems[i]);
       }
