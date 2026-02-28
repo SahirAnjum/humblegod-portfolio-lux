@@ -745,14 +745,17 @@
     .footer-credit {
       position: relative; z-index: 1;
       font-family: var(--font-body);
-      font-size: 0.65rem; color: #444; transition: color 0.35s;
+      font-size: 0.7rem; color: #666; transition: color 0.35s;
+      letter-spacing: 0.5px;
     }
     .footer-credit a {
-      color: inherit; text-decoration: underline;
+      color: var(--text); text-decoration: underline;
+      text-underline-offset: 2px;
       transition: color 0.35s;
     }
-    .footer-credit a:hover { color: var(--text); }
+    .footer-credit a:hover { color: var(--accent); }
     .footer:hover .footer-credit { color: var(--bg); }
+    .footer:hover .footer-credit a { color: var(--bg); }
 
     /* ==============================================================
        HONEST LAYER OVERRIDES
