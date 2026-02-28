@@ -1460,9 +1460,7 @@
               clearTimeout(toast._timer);
               toast._timer = setTimeout(function() { toast.classList.remove('show'); }, 2000);
             });
-            if (link) {
-              setTimeout(function() { window.open(link, '_blank', 'noopener'); }, 300);
-            }
+            if (link) window.open(link, '_blank', 'noopener');
           });
         })(frontContactItems[i]);
       }
