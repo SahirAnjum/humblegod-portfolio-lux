@@ -539,11 +539,67 @@
     }
     .client-name-row:has(.client-name:hover) .client-honest { opacity: 1; transform: translateX(0); pointer-events: auto; }
 
-    /* Three.js Globe */
-    .globe-canvas {
+    /* Cobe Globe (replaces former Three.js implementation) */
+    .globe-container {
       position: absolute; right: -5%; top: 50%; transform: translateY(-50%);
       width: 55%; max-width: 700px;
+      aspect-ratio: 1;
       pointer-events: none; z-index: 0;
+    }
+    .globe-canvas {
+      width: 100%; height: 100%;
+      opacity: 0;
+      transition: opacity 1.2s ease;
+      border-radius: 50%;
+      touch-action: none;
+      contain: layout paint;
+    }
+    .globe-marker {
+      position: absolute;
+      bottom: anchor(center);
+      left: anchor(center);
+      translate: -50% 50%;
+      width: 40px; height: 40px;
+      display: flex; align-items: center; justify-content: center;
+      pointer-events: none;
+      transition: opacity 0.4s, filter 0.4s;
+    }
+    .globe-marker--london {
+      position-anchor: --cobe-london;
+      opacity: var(--cobe-visible-london, 0);
+      filter: blur(calc((1 - var(--cobe-visible-london, 0)) * 8px));
+    }
+    .globe-marker--singapore {
+      position-anchor: --cobe-singapore;
+      opacity: var(--cobe-visible-singapore, 0);
+      filter: blur(calc((1 - var(--cobe-visible-singapore, 0)) * 8px));
+    }
+    .globe-marker--auckland {
+      position-anchor: --cobe-auckland;
+      opacity: var(--cobe-visible-auckland, 0);
+      filter: blur(calc((1 - var(--cobe-visible-auckland, 0)) * 8px));
+    }
+    .globe-pulse {
+      position: absolute; inset: 0;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, #FFB199, #EB5939, #B83216, #EB5939, #FFB199);
+      -webkit-mask: radial-gradient(circle, transparent calc(50% - 2px), #000 calc(50% - 2px));
+              mask: radial-gradient(circle, transparent calc(50% - 2px), #000 calc(50% - 2px));
+      opacity: 0;
+      animation: globe-pulse-expand 2s ease-out infinite var(--pulse-delay, 0s);
+    }
+    .globe-pulse--lag {
+      animation-delay: calc(var(--pulse-delay, 0s) + 0.5s);
+    }
+    .globe-dot {
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #FFE4D6, #FF9F7A 55%, #EB5939);
+      box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px #FF8A65, 0 0 14px 3px rgba(255, 159, 122, 0.65);
+    }
+    @keyframes globe-pulse-expand {
+      0%   { transform: scaleX(0.3) scaleY(0.3); opacity: 0.8; }
+      100% { transform: scaleX(1.5) scaleY(1.5); opacity: 0; }
     }
 
     /* ==============================================================
@@ -797,7 +853,7 @@
     .layer--honest .clients { background: var(--honest-bg); }
     .layer--honest .clients-intro { color: var(--honest-text); }
     .layer--honest .clients-intro strong { color: var(--honest-dark); }
-    .layer--honest .globe-canvas { display: none; }
+    .layer--honest .globe-container { display: none; }
     .layer--honest .client-name-row { border-top-color: rgba(92,69,60,0.2); }
     .layer--honest .client-name-row:last-child { border-bottom-color: rgba(92,69,60,0.2); }
     .layer--honest .client-name-row:has(.client-name:hover) { background: rgba(0,0,0,0.08); }
@@ -897,7 +953,7 @@
         opacity: 1 !important; transform: none !important;
       }
       .thumb-circle { width: 60px; height: 60px; }
-      .globe-canvas { display: none; }
+      .globe-container { display: none; }
       .connect-grid { flex-direction: column; }
       .contact-item .ci-link { flex-wrap: wrap; gap: 4px; padding: 16px var(--inset); }
       .contact-item .c-label { width: 100%; }
@@ -1128,7 +1184,24 @@
   <section class="clients" id="clients">
     <div class="section-label anim">CLIENTS</div>
     <p class="clients-intro anim anim-d1 spm-masked" data-cursor="extend">I worked with some of the most <strong>innovative</strong> industry leaders to help build their top-notch products.</p>
-    <canvas class="globe-canvas" id="globeCanvas"></canvas>
+    <div class="globe-container" aria-hidden="true">
+      <canvas class="globe-canvas" id="globeCanvas"></canvas>
+      <div class="globe-marker globe-marker--london" style="--pulse-delay: 0s">
+        <span class="globe-pulse"></span>
+        <span class="globe-pulse globe-pulse--lag"></span>
+        <span class="globe-dot"></span>
+      </div>
+      <div class="globe-marker globe-marker--singapore" style="--pulse-delay: 0.5s">
+        <span class="globe-pulse"></span>
+        <span class="globe-pulse globe-pulse--lag"></span>
+        <span class="globe-dot"></span>
+      </div>
+      <div class="globe-marker globe-marker--auckland" style="--pulse-delay: 1s">
+        <span class="globe-pulse"></span>
+        <span class="globe-pulse globe-pulse--lag"></span>
+        <span class="globe-dot"></span>
+      </div>
+    </div>
     <div class="clients-list">
       <div class="client-name-row anim"><div class="client-name spm-masked">FORD</div><div class="client-honest"></div></div>
       <div class="client-name-row anim anim-d1"><div class="client-name spm-masked">UFC</div><div class="client-honest"></div></div>
@@ -1307,7 +1380,6 @@
 <!-- ==================== EXTERNAL SCRIPTS ==================== -->
 <script src="content.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.137.0/build/three.min.js"></script>
 
 <!-- ==================== APPLICATION SCRIPT ==================== -->
 <script>
@@ -1974,132 +2046,76 @@
   }
 
   /* ============================================================
-     8. THREE.JS — 3D Globe
+     8. COBE — verbatim port of <GlobePulse /> (drag/pause stripped)
      ============================================================ */
   var globeCanvas = document.getElementById('globeCanvas');
 
-  if (globeCanvas && typeof THREE !== 'undefined') {
-    var clientsSection = globeCanvas.parentElement;
+  if (globeCanvas) {
+    var globeMarkers = [
+      { id: 'london',    location: [51.51,  -0.13],  delay: 0   },
+      { id: 'singapore', location: [ 1.35, 103.82],  delay: 0.5 },
+      { id: 'auckland',  location: [-36.85, 174.76], delay: 1   }
+    ];
+    var speed = 0.003;
 
-    function initGlobe() {
-      var globeW = globeCanvas.offsetWidth || 600;
+    import('https://cdn.jsdelivr.net/npm/cobe@2.0.1/+esm').then(function(mod) {
+      var createGlobe = mod.default;
+      var canvas = globeCanvas;
+      var globe = null;
+      var animationId;
+      var phi = 0;
 
-      globeCanvas.width = globeW;
-      globeCanvas.height = globeW;
-      globeCanvas.style.aspectRatio = '1';
-      globeCanvas.style.height = 'auto';
+      function init() {
+        var width = canvas.offsetWidth;
+        if (width === 0 || globe) return;
 
-      var scene = new THREE.Scene();
-      var camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
-      camera.position.z = 4.5;
+        globe = createGlobe(canvas, {
+          devicePixelRatio: Math.min(window.devicePixelRatio || 1, 2),
+          width: width,
+          height: width,
+          phi: 0,
+          theta: 0.2,
+          dark: 1,
+          diffuse: 1.5,
+          mapSamples: 16000,
+          mapBrightness: 10,
+          baseColor: [0.5, 0.5, 0.5],
+          markerColor: [0.922, 0.349, 0.224],
+          glowColor: [0.05, 0.05, 0.05],
+          markerElevation: 0,
+          markers: globeMarkers.map(function (m) {
+            return { location: m.location, size: 0.025, id: m.id };
+          }),
+          arcs: [],
+          arcColor: [0.941, 0.553, 0.424],
+          arcWidth: 0.5,
+          arcHeight: 0.25,
+          opacity: 0.7
+        });
 
-      var renderer = new THREE.WebGLRenderer({
-        canvas: globeCanvas,
-        alpha: true,
-        antialias: true
-      });
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-      renderer.setSize(globeW, globeW);
-      renderer.setClearColor(0x000000, 0);
-
-      var wireGeo = new THREE.IcosahedronGeometry(1.6, 4);
-      var wireMat = new THREE.MeshBasicMaterial({
-        color: 0x444444,
-        wireframe: true,
-        transparent: true,
-        opacity: 0.06
-      });
-      var wireSphere = new THREE.Mesh(wireGeo, wireMat);
-      scene.add(wireSphere);
-
-      var dotCount = 400;
-      var dotPositions = new Float32Array(dotCount * 3);
-      var dotColors = new Float32Array(dotCount * 3);
-      var dotSizes = new Float32Array(dotCount);
-      var glowPhase = new Float32Array(dotCount);
-      var glowSpeed = new Float32Array(dotCount);
-      var baseR = 0.4, baseG = 0.4, baseB = 0.4;
-      var glowR = 0.92, glowG = 0.35, glowB = 0.22;
-      for (var i = 0; i < dotCount; i++) {
-        var phi = Math.random() * Math.PI * 2;
-        var theta = Math.acos(2 * Math.random() - 1);
-        var r = 1.6;
-        dotPositions[i * 3] = r * Math.sin(theta) * Math.cos(phi);
-        dotPositions[i * 3 + 1] = r * Math.sin(theta) * Math.sin(phi);
-        dotPositions[i * 3 + 2] = r * Math.cos(theta);
-        dotColors[i * 3] = baseR;
-        dotColors[i * 3 + 1] = baseG;
-        dotColors[i * 3 + 2] = baseB;
-        dotSizes[i] = 2.0;
-        glowPhase[i] = Math.random() * Math.PI * 2;
-        glowSpeed[i] = 0.3 + Math.random() * 0.7;
+        function animate() {
+          phi += speed;
+          globe.update({ phi: phi, theta: 0.2 });
+          animationId = requestAnimationFrame(animate);
+        }
+        animate();
+        setTimeout(function () { canvas.style.opacity = '1'; });
       }
-      var dotGeo = new THREE.BufferGeometry();
-      dotGeo.setAttribute('position', new THREE.BufferAttribute(dotPositions, 3));
-      dotGeo.setAttribute('color', new THREE.BufferAttribute(dotColors, 3));
-      dotGeo.setAttribute('size', new THREE.BufferAttribute(dotSizes, 1));
-      var dotMat = new THREE.PointsMaterial({
-        size: 0.03,
-        transparent: true,
-        opacity: 0.7,
-        vertexColors: true,
-        sizeAttenuation: true
-      });
-      var dots = new THREE.Points(dotGeo, dotMat);
-      scene.add(dots);
 
-      var ringGeo = new THREE.TorusGeometry(1.7, 0.005, 16, 100);
-      var ringMat = new THREE.MeshBasicMaterial({
-        color: 0x444444,
-        transparent: true,
-        opacity: 0.15
-      });
-      var ring = new THREE.Mesh(ringGeo, ringMat);
-      ring.rotation.x = Math.PI * 0.4;
-      ring.rotation.z = Math.PI * 0.1;
-      scene.add(ring);
-
-      var globeVisible = false;
-      var globeObserver = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) { globeVisible = entry.isIntersecting; });
-      }, { threshold: 0 });
-      globeObserver.observe(clientsSection);
-
-      var glowTime = 0;
-      function animateGlobe() {
-        if (globeVisible) {
-          glowTime += 0.016;
-          wireSphere.rotation.y += 0.0015;
-          wireSphere.rotation.x += 0.0004;
-          dots.rotation.y += 0.0015;
-          dots.rotation.x += 0.0004;
-          ring.rotation.z += 0.0008;
-          var colors = dotGeo.attributes.color.array;
-          for (var i = 0; i < dotCount; i++) {
-            var glow = Math.max(0, Math.sin(glowTime * glowSpeed[i] + glowPhase[i]));
-            glow = glow * glow * glow;
-            colors[i * 3] = baseR + (glowR - baseR) * glow;
-            colors[i * 3 + 1] = baseG + (glowG - baseG) * glow;
-            colors[i * 3 + 2] = baseB + (glowB - baseB) * glow;
+      if (canvas.offsetWidth > 0) {
+        init();
+      } else {
+        var ro = new ResizeObserver(function (entries) {
+          if (entries[0] && entries[0].contentRect.width > 0) {
+            ro.disconnect();
+            init();
           }
-          dotGeo.attributes.color.needsUpdate = true;
-          renderer.render(scene, camera);
-        }
-        requestAnimationFrame(animateGlobe);
+        });
+        ro.observe(canvas);
       }
-      animateGlobe();
-
-      window.addEventListener('resize', function() {
-        var w = globeCanvas.offsetWidth;
-        if (w > 0) {
-          globeCanvas.width = w;
-          globeCanvas.height = w;
-          renderer.setSize(w, w);
-        }
-      });
-    }
-
-    setTimeout(initGlobe, 200);
+    }).catch(function (err) {
+      console.warn('cobe failed to load — globe disabled', err);
+    });
   }
 
   /* ============================================================
