@@ -55,7 +55,18 @@ jobs:
         cp public/sitemap.xml dist/
         cp public/robots.txt dist/
         cp public/BingSiteAuth.xml dist/
-      
+
+    # ----------------------------------------------------------------
+    # Pre-render React SPA routes so Googlebot sees real content on
+    # first crawl instead of <div id="root"></div>. Puppeteer is
+    # installed transiently (--no-save) to keep package.json clean.
+    # ----------------------------------------------------------------
+    - name: Install Puppeteer (transient, for prerender only)
+      run: npm install --no-save puppeteer
+
+    - name: Pre-render React routes for SEO
+      run: node scripts/prerender.mjs
+
     - name: Setup Pages
       uses: actions/configure-pages@v4
       

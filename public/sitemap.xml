@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Canonical homepage. The /classic/ route is intentionally excluded; it canonicalises here. -->
   <url>
     <loc>https://sahiranjum.com/</loc>
-    <lastmod>2026-02-26</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
+  <!-- Life-story page has unique content and is pre-rendered at build time so Google can index it on first crawl. -->
   <url>
-    <loc>https://sahiranjum.com/classic/</loc>
-    <lastmod>2026-02-26</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://sahiranjum.com/classic/life-story</loc>
-    <lastmod>2026-02-26</lastmod>
+    <loc>https://sahiranjum.com/classic/life-story/</loc>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
