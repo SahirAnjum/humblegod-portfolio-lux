@@ -348,6 +348,10 @@
       transform: translateY(105%);
       transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
       will-change: transform;
+      /* Same safety net as .client-name — protect against a single long
+         word in the hero title widening the document on tiny phones. */
+      min-width: 0;
+      overflow-wrap: anywhere;
     }
     .hero-title.revealed .line-inner { transform: translateY(0); }
     .line-wrap:nth-child(1) .line-inner { transition-delay: 0.05s; }
@@ -526,6 +530,11 @@
       transition: color 0.35s ease;
       white-space: nowrap;
       position: relative; z-index: 1;
+      /* Safety net: if a single word is longer than the row (e.g. a future
+         client like "MORGANSTANLEY"), allow it to break rather than push
+         the whole document past the viewport. */
+      min-width: 0;
+      overflow-wrap: anywhere;
     }
     .client-name-row:has(.client-name:hover) .client-name { color: var(--bg); }
     .client-honest {
@@ -540,12 +549,158 @@
     }
     .client-name-row:has(.client-name:hover) .client-honest { opacity: 1; transform: translateX(0); pointer-events: auto; }
 
-    /* Cobe Globe (replaces former Three.js implementation) */
+    /* ==============================================================
+       CERTIFICATIONS — compact static spotlight card (ported from GlowCard,
+       glow disabled). Lives below CLIENTS, mirrors its inset/typography.
+       Horizontal layout: badge on the left, title + date on the right.
+       ============================================================== */
+    .certifications-spotlight { padding: 60px 0 80px; position: relative; }
+    .certifications-spotlight .section-label {
+      padding-left: var(--inset); padding-right: var(--inset);
+      margin-bottom: 40px;
+    }
+    .spotlight-card {
+      display: flex; align-items: center; gap: 32px;
+      padding: 6px var(--inset);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: transparent;
+      border-radius: 0;
+      margin: 0;
+      position: relative;
+      overflow: hidden; /* keep twinkling stars confined between the borders */
+      /* anchor reset (global `a` rule already strips text-decoration + inherits color).
+         No hover transition by design — the arrow is the static clickability cue. */
+    }
+    /* keep card content above the star field */
+    .spotlight-card > .spotlight-card__image,
+    .spotlight-card > .spotlight-card__info,
+    .spotlight-card > .spotlight-card__arrow { position: relative; z-index: 1; }
+    /* Keyboard-only focus ring for accessibility (does not fire on mouse hover) */
+    .spotlight-card:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 4px;
+    }
+    .spotlight-card__image {
+      flex-shrink: 0;
+      width: 144px; height: 144px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .spotlight-card__image img {
+      max-width: 100%; max-height: 100%;
+      width: auto; height: auto; display: block;
+      object-fit: contain;
+      filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.45));
+    }
+    .spotlight-card__info {
+      flex: 1;
+      display: flex; flex-direction: column; gap: 6px;
+      min-width: 0;
+    }
+    .spotlight-card__title {
+      font-family: var(--font);
+      font-size: var(--mid-sz); font-weight: 700;
+      color: var(--text); line-height: 1.1;
+      letter-spacing: -1px; margin: 0;
+    }
+    .spotlight-card__meta {
+      font-family: var(--font-body);
+      font-size: 0.85rem; font-weight: 400;
+      color: var(--muted); line-height: 1.4;
+      margin: 4px 0 0;
+    }
+    .spotlight-card__arrow {
+      flex-shrink: 0;
+      margin-left: auto;
+      font-family: var(--font);
+      font-size: 1.6rem; font-weight: 400;
+      line-height: 1;
+      color: var(--accent);
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+
+    /* ==============================================================
+       CERTIFICATIONS — twinkling star field (JS-generated dots).
+       Sits behind the row's content, confined inside border-top/-bottom.
+       ============================================================== */
+    .spotlight-card__stars {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .spotlight-card__star {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0;
+      will-change: opacity, transform;
+      animation: starTwinkle 3s ease-in-out infinite;
+    }
+    @keyframes starTwinkle {
+      0%, 100% { opacity: 0; transform: scale(0.4); }
+      50%      { opacity: var(--star-opacity, 0.85); transform: scale(1); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .spotlight-card__star {
+        animation: none;
+        opacity: var(--star-opacity, 0.5);
+        transform: scale(1);
+      }
+    }
+
+    /* Cobe Globe (replaces former Three.js implementation).
+       Progressive responsiveness: as the viewport shrinks, the globe
+       shrinks AND gets pushed further off the right edge so its visible
+       left limb never crosses into the clients list. Below 641px we
+       give up and hide it (a tiny partial globe on a phone reads as
+       "broken layout" rather than "decorative orb").
+
+       Constraint at every tier: globe_left_edge ≥ inset + max_name_width.
+         globe_left = viewport × (1 + |right%|) − globe_width
+         inset      = clamp() defined in :root + overrides
+         max_name   = ≈688px @ 116.8px font, ≈500 @ 83px, ≈372 @ 72px
+
+       Visible fraction of the globe (left side on-screen):
+         visible_px = viewport − globe_left
+         fraction   = visible_px / globe_width
+
+       Tier A (≥1536):    full globe (700px max), ~100% visible
+       Tier B (1024-1535): 520px globe, right:-20%  → ~55% visible
+       Tier C (641-1023):  420px globe, right:-30%  → ~40% visible
+       Tier D (≤640):      hidden
+
+       To adjust: shorten client names → shrink ALL globe widths /
+       offsets accordingly, or recompute breakpoints with the formula
+       above. The cobe canvas re-initializes (see ResizeObserver below)
+       whenever the container width changes, so transitions are crisp. */
     .globe-container {
       position: absolute; right: -5%; top: 50%; transform: translateY(-50%);
       width: 55%; max-width: 700px;
       aspect-ratio: 1;
       pointer-events: none; z-index: 0;
+    }
+    /* Tier B: tablet landscape & small laptop. Smaller globe, pushed
+       further off the right so only the western half is on-screen. */
+    @media (min-width: 1024px) and (max-width: 1535px) {
+      .globe-container {
+        right: -20%;
+        width: 50%;
+        max-width: 520px;
+      }
+    }
+    /* Tier C: tablet portrait. Even smaller, pushed further off — just
+       the left limb of the orb peeks in beside the clients list. */
+    @media (min-width: 641px) and (max-width: 1023px) {
+      .globe-container {
+        right: -30%;
+        width: 60%;
+        max-width: 420px;
+      }
+    }
+    /* Tier D: phones — hide entirely. */
+    @media (max-width: 640px) {
+      .globe-container { display: none; }
     }
     .globe-canvas {
       width: 100%; height: 100%;
@@ -861,6 +1016,17 @@
     .layer--honest .client-name { color: var(--honest-text); }
     .layer--honest .client-name-row:has(.client-name:hover) .client-name { color: var(--honest-dark); }
 
+    .layer--honest .certifications-spotlight { background: var(--honest-bg); }
+    .layer--honest .spotlight-card {
+      background: transparent;
+      border-top-color: rgba(92, 69, 60, 0.2);
+      border-bottom-color: rgba(92, 69, 60, 0.2);
+    }
+    .layer--honest .spotlight-card__title { color: var(--honest-text); }
+    .layer--honest .spotlight-card__meta { color: var(--honest-muted); }
+    .layer--honest .spotlight-card__arrow { color: var(--honest-muted); }
+    .layer--honest .spotlight-card:focus-visible { outline-color: var(--honest-dark); }
+
 
     .layer--honest .testimonials { background: var(--honest-bg); }
     .layer--honest .testimonial-item::before { background: rgba(92,69,60,0.2); }
@@ -931,8 +1097,17 @@
     /* ==============================================================
        RESPONSIVE
        ============================================================== */
+    /* Tablet + phone inset.
+       Original :root --inset clamps 80→243px (16.9vw). 80px on a 375px
+       phone is 21% of the screen on each side (42% padding total), and
+       the 130–173px values it produces on tablets squeeze section
+       content uncomfortably. This override scales the inset smoothly
+       from 20px on tiny phones to ~61px on a 1023px tablet, then hands
+       back to the original 80→243 ramp for desktop. */
+    @media (max-width: 1023px) {
+      :root { --inset: clamp(20px, 6vw, 80px); }
+    }
     @media (max-width: 768px) {
-      :root { --inset: 24px; }
       .hero { padding: 0 24px; }
       .hero-img { background-position: 70% center; }
       .about { padding: 80px 24px !important; }
@@ -970,6 +1145,40 @@
       .footer-right { order: 2; }
       body, a, button { cursor: auto; }
       .cursor { display: none; }
+    }
+    /* Certifications card compact layout — applies to tablets too.
+       The 769–900px range (small landscape phones, narrow tablets) still
+       has a single-row clients section but not enough horizontal space
+       for the desktop 144×144 badge + full-size title. Drop to the
+       compact treatment so the title flows naturally on those widths. */
+    @media (max-width: 900px) {
+      .certifications-spotlight { padding: 40px 0 60px; }
+      .certifications-spotlight .section-label { margin-bottom: 24px; }
+      .spotlight-card { gap: 14px; padding: 6px var(--inset); }
+      .spotlight-card__image { width: 72px; height: 72px; }
+      .spotlight-card__info { gap: 4px; }
+      .spotlight-card__title {
+        font-size: clamp(0.95rem, 3.8vw, 1.25rem);
+        letter-spacing: -0.5px;
+        line-height: 1.15;
+        /* Long single words like "Professional" should hyphenate
+           rather than overflow when the column gets very narrow. */
+        word-break: break-word;
+        overflow-wrap: anywhere;
+        hyphens: auto;
+      }
+      .spotlight-card__meta { font-size: 0.75rem; margin-top: 2px; }
+      .spotlight-card__arrow { font-size: 1.05rem; }
+    }
+
+    /* Tiny-phone (≤480px) guards.
+       --title-sz's 4.5rem floor (72px) is wider than several words on
+       phones — e.g. "PIPELINES" or "DEBUGGING" ≈ 9 chars × ~50px = ~450px
+       which would overflow a 375px screen. Lower the floor and let
+       .client-name wrap so the hero / client list always fit. */
+    @media (max-width: 480px) {
+      :root { --title-sz: clamp(2.5rem, 11vw, 7.3rem); }
+      .client-name { white-space: normal; }
     }
     @media (max-width: 375px) {
       .start-ring { width: 180px; height: 180px; }
@@ -1210,6 +1419,21 @@
     </div>
   </section>
 
+  <section class="certifications-spotlight" id="certifications">
+    <div class="section-label anim">CERTIFICATIONS</div>
+    <a class="spotlight-card anim" href="https://credentials.databricks.com/50e94e1e-ba07-4b3e-89c0-e8426e69b739#acc.YQjecXs5" target="_blank" rel="noopener noreferrer" aria-labelledby="cert-title-front">
+      <span class="spotlight-card__stars" aria-hidden="true"></span>
+      <div class="spotlight-card__image">
+        <img src="assets/images/databricks-data-engineer-pro.png" alt="Databricks Certified Data Engineer Professional badge" loading="lazy" width="400" height="400" />
+      </div>
+      <div class="spotlight-card__info">
+        <h3 id="cert-title-front" class="spotlight-card__title">Databricks Certified Data Engineer Professional</h3>
+        <p class="spotlight-card__meta">Apr 28, 2026 &mdash; Apr 28, 2028</p>
+      </div>
+      <span class="spotlight-card__arrow" aria-hidden="true">&#x2197;</span>
+    </a>
+  </section>
+
   <section class="testimonials" id="testimonials">
     <div class="section-label anim">WHAT THEY SAID</div>
     <div class="testimonials-body">
@@ -1318,6 +1542,20 @@
       <div class="client-name-row anim anim-d1"><div class="client-name">UFC</div><div class="client-desc">Despite not being a sports fan</div></div>
       <div class="client-name-row anim anim-d2"><div class="client-name">LINCOLN</div><div class="client-desc">Never seen it in real life</div></div>
     </div>
+  </section>
+
+  <section class="certifications-spotlight">
+    <div class="section-label anim">CERTIFICATIONS</div>
+    <a class="spotlight-card anim" href="https://credentials.databricks.com/50e94e1e-ba07-4b3e-89c0-e8426e69b739#acc.YQjecXs5" target="_blank" rel="noopener noreferrer" aria-labelledby="cert-title-honest">
+      <div class="spotlight-card__image">
+        <img src="assets/images/databricks-data-engineer-pro.png" alt="Databricks Certified Data Engineer Professional badge" loading="lazy" width="400" height="400" />
+      </div>
+      <div class="spotlight-card__info">
+        <h3 id="cert-title-honest" class="spotlight-card__title">Databricks Certified Data Engineer Professional</h3>
+        <p class="spotlight-card__meta">Apr 28, 2026 &mdash; Apr 28, 2028</p>
+      </div>
+      <span class="spotlight-card__arrow" aria-hidden="true">&#x2197;</span>
+    </a>
   </section>
 
   <section class="testimonials">
@@ -2063,12 +2301,30 @@
       var createGlobe = mod.default;
       var canvas = globeCanvas;
       var globe = null;
-      var animationId;
+      var animationId = null;
       var phi = 0;
+      var lastWidth = 0;
+      var resizeTimer;
 
-      function init() {
+      function build() {
         var width = canvas.offsetWidth;
-        if (width === 0 || globe) return;
+
+        // display:none (mobile breakpoint) or pre-layout → tear down + wait.
+        if (width === 0) {
+          if (globe) { try { globe.destroy(); } catch (_) {} globe = null; }
+          if (animationId) { cancelAnimationFrame(animationId); animationId = null; }
+          canvas.style.opacity = '0';
+          lastWidth = 0;
+          return;
+        }
+        // Same width as last build → nothing to do (avoids thrash on layout shifts).
+        if (globe && Math.abs(width - lastWidth) < 1) return;
+
+        // Tear down previous instance — cobe has no resize API, must re-create.
+        if (globe) { try { globe.destroy(); } catch (_) {} globe = null; }
+        if (animationId) { cancelAnimationFrame(animationId); animationId = null; }
+        canvas.style.opacity = '0';
+        lastWidth = width;
 
         globe = createGlobe(canvas, {
           devicePixelRatio: Math.min(window.devicePixelRatio || 1, 2),
@@ -2096,24 +2352,24 @@
 
         function animate() {
           phi += speed;
-          globe.update({ phi: phi, theta: 0.2 });
+          if (globe) globe.update({ phi: phi, theta: 0.2 });
           animationId = requestAnimationFrame(animate);
         }
         animate();
         setTimeout(function () { canvas.style.opacity = '1'; });
       }
 
-      if (canvas.offsetWidth > 0) {
-        init();
-      } else {
-        var ro = new ResizeObserver(function (entries) {
-          if (entries[0] && entries[0].contentRect.width > 0) {
-            ro.disconnect();
-            init();
-          }
-        });
-        ro.observe(canvas);
-      }
+      // Initial build (no-op if width is 0 — observer will pick it up).
+      build();
+
+      // Debounced rebuild on size change. Fires when the container becomes
+      // visible (e.g. crossing the 1280px breakpoint) and on viewport
+      // resize / device rotation.
+      var ro = new ResizeObserver(function () {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(build, 200);
+      });
+      ro.observe(canvas);
     }).catch(function (err) {
       console.warn('cobe failed to load — globe disabled', err);
     });
@@ -2199,6 +2455,97 @@
   document.getElementById('classicLink').addEventListener('click', function() {
     sessionStorage.setItem('classicNav', '1');
   });
+
+  /* ============================================================
+     12. CERTIFICATIONS STAR FIELD — responsive density
+     Count scales with the row's actual rendered area, not a fixed
+     number, so smaller viewports never look cluttered:
+
+       dots = clamp(MIN_COUNT, MAX_COUNT, area_in_sqpx * DENSITY)
+
+     Reference points (DENSITY = 1/1000, MIN=36, MAX=400):
+       1920 × 156 desktop  ≈ 300 dots
+       1366 × 156          ≈ 213 dots
+       1024 × 156          ≈ 160 dots
+        768 × 112 tablet   ≈  86 dots
+        400 × 112 phone    ≈  45 dots
+        320 × 112 small    ≈  36 dots (floor)
+
+     y is biased toward the bottom border via pow(rand, BIAS); size
+     and opacity scale with the same y factor so the field
+     "lightens" smoothly from top to bottom. Regenerates (debounced)
+     on resize so rotation / responsive breakpoints stay correct.
+     ============================================================ */
+  (function setupStarFields() {
+    var fields = document.querySelectorAll('.spotlight-card__stars');
+    if (!fields.length) return;
+
+    var BIAS      = 0.4;       // smaller = stronger bottom bias
+    var DENSITY   = 1 / 1000;  // dots per square pixel of row area
+    var MIN_COUNT = 64;        // floor — keeps tiny phones (≤375) from looking empty
+    var MAX_COUNT = 400;       // ceiling for ultra-wide displays
+
+    function paint() {
+      fields.forEach(function (field) {
+        field.innerHTML = ''; // clear previous run
+
+        var rect   = field.getBoundingClientRect();
+        var width  = rect.width  || window.innerWidth;
+        var height = rect.height || (window.innerWidth < 768 ? 112 : 156);
+        var count  = Math.max(MIN_COUNT, Math.min(MAX_COUNT,
+                              Math.round(width * height * DENSITY)));
+
+        var frag = document.createDocumentFragment();
+        for (var i = 0; i < count; i++) {
+          var star = document.createElement('span');
+          star.className = 'spotlight-card__star';
+
+          // yFactor: 0 at top of row, 1 at bottom.
+          var yFactor  = Math.pow(Math.random(), BIAS);
+
+          var x        = (Math.random() * 100).toFixed(2);
+          var y        = (yFactor * 100).toFixed(2);
+
+          var sizeBase = Math.random() * 1.5 + 1;                  // 1.0–2.5
+          var size     = (sizeBase * (0.5 + yFactor * 0.5)).toFixed(2);
+
+          var isWhite  = Math.random() > 0.45;                     // ~55% white / ~45% orange
+          var baseOp   = Math.random() * 0.55 + 0.4;               // 0.40–0.95
+          var opacity  = (baseOp * (0.3 + yFactor * 0.7)).toFixed(2);
+
+          var delay    = (Math.random() * 4).toFixed(2);
+          var duration = (2.5 + Math.random() * 3).toFixed(2);
+
+          star.style.cssText =
+            'left:' + x + '%;' +
+            'top:' + y + '%;' +
+            'width:' + size + 'px;' +
+            'height:' + size + 'px;' +
+            'background:' + (isWhite ? '#FFFFFF' : '#EB5939') + ';' +
+            '--star-opacity:' + opacity + ';' +
+            'animation-delay:' + delay + 's;' +
+            'animation-duration:' + duration + 's;';
+          frag.appendChild(star);
+        }
+        field.appendChild(frag);
+
+        try {
+          console.info('[stars] painted', count, 'dots for',
+                       Math.round(width) + '×' + Math.round(height) + 'px row',
+                       '(area=' + Math.round(width * height) + 'sqpx)');
+        } catch (_) {}
+      });
+    }
+
+    paint();
+
+    // Debounced regenerate on resize / orientation change.
+    var resizeTimer;
+    window.addEventListener('resize', function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(paint, 250);
+    });
+  })();
 
   var faviconImg = new Image();
   faviconImg.onerror = function () {
