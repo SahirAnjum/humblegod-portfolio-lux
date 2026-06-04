@@ -103,8 +103,8 @@ const MontHeroSection = () => {
                   e.preventDefault();
                   e.stopPropagation();
                   const link = document.createElement('a');
-                  link.href = `${import.meta.env.BASE_URL}lovable-uploads/Sahir_Anjum%20resume.pdf`;
-                  link.download = 'Sahir_Anjum_Resume.pdf';
+                  link.href = `${import.meta.env.BASE_URL}lovable-uploads/Sahir_Anjum_resume.docx`;
+                  link.download = 'Sahir_Anjum_Resume.docx';
                   document.body.appendChild(link);
                   link.click();
                   document.body.removeChild(link);
